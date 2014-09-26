@@ -27,7 +27,7 @@ none
 Dependencies
 ------------
 
-none
+https://github.com/AlbanAndrieu/ansible-vagrant-role.git
 
 License
 -------
@@ -37,3 +37,4 @@ MIT
 #### Feedback, bug-reports, requests, ...
 
 Are [welcome](https://github.com/AlbanAndrieu/ansible-windows/issues)!
+

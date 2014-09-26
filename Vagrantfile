@@ -14,19 +14,23 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
- config.vm.define "vagrant-windows-2012"
- config.vm.box = "opentable/win-2012r2-standard-amd64-nocm"
- config.vm.hostname = "vagrant-windows-2012"
- config.vm.boot_timeout = 600
-
- # Set local user details if default vagrant/vagrant isn't used
- #config.winrm.username = "**"
- #config.winrm.password = "**"
- ## Admin user name and password
- config.winrm.username = "vagrant"
- config.winrm.password = "Motdepasse12"
-    
- if current_version < windows_version
+  #windows server 2012
+  #
+  config.vm.define "vagrant-windows-2012"
+  config.vm.box = "opentable/win-2012r2-standard-amd64-nocm"
+  config.vm.hostname = "vagrant-windows-2012"
+  config.vm.boot_timeout = 600
+  
+  #config.windows.set_work_network = true
+  
+  # Set local user details if default vagrant/vagrant isn't used
+  #config.winrm.username = "**"
+  #config.winrm.password = "**"
+  ## Admin user name and password
+  config.winrm.username = "vagrant"
+  config.winrm.password = "Motdepasse12"
+  
+  if current_version < windows_version
     if !Vagrant.has_plugin?('vagrant-windows')
       puts "vagrant-windows missing, please install the vagrant-windows plugin!"
       puts "Run this command in your terminal:"
@@ -44,18 +48,32 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Port forward WinRM and RDP
     config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
     config.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
-    config.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh", auto_correct: true       
+    config.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh", auto_correct: true
   else
     config.vm.communicator = "winrm"
     #config.winrm.timeout = 500
   end
-      
+  
   config.vm.provider :virtualbox do |v, override|
       v.gui = true
       v.name = "vagrant-windows-2012"
       v.customize ["modifyvm", :id, "--memory", 2048]
       v.customize ["modifyvm", :id, "--cpus", 2]
       v.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
+  end
+  
+  config.vm.provision "ansible" do |ansible|
+   #see https://docs.vagrantup.com/v2/provisioning/ansible.html
+   ansible.playbook = "windows.yml"
+   ansible.inventory_path = "hosts"
+   ansible.verbose = "vvvv"
+   ansible.sudo = true
+   ansible.host_key_checking = false
+   ansible.extra_vars = { ansible_ssh_user: 'vagrant',
+                          ansible_ssh_pass: 'Motdepasse12',
+                          ansible_ssh_port: '55985' }
+   # Disable default limit (required with Vagrant 1.5+)
+   ansible.limit = 'all'
   end
 
   # All Vagrant configuration is done here. The most common configuration
