@@ -4,6 +4,7 @@ python: "2.7"
 before_install:
  - sudo apt-get update -qq
  - sudo apt-get install -qq python-apt python-pycurl
+ - sudo apt-get install -qq wget
 install:
   - sudo pip install https://github.com/ansible/ansible/archive/devel.zip
   - sudo pip install https://github.com/diyan/pywinrm/archive/df049454a9309280866e0156805ccda12d71c93a.zip --upgrade
@@ -11,5 +12,9 @@ script:
   - ansible --version
   - export ANSIBLE_ROLES_PATH="../"
   - echo localhost > inventory
+  - wget https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.3_x86_64.deb
+  - dpkg -i {{ tempdir.stdout }}/vagrant.deb
+  - vagrant --version
+  - vagrant up
   - ansible-playbook -i inventory --syntax-check windows.yml
   - ansible-playbook -i inventory --connection=local --sudo -vvvv windows.yml
