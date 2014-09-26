@@ -14,7 +14,7 @@ script:
   - export ANSIBLE_ROLES_PATH="../"
   - echo localhost > inventory
   - wget https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.3_x86_64.deb
-  - dpkg -i vagrant_1.6.3_x86_64.deb
+  - sudo dpkg -i vagrant_1.6.3_x86_64.deb
   - vagrant --version
   - vagrant up
   - ansible-playbook -i inventory --syntax-check windows.yml
