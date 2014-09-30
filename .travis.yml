@@ -6,6 +6,7 @@ before_install:
  - sudo apt-get install -qq python-apt python-pycurl
  - sudo apt-get install -qq wget
  - sudo apt-get install -qq virtualbox
+ - sudo apt-get install -qq virtualbox-dkms
  - wget https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.3_x86_64.deb
  - sudo dpkg -i vagrant_1.6.3_x86_64.deb
 install:
