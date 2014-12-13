@@ -1,7 +1,8 @@
-## windows
+## alban.andrieu.windows
 
   [![Platforms](http://img.shields.io/badge/platforms-windows-lightgrey.svg?style=flat)](#)
 
+Describe your role in a few paragraphs....
 
 
 
@@ -11,8 +12,7 @@
 List of default variables available in the inventory:
 
 ```yaml
-    ---
-    windows_enabled: yes                       # Enable module
+        windows_enabled: yes                       # Enable module
     
     ansible_ssh_user: vagrant
     ansible_ssh_pass: Motdepasse12
@@ -22,11 +22,16 @@ List of default variables available in the inventory:
 ```
 
 
+### Detailed usage guide
+
+Run the following command :
+
+`ansible-playbook -i hosts -c local -v windows.yml -vvvv --ask-sudo-pass | tee setup.log`
 
 
 ### Authors and license
 
-`windows` role was written by:
+`alban.andrieu.windows` role was written by:
 - [Alban Andrieu](nabla.mobi) | [e-mail](mailto:alban.andrieu@free.fr) | [Twitter](https://twitter.com/AlbanAndrieu)
 - License: [GPLv3](https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29)
 

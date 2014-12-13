@@ -1,4 +1,5 @@
 ---
+dependencies: []
 
 galaxy_info:
   author: Alban Andrieu
@@ -12,5 +13,21 @@ galaxy_info:
     - Windows Server 2012
   categories:
   - system
-dependencies: []
 
+ansigenome_info:
+  galaxy_id: ''
+  galaxy_user: 'alban.andrieu'
+  galaxy_name: 'windows'
+  
+  travis: False
+
+  synopsis: |
+    Describe your role in a few paragraphs....
+
+  usage: |
+    Run the following command :
+
+    `ansible-playbook -i hosts -c local -v windows.yml -vvvv --ask-sudo-pass | tee setup.log`
+
+  #custom: |
+  #  Any custom output you want after the usage section..
