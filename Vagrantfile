@@ -14,10 +14,33 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  #windows server 2012
+  # Vagrant file for Modern IE (https://www.modern.ie/en-us) boxes
+  # This file is for Windown 7 running IE9, but there are other possibilities.
+  # NB: Vagrant wants to ssh into the VM, but these VMs don't have ssh.  So,
+  # you'll get a timeout error message, which is safe to ignore.
+   
+  # To use a different box, replace the config.vm.box_url with the URL and
+  # update the config.vm.box to some name you want to refer to it as.
   #
+  # XP with IE6: http://aka.ms/vagrant-xp-ie6
+  # XP with IE8: http://aka.ms/vagrant-xp-ie8
+  # Vista with IE7: http://aka.ms/vagrant-vista-ie7
+  # Windows 7 with IE8: http://aka.ms/vagrant-win7-ie8
+  # Windows 7 with IE9: http://aka.ms/vagrant-win7-ie9
+  # Windows 7 with IE10: http://aka.ms/vagrant-win7-ie10
+  # Windows 7 with IE11: http://aka.ms/vagrant-win7-ie11
+  # Windows 8 with IE10: http://aka.ms/vagrant-win8-ie10
+  # Windows 8.1 with IE11: http://aka.ms/vagrant-win81-ie11
+  #config.vm.box_url = "http://aka.ms/vagrant-win7-ie9"
+  #config.vm.box = "Win7-ie9"
+
+  #Windows server 2012
+  #
+  #in order to export VM as a vagrant image do the following:
+  #vagrant package --base 'vagrant-windows-2012'
   config.vm.define "vagrant-windows-2012"
-  config.vm.box = "opentable/win-2012r2-standard-amd64-nocm"
+  config.vm.box = "opentable/win-2012r2-standard-amd64-nocm"  
+  #config.vm.box_url = "https://vagrantcloud.com/opentable/boxes/win-2012r2-standard-amd64-nocm/versions/1.0.0/providers/virtualbox.box"
   config.vm.hostname = "vagrant-windows-2012"
   config.vm.boot_timeout = 600
   
@@ -69,6 +92,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    ansible.verbose = "vvvv"
    ansible.sudo = true
    ansible.host_key_checking = false
+   #ansible.extra_vars = { ansible_ssh_user: 'IEUser',
+   #                       ansible_ssh_pass: 'Passw0rd!',
+   #                       ansible_ssh_port: '55985' }   
    ansible.extra_vars = { ansible_ssh_user: 'vagrant',
                           ansible_ssh_pass: 'Motdepasse12',
                           ansible_ssh_port: '55985' }
