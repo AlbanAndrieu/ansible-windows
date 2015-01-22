@@ -96,7 +96,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    #                       ansible_ssh_pass: 'Passw0rd!',
    #                       ansible_ssh_port: '55985' }   
    ansible.extra_vars = { ansible_ssh_user: 'vagrant',
-                          ansible_ssh_pass: 'Motdepasse12',
+                          ansible_ssh_pass: 'Motdepasse23',
                           ansible_ssh_port: '55985' }
    # Disable default limit (required with Vagrant 1.5+)
    ansible.limit = 'all'
