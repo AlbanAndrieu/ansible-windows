@@ -5,8 +5,8 @@ galaxy_info:
   author: Alban Andrieu
   description: A role for installing windows
   company: Nabla
-  license: MIT
-  min_ansible_version: 1.6.3
+  license: GPLv3
+  min_ansible_version: '1.7.0'
   platforms:
   - name: Windows
     versions:
