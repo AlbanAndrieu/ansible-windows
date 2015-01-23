@@ -51,7 +51,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #config.winrm.password = "**"
   ## Admin user name and password
   config.winrm.username = "vagrant"
-  config.winrm.password = "Motdepasse12"
+  config.winrm.password = "vagrant"
   
   if current_version < windows_version
     if !Vagrant.has_plugin?('vagrant-windows')
@@ -60,16 +60,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puts "vagrant plugin install vagrant-windows"
       exit 1
     end
-  
-    # Admin user name and password
-    #config.winrm.username = "vagrant"
-    #config.winrm.password = "vagrant"
-  
+
     config.vm.guest = :windows
     config.windows.halt_timeout = 15
   
     # Port forward WinRM and RDP
-    config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
+    config.vm.network :forwarded_port, guest: 55985, host: 5985, id: "winrm", auto_correct: true
     config.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
     config.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh", auto_correct: true
   else
@@ -96,7 +92,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    #                       ansible_ssh_pass: 'Passw0rd!',
    #                       ansible_ssh_port: '55985' }   
    ansible.extra_vars = { ansible_ssh_user: 'vagrant',
-                          ansible_ssh_pass: 'Motdepasse23',
+                          ansible_ssh_pass: 'vagrant',
                           ansible_ssh_port: '55985' }
    # Disable default limit (required with Vagrant 1.5+)
    ansible.limit = 'all'
