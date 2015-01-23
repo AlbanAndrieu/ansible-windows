@@ -22,7 +22,24 @@ ansigenome_info:
   travis: False
 
   synopsis: |
-    Describe your role in a few paragraphs....
+    Goal of this project is to lauch ansible script using [pywinrm](https://pypi.python.org/pypi/pywinrm).
+    A VagrantFile is downloading a windows 2012 server VM that will be hosted on VirtualBox.
+    Then we are launching Ansible script in order to set up this VM.    
+    
+    VM was taken from
+    ------------------
+    
+    https://vagrantcloud.com/opentable/boxes/win-2012r2-standard-amd64-nocm/versions/1.0.0/providers/virtualbox.box
+    
+    ###Requirements
+        
+    On Ubuntu, where VirtualBox and Vagrant are installed, do not forge to do the following :
+    sudo pip install https://github.com/diyan/pywinrm/archive/df049454a9309280866e0156805ccda12d71c93a.zip --upgrade
+    
+    On the windows VM :
+    [Install PowerShell](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/upgrade_to_ps3.ps1)
+    [Configure remoting](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/ConfigureRemotingForAnsible.ps1)
+    [Disable password](http://www.tenniswood.co.uk/technology/windows/how-to-disable-password-expiration-for-windows-server-2012/)
 
   usage: |
     Run the following command :

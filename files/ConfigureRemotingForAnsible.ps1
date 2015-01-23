@@ -176,4 +176,8 @@ if ($PSVersionTable.PSVersion.Major -lt 3)
 #FIrewall
 netsh advfirewall firewall add rule Profile=public name="Allow WinRM HTTPS" dir=in localport=5986 protocol=TCP action=allow
 
+Get-WmiObject -Class Win32_UserAccount -Filter "name = 'vagrant'"  | Set-WmiInstance -Argument @{PasswordExpires = 0}
+Get-WmiObject -Class Win32_UserAccount -Filter "name = 'nabla'"  | Set-WmiInstance -Argument @{PasswordExpires = 0}
+Get-WmiObject -Class Win32_UserAccount -Filter "name = 'jenkins'"  | Set-WmiInstance -Argument @{PasswordExpires = 0}
+
 Write-Verbose "PS Remoting successfully setup for Ansible"
