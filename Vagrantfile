@@ -9,95 +9,111 @@
 current_version = Gem::Version.new(Vagrant::VERSION)
 windows_version = Gem::Version.new("1.6.0")
 
+hosts_windows = {
+  "vagrant-windows-2012" => "72",
+#  "host1" => "11",
+#  "host2" => "12"
+}
+
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  # Vagrant file for Modern IE (https://www.modern.ie/en-us) boxes
-  # This file is for Windown 7 running IE9, but there are other possibilities.
-  # NB: Vagrant wants to ssh into the VM, but these VMs don't have ssh.  So,
-  # you'll get a timeout error message, which is safe to ignore.
-   
-  # To use a different box, replace the config.vm.box_url with the URL and
-  # update the config.vm.box to some name you want to refer to it as.
-  #
-  # XP with IE6: http://aka.ms/vagrant-xp-ie6
-  # XP with IE8: http://aka.ms/vagrant-xp-ie8
-  # Vista with IE7: http://aka.ms/vagrant-vista-ie7
-  # Windows 7 with IE8: http://aka.ms/vagrant-win7-ie8
-  # Windows 7 with IE9: http://aka.ms/vagrant-win7-ie9
-  # Windows 7 with IE10: http://aka.ms/vagrant-win7-ie10
-  # Windows 7 with IE11: http://aka.ms/vagrant-win7-ie11
-  # Windows 8 with IE10: http://aka.ms/vagrant-win8-ie10
-  # Windows 8.1 with IE11: http://aka.ms/vagrant-win81-ie11
-  #config.vm.box_url = "http://aka.ms/vagrant-win7-ie9"
-  #config.vm.box = "Win7-ie9"
+  hosts_windows.each do |name, port|
 
-  #Windows server 2012
-  #
-  #in order to export VM as a vagrant image do the following:
-  #vagrant package --base 'vagrant-windows-2012'
-  config.vm.define "vagrant-windows-2012"
-  config.vm.box = "opentable/win-2012r2-standard-amd64-nocm"  
-  #config.vm.box_url = "https://vagrantcloud.com/opentable/boxes/win-2012r2-standard-amd64-nocm/versions/1.0.0/providers/virtualbox.box"
-  config.vm.hostname = "vagrant-windows-2012"
-  config.vm.boot_timeout = 600
-  
-  #config.windows.set_work_network = true
-  
-  # Set local user details if default vagrant/vagrant isn't used
-  #config.winrm.username = "**"
-  #config.winrm.password = "**"
-  ## Admin user name and password
-  config.winrm.username = "vagrant"
-  config.winrm.password = "vagrant"
-  
-  if current_version < windows_version
-    if !Vagrant.has_plugin?('vagrant-windows')
-      puts "vagrant-windows missing, please install the vagrant-windows plugin!"
-      puts "Run this command in your terminal:"
-      puts "vagrant plugin install vagrant-windows"
-      exit 1
+    VAGRANT_BASE_PORT = port
+    VAGRANT_SSH_PORT = "22" + VAGRANT_BASE_PORT
+    VAGRANT_NETWORK_IP = "192.168.11." + VAGRANT_BASE_PORT
+	
+    # Vagrant file for Modern IE (https://www.modern.ie/en-us) boxes
+    # This file is for Windown 7 running IE9, but there are other possibilities.
+    # NB: Vagrant wants to ssh into the VM, but these VMs don't have ssh.  So,
+    # you'll get a timeout error message, which is safe to ignore.
+     
+    # To use a different box, replace the config.vm.box_url with the URL and
+    # update the config.vm.box to some name you want to refer to it as.
+    #
+    # XP with IE6: http://aka.ms/vagrant-xp-ie6
+    # XP with IE8: http://aka.ms/vagrant-xp-ie8
+    # Vista with IE7: http://aka.ms/vagrant-vista-ie7
+    # Windows 7 with IE8: http://aka.ms/vagrant-win7-ie8
+    # Windows 7 with IE9: http://aka.ms/vagrant-win7-ie9
+    # Windows 7 with IE10: http://aka.ms/vagrant-win7-ie10
+    # Windows 7 with IE11: http://aka.ms/vagrant-win7-ie11
+    # Windows 8 with IE10: http://aka.ms/vagrant-win8-ie10
+    # Windows 8.1 with IE11: http://aka.ms/vagrant-win81-ie11
+    #config.vm.box_url = "http://aka.ms/vagrant-win7-ie9"
+    #config.vm.box = "Win7-ie9"
+    
+    #Windows server 2012
+    #
+    #in order to export VM as a vagrant image do the following:
+    #vagrant package --base 'vagrant-windows-2012'
+    config.vm.define "vagrant-windows-2012"
+    config.vm.box = "opentable/win-2012r2-standard-amd64-nocm"  
+    #config.vm.box_url = "https://vagrantcloud.com/opentable/boxes/win-2012r2-standard-amd64-nocm/versions/1.0.0/providers/virtualbox.box"
+    config.vm.hostname = "vagrant-windows-2012"
+    config.vm.hostname = "%s.example.org" % name
+    #config.vm.network :private_network, ip: VAGRANT_NETWORK_IP      
+    config.vm.boot_timeout = 600
+    
+    #config.windows.set_work_network = true
+    
+    # Set local user details if default vagrant/vagrant isn't used
+    #config.winrm.username = "**"
+    #config.winrm.password = "**"
+    ## Admin user name and password
+    config.winrm.username = "vagrant"
+    config.winrm.password = "vagrant"
+    
+    if current_version < windows_version
+      if !Vagrant.has_plugin?('vagrant-windows')
+        puts "vagrant-windows missing, please install the vagrant-windows plugin!"
+        puts "Run this command in your terminal:"
+        puts "vagrant plugin install vagrant-windows"
+        exit 1
+      end
+    
+      config.vm.guest = :windows
+      config.windows.halt_timeout = 15
+
+      # Port forward WinRM and RDP
+      config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
+      #config.vm.network :forwarded_port, guest: 33892, host: 3389, id: "rdp", auto_correct: true
+      config.vm.network :forwarded_port, guest: 22, host: VAGRANT_SSH_PORT, id: "ssh", auto_correct: true    
+    else
+      config.vm.communicator = "winrm"
+      #config.winrm.timeout = 500
+    end
+    
+    config.vm.provider :virtualbox do |v, override|
+        #v.gui = true
+        v.name = name
+        v.customize ["modifyvm", :id, "--memory", 2048]
+        v.customize ["modifyvm", :id, "--cpus", 2]
+        v.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
+    end
+    
+    config.vm.provision "ansible" do |ansible|
+     #see https://docs.vagrantup.com/v2/provisioning/ansible.html
+     ansible.playbook = "windows.yml"
+     ansible.inventory_path = "hosts"
+     ansible.verbose = "vvvv"
+     ansible.sudo = true
+     ansible.host_key_checking = false
+     #ansible.extra_vars = { ansible_ssh_user: 'IEUser',
+     #                       ansible_ssh_pass: 'Passw0rd!',
+     #                       ansible_ssh_port: '55985' }   
+     ansible.extra_vars = { ansible_ssh_user: 'vagrant',
+                            ansible_ssh_pass: 'vagrant',
+                            ansible_ssh_port: '55985' }
+     # Disable default limit (required with Vagrant 1.5+)
+     ansible.limit = 'all'
     end
 
-    config.vm.guest = :windows
-    config.windows.halt_timeout = 15
-  
-    # Port forward WinRM and RDP
-    config.vm.network :forwarded_port, guest: 55985, host: 5985, id: "winrm", auto_correct: true
-    config.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
-    config.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh", auto_correct: true
-  else
-    config.vm.communicator = "winrm"
-    #config.winrm.timeout = 500
   end
   
-  config.vm.provider :virtualbox do |v, override|
-      v.gui = true
-      v.name = "vagrant-windows-2012"
-      v.customize ["modifyvm", :id, "--memory", 2048]
-      v.customize ["modifyvm", :id, "--cpus", 2]
-      v.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
-  end
-  
-  config.vm.provision "ansible" do |ansible|
-   #see https://docs.vagrantup.com/v2/provisioning/ansible.html
-   ansible.playbook = "windows.yml"
-   ansible.inventory_path = "hosts"
-   ansible.verbose = "vvvv"
-   ansible.sudo = true
-   ansible.host_key_checking = false
-   #ansible.extra_vars = { ansible_ssh_user: 'IEUser',
-   #                       ansible_ssh_pass: 'Passw0rd!',
-   #                       ansible_ssh_port: '55985' }   
-   ansible.extra_vars = { ansible_ssh_user: 'vagrant',
-                          ansible_ssh_pass: 'vagrant',
-                          ansible_ssh_port: '55985' }
-   # Disable default limit (required with Vagrant 1.5+)
-   ansible.limit = 'all'
-  end
-
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
