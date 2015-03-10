@@ -55,7 +55,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #config.vm.box_url = "https://vagrantcloud.com/opentable/boxes/win-2012r2-standard-amd64-nocm/versions/1.0.0/providers/virtualbox.box"
     config.vm.hostname = "vagrant-windows-2012"
     config.vm.hostname = "%s.example.org" % name
-    #config.vm.network :private_network, ip: VAGRANT_NETWORK_IP      
+    config.vm.network :private_network, ip: VAGRANT_NETWORK_IP      
     config.vm.boot_timeout = 600
     
     #config.windows.set_work_network = true
@@ -79,9 +79,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       config.windows.halt_timeout = 15
 
       # Port forward WinRM and RDP
-      config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
-      #config.vm.network :forwarded_port, guest: 33892, host: 3389, id: "rdp", auto_correct: true
-      config.vm.network :forwarded_port, guest: 22, host: VAGRANT_SSH_PORT, id: "ssh", auto_correct: true    
+      #winrm below is not taken into account by virtualbox
+      #config.vm.network :forwarded_port, guest: 5985, host: VAGRANT_SSH_PORT, id: "winrm", auto_correct: true
+      #onfig.vm.network :forwarded_port, guest: 33892, host: 3389, id: "rdp", auto_correct: true
+      #config.vm.network :forwarded_port, guest: 22, host: VAGRANT_SSH_PORT, id: "ssh", auto_correct: true    
     else
       config.vm.communicator = "winrm"
       #config.winrm.timeout = 500
