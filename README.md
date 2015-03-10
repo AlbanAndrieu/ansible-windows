@@ -31,10 +31,12 @@ List of default variables available in the inventory:
 ```yaml
         windows_enabled: yes                       # Enable module
     
-    ansible_ssh_user: vagrant
-    ansible_ssh_pass: Motdepasse12
+    #ansible_ssh_user: vagrant
+    #ansible_ssh_pass: vagrant
+    #target port
     #ansible_ssh_port: 5986
-    ansible_ssh_port: 55985
+    #local port
+    #ansible_ssh_port: 55985
     ansible_connection: winrm
 ```
 
