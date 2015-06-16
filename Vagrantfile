@@ -51,22 +51,26 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #in order to export VM as a vagrant image do the following:
     #vagrant package --base 'vagrant-windows-2012'
     config.vm.define "vagrant-windows-2012"
-    config.vm.box = "opentable/win-2012r2-standard-amd64-nocm"  
+    config.vm.box = "opentable/win-2012r2-standard-amd64-nocm"
     #config.vm.box_url = "https://vagrantcloud.com/opentable/boxes/win-2012r2-standard-amd64-nocm/versions/1.0.0/providers/virtualbox.box"
-    config.vm.hostname = "vagrant-windows-2012"
-    config.vm.hostname = "%s.example.org" % name
-    config.vm.network :private_network, ip: VAGRANT_NETWORK_IP      
+    #config.vm.box_url = "http://home.nabla.mobi/html/download/vagrant/vagrant-windows-2012-15062015.box"
+    config.vm.hostname = "%s.misys.global.ad" % name
+    #config.vm.network :private_network, ip: VAGRANT_NETWORK_IP, auto_config: false
+    #config.vm.network "private_network", type: "dhcp"
+    #config.vm.network :hostonly, VAGRANT_NETWORK_IP, :adapter => 2
     config.vm.boot_timeout = 600
-    
-    #config.windows.set_work_network = true
-    
+
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+
+    config.windows.set_work_network = true
+
     # Set local user details if default vagrant/vagrant isn't used
     #config.winrm.username = "**"
     #config.winrm.password = "**"
     ## Admin user name and password
     config.winrm.username = "vagrant"
     config.winrm.password = "vagrant"
-    
+
     if current_version < windows_version
       if !Vagrant.has_plugin?('vagrant-windows')
         puts "vagrant-windows missing, please install the vagrant-windows plugin!"
@@ -74,20 +78,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         puts "vagrant plugin install vagrant-windows"
         exit 1
       end
-    
+
       config.vm.guest = :windows
       config.windows.halt_timeout = 15
 
       # Port forward WinRM and RDP
       #winrm below is not taken into account by virtualbox
       #config.vm.network :forwarded_port, guest: 5985, host: VAGRANT_SSH_PORT, id: "winrm", auto_correct: true
-      #onfig.vm.network :forwarded_port, guest: 33892, host: 3389, id: "rdp", auto_correct: true
-      #config.vm.network :forwarded_port, guest: 22, host: VAGRANT_SSH_PORT, id: "ssh", auto_correct: true    
+      config.vm.network :forwarded_port, guest: 33892, host: 3389, id: "rdp", auto_correct: true
+      #config.vm.network :forwarded_port, guest: 22, host: VAGRANT_SSH_PORT, id: "ssh", auto_correct: true
+
     else
       config.vm.communicator = "winrm"
       #config.winrm.timeout = 500
     end
-    
+
     config.vm.provider :virtualbox do |v, override|
         #v.gui = true
         v.name = name
@@ -95,7 +100,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         v.customize ["modifyvm", :id, "--cpus", 2]
         v.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
     end
-    
+
     config.vm.provision "ansible" do |ansible|
      #see https://docs.vagrantup.com/v2/provisioning/ansible.html
      ansible.playbook = "windows.yml"
@@ -103,9 +108,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      ansible.verbose = "vvvv"
      ansible.sudo = true
      ansible.host_key_checking = false
-     #ansible.extra_vars = { ansible_ssh_user: 'IEUser',
-     #                       ansible_ssh_pass: 'Passw0rd!',
-     #                       ansible_ssh_port: '55985' }   
      ansible.extra_vars = { ansible_ssh_user: 'vagrant',
                             ansible_ssh_pass: 'vagrant',
                             ansible_ssh_port: '55985' }
@@ -114,7 +116,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
   end
-  
+
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
