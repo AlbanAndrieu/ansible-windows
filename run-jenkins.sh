@@ -53,6 +53,6 @@ vagrant up || exit 1
 #sudo ansible-playbook -i hosts -c local -v windows.yml -vvvv
 
 #vagrant winrm-config
-vagrant winrm
+#vagrant winrm global-status
 
 echo "Check log at /home/jenkins/VirtualBox\ VMs/vagrant-windows-2012/Logs/VBox.log"
