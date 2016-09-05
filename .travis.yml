@@ -2,7 +2,7 @@
 language: python
 python: "2.7"
 env:
-  - ANSIBLE_VERSION=1.9.2
+  - ANSIBLE_VERSION=2.1.1
 cache: bundler
 #sudo: false
 sudo: required
@@ -23,6 +23,7 @@ install:
   #- "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
 
   - sudo pip install https://github.com/diyan/pywinrm/archive/df049454a9309280866e0156805ccda12d71c93a.zip --upgrade
+
 script:
   - sudo ansible --version
   - export ANSIBLE_ROLES_PATH="../"

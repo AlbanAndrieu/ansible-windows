@@ -2,9 +2,9 @@
 
   [![Platforms](http://img.shields.io/badge/platforms-windows-lightgrey.svg?style=flat)](#)
 
-Goal of this project is to lauch ansible script using [pywinrm](https://pypi.python.org/pypi/pywinrm).
+Goal of this project is to launch ansible script using [pywinrm](https://pypi.python.org/pypi/pywinrm).
 A VagrantFile is downloading a windows 2012 server VM that will be hosted on VirtualBox.
-Then we are launching Ansible script in order to set up this VM.    
+Then we are launching Ansible script in order to set up this VM.
 
 VM was taken from
 ------------------
@@ -12,7 +12,7 @@ VM was taken from
 https://vagrantcloud.com/opentable/boxes/win-2012r2-standard-amd64-nocm/versions/1.0.0/providers/virtualbox.box
 
 ###Requirements
-    
+
 On Ubuntu, where VirtualBox and Vagrant are installed, do not forge to do the following :
 sudo pip install https://github.com/diyan/pywinrm/archive/df049454a9309280866e0156805ccda12d71c93a.zip --upgrade
 
@@ -30,7 +30,7 @@ List of default variables available in the inventory:
 
 ```yaml
         windows_enabled: yes                       # Enable module
-    
+
     #ansible_ssh_user: vagrant
     #ansible_ssh_pass: vagrant
     #target port

@@ -1,0 +1,58 @@
+
+ansigenome_info:
+  galaxy_id: ''
+  galaxy_user: 'alban.andrieu'
+  galaxy_name: 'windows'
+
+  travis: False
+
+  synopsis: |
+    Goal of this project is to launch ansible script using [pywinrm](https://pypi.python.org/pypi/pywinrm).
+    A VagrantFile is downloading a windows 2012 server VM that will be hosted on VirtualBox.
+    Then we are launching Ansible script in order to set up this VM.
+
+    VM was taken from
+    ------------------
+
+    https://vagrantcloud.com/opentable/boxes/win-2012r2-standard-amd64-nocm/versions/1.0.0/providers/virtualbox.box
+
+    ###Requirements
+
+    On Ubuntu, where VirtualBox and Vagrant are installed, do not forge to do the following :
+    sudo pip install https://github.com/diyan/pywinrm/archive/df049454a9309280866e0156805ccda12d71c93a.zip --upgrade
+
+    It is working with the following version :
+
+    #Os is an Ubuntu 12
+
+    python -V
+    #Python 2.7.3
+    pip -V
+    #pip 1.4.1 from /usr/local/lib/python2.7/dist-packages (python 2.7)
+
+    VBoxManage --version
+    #4.3.28r100309
+
+    vagrant --version
+    #Vagrant 1.6.3
+
+    vagrant plugin list
+    #winrm (1.1.3)
+    #vagrant-login (1.0.1, system)
+    #vagrant-share (1.1.0, system)
+
+    ansible --version
+    #ansible 1.7.2
+
+    On the windows VM :
+    [Install PowerShell](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/upgrade_to_ps3.ps1)
+    [Configure remoting](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/ConfigureRemotingForAnsible.ps1)
+    [Disable password](http://www.tenniswood.co.uk/technology/windows/how-to-disable-password-expiration-for-windows-server-2012/)
+
+  usage: |
+    Run the following command :
+
+    `ansible-playbook -i hosts -c local -v windows.yml -vvvv --ask-sudo-pass | tee setup.log`
+
+  #custom: |
+  #  Any custom output you want after the usage section..
