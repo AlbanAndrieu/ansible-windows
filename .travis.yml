@@ -28,8 +28,8 @@ script:
   - sudo ansible --version
   - export ANSIBLE_ROLES_PATH="../"
   - echo localhost > inventory
-  - vagrant --version
-  - VBoxManage --version
-  - vagrant up
-  - ansible-playbook -i inventory --syntax-check windows.yml
-  - ansible-playbook -i inventory --connection=local --sudo -vvvv windows.yml
+  - sudo vagrant --version
+  - sudo VBoxManage --version
+  - sudo vagrant up
+  - sudo ansible-playbook -i inventory --syntax-check windows.yml
+  - sudo ansible-playbook -i inventory --connection=local --sudo -vvvv windows.yml

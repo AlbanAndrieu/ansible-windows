@@ -1,3 +1,18 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: Alban Andrieu
+  description: A role for installing windows
+  company: Nabla
+  license: GPLv3
+  min_ansible_version: '2.1.1'
+  platforms:
+  - name: Windows
+    versions:
+    - Windows Server 2012
+  categories:
+  - system
 
 ansigenome_info:
   galaxy_id: ''
