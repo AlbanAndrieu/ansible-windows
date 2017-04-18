@@ -5,7 +5,6 @@
 
 [![Platforms](http://img.shields.io/badge/platforms-windows-lightgrey.svg?style=flat)](#)
 [![Gittip](http://img.shields.io/gittip/alban.andrieu.svg)](https://www.gittip.com/alban.andrieu/)
-[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=AlbanAndrieu&url=https://github.com/alban.andrieu/ansible-phpvirtualbox&title=Ansible Role: PhpVirtualbox&language=&tags=github&category=software)
 
 Goal of this project is to launch ansible script using [pywinrm](https://pypi.python.org/pypi/pywinrm).
 A VagrantFile is downloading a windows 2012 server VM that will be hosted on VirtualBox.
