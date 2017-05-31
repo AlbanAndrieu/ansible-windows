@@ -61,6 +61,28 @@ ansigenome_info:
     #ansible 1.7.2
 
     On the windows VM :
+    
+    Try :
+    
+    ```
+    powershell -File upgrade_to_ps3.ps1
+    ```
+    
+    ```
+    @powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%systemdrive%\chocolatey\bin
+    cinst powershell
+    ```
+    
+    ```
+    choco install powershell
+    choco upgrade powershell
+    ```
+    
+    ```
+    powershell -File ConfigureRemotingForAnsible.ps1
+    ```
+
+    On the windows VM :
     [Install PowerShell](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/upgrade_to_ps3.ps1)
     [Configure remoting](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/ConfigureRemotingForAnsible.ps1)
     [Disable password](http://www.tenniswood.co.uk/technology/windows/how-to-disable-password-expiration-for-windows-server-2012/)
