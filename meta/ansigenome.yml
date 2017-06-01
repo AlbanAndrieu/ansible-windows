@@ -5,8 +5,8 @@ galaxy_info:
   author: Alban Andrieu
   description: A role for installing windows
   company: Nabla
-  license: GPLv3
-  min_ansible_version: '2.1.1'
+  license: Apache
+  min_ansible_version: '2.3.0.0'
   platforms:
   - name: Windows
     versions:
@@ -50,7 +50,7 @@ ansigenome_info:
     #4.3.28r100309
 
     vagrant --version
-    #Vagrant 1.6.3
+    #Vagrant 2.3.0.0
 
     vagrant plugin list
     #winrm (1.1.3)
