@@ -1,3 +1,4 @@
+#!powershell
 #Requires -Version 3.0
 
 # Configure a Windows host for remote management with Ansible

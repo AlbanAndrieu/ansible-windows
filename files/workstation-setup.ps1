@@ -1,3 +1,4 @@
+#!powershell
 function Install-NeededFor {
 param([string]$packageName = '')
   if ($packageName -eq '') {return $false}

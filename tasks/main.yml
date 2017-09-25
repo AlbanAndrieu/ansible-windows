@@ -2,6 +2,5 @@
 # This playbook contains common plays that will be run on all nodes.
 
 - include: windows.yml
-  when: windows_enabled 
+  when: windows_enabled
   tags: [windows]
-  

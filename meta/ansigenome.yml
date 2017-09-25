@@ -6,7 +6,7 @@ galaxy_info:
   description: A role for installing windows
   company: Nabla
   license: Apache
-  min_ansible_version: '2.3.0.0'
+  min_ansible_version: '2.3.1.0'
   platforms:
   - name: Windows
     versions:
@@ -50,7 +50,7 @@ ansigenome_info:
     #4.3.28r100309
 
     vagrant --version
-    #Vagrant 2.3.0.0
+    #Vagrant 2.3.1.0
 
     vagrant plugin list
     #winrm (1.1.3)

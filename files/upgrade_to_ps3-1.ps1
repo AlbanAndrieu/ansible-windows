@@ -1,4 +1,4 @@
-
+#!powershell
 # Powershell script to upgrade a PowerShell 2.0 system to PowerShell 3.0
 # based on http://occasionalutility.blogspot.com/2013/11/everyday-powershell-part-7-powershell.html
 #

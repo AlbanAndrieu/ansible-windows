@@ -51,9 +51,27 @@ On the windows VM :
 
 Try :
 
+[Configure remoting](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/ConfigureRemotingForAnsible.ps1)
+
+```
+powershell -File ConfigureRemotingForAnsible.ps1 
+\\powershell -File ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert
+```
+
+[Configure user for remoting](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/ConfigureRemotingUserForAnsible.ps1)
+
+```
+powershell -File ConfigureRemotingUserForAnsible.ps1 
+```
+
+[Upgrade PowerShell](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/upgrade_to_ps3.ps1)
+
+
 ```
 powershell -File upgrade_to_ps3.ps1
 ```
+
+[Install PowerShell]
 
 ```
 @powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%systemdrive%\chocolatey\bin
@@ -65,12 +83,7 @@ choco install powershell
 choco upgrade powershell
 ```
 
-```
-powershell -File ConfigureRemotingForAnsible.ps1
-```
-
-[Install PowerShell](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/upgrade_to_ps3.ps1)
-[Configure remoting](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/ConfigureRemotingForAnsible.ps1)
+cd
 [Disable password](http://www.tenniswood.co.uk/technology/windows/how-to-disable-password-expiration-for-windows-server-2012/)
 
 
