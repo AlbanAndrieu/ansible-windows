@@ -17,7 +17,6 @@
 # 6.2 is 2012
 # 6.3 is 2012 R2
 
-
 if ($PSVersionTable.psversion.Major -ge 3)
 {
     write-host "Powershell 3 Installed already; You don't need this"

@@ -64,11 +64,11 @@ powershell -File ConfigureRemotingForAnsible.ps1
 powershell -File ConfigureRemotingUserForAnsible.ps1 
 ```
 
-[Upgrade PowerShell](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/upgrade_to_ps3.ps1)
+[Upgrade PowerShell](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/upgrade_to_ps3-1.ps1)
 
 
 ```
-powershell -File upgrade_to_ps3.ps1
+powershell -File upgrade_to_ps3-1.ps1
 ```
 
 [Install PowerShell]
