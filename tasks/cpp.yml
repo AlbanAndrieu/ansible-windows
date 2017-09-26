@@ -1,0 +1,30 @@
+
+- name: Install graphviz
+  win_chocolatey:
+    name: graphviz
+    version: '2.38.0.1'
+    state: present
+    
+- name: Install gnuplot
+  win_chocolatey:
+    name: gnuplot
+    version: '5.0.5'
+    state: present
+    
+- name: Install doxygen
+  win_chocolatey:
+    name: doxygen.install
+    version: '1.8.11'
+    state: present
+
+- name: Install vcredist2015
+  win_chocolatey:
+    name: vcredist2015
+    version: '14.0.24215.20170201'
+    state: present
+    
+- name: Install microsoft-build-tools
+  win_chocolatey:
+    name: microsoft-build-tools
+    version: '15.0.26228.0'
+    state: present

@@ -1,0 +1,17 @@
+
+- name: Install git
+  win_chocolatey:
+    name: git
+    version: '2.14.1'
+    state: present
+
+- name: Install tortoisegit
+  win_chocolatey:
+    name: tortoisegit
+    version: '2.5.0.0'
+    state: present
+
+- name: Install git-credential-manager-for-windows
+  win_chocolatey:
+    name: git-credential-manager-for-windows
+    version: '1.12.0'

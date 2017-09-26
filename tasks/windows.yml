@@ -23,33 +23,44 @@
          - "stat_file.stat.size > 0"
          - "stat_file.stat.md5"
 
-#- name: Add User
-#  win_user:
-#    name: jenkins
-#    password: "Microsoft123$"
-#    state: present
+- name: Add User
+  win_user:
+    name: jenkins
+    password: "Microsoft123$"
+    state: present
 
 #- name: Copy helloworld.ps1 to c:\temp (results in C:\Temp\temp_files)
 #  win_copy:
 #    src: files/helloworld.ps1
-#    dest: c:\Temp
-#
+#    dest: C:\TEMP
+
 #- name: Run powershell script 
-#  script: c:\Temp\helloworld.ps1
+#  script: C:\TEMP\helloworld.ps1
 
-- name: Install git
-  win_chocolatey:
-    name: git
-    state: present
+- include: common.yml
 
-#- name: install multiple packages
-#  win_chocolatey:
-#    name: '{{ item }}'
-#    state: present
-#  with_items:
-#  - pscx
-#  - windirstat
-  
+- include: git.yml
+
+- include: editor.yml
+
+- include: tools.yml
+
+- include: build.yml
+
+- include: cpp.yml
+
+#- include: objc.yml
+
+- include: java.yml
+
+- include: python.yml
+
+- include: javascript.yml
+
+#- include: quality.yml
+
+#- include: admin.yml
+
 #- name: Install the vc thingy
 #  win_package:
 #    name="Microsoft Visual C thingy"

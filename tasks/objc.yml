@@ -1,0 +1,7 @@
+
+- name: Install winobjc-tools
+  win_chocolatey:
+    name: winobjc-tools
+    version: '0.2.170609'
+    state: present
+    

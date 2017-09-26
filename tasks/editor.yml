@@ -1,0 +1,21 @@
+    
+- name: Install notepadplusplus
+  win_chocolatey:
+    name: notepadplusplus.install
+    version: '7.5.1'
+
+- name: Install atom
+  win_chocolatey:
+    name: atom
+    version: '1.0.7'
+
+- name: Install meld
+  win_chocolatey:
+    name: meld
+    version: '3.16.2'
+
+#- name: Install visualstudiocode
+#  win_chocolatey:
+#    name: visualstudiocode
+#    version: '1.16.1'
+    

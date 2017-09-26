@@ -1,0 +1,27 @@
+
+- name: Install nodejs
+  win_chocolatey:
+    name: nodejs.install
+    version: '8.5.0' 
+    
+- name: Install bower
+  win_chocolatey:
+    name: bower
+    version: '1.8.0'     
+    
+- name: Install phantomjs
+  win_chocolatey:
+    name: phantomjs
+    version: '2.1.1' 
+
+- name: Install casperjs
+  win_chocolatey:
+    name: casperjs
+    version: '1.0.0' 
+
+- name: Install yarn
+  win_chocolatey:
+    name: yarn
+    version: '1.1.0' 
+
+
