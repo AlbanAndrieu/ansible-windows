@@ -14,14 +14,12 @@
     name: phantomjs
     version: '2.1.1' 
 
-- name: Install casperjs
-  win_chocolatey:
-    name: casperjs
-    version: '1.0.0' 
+#- name: Install casperjs
+#  win_chocolatey:
+#    name: casperjs
+#    version: '1.0.0' 
 
 - name: Install yarn
   win_chocolatey:
     name: yarn
     version: '1.1.0' 
-
-

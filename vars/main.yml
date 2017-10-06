@@ -1,0 +1,51 @@
+---
+url_prefix: http://kgrdb01/download
+
+visualstudio:
+  url_prefix: "{{ url_prefix }}/winnt-compilation-tools"
+  2005:
+    iso: "1_en_vs_2005_pro_dvd.iso"
+    patches:
+      - "2_VS80sp1-KB926601-X86-ENU.exe"
+      - "3_VS80sp1-KB932232-X86-ENU.exe"
+      - "4_vcredist_x86.EXE"
+      - "5_vcredist_x86.exe"
+    installer:
+      path: "{{ ansible_user_dir }}\\1_visualstudio2005"
+      ini: "vs2005.ini"
+  2008:
+    iso: "en_visual_studio_2008_professional_x86_dvd_x14-26326.iso"
+    installer:
+      path: "{{ ansible_user_dir }}\\visualstudio2008"
+      ini: "vs2008.ini"
+  2012:
+    iso: "en_visual_studio_professional_2012_x86_dvd_2262334.iso"
+    installer:
+      path: "{{ ansible_user_dir }}\\visualstudio2012"
+      ini: "vs2012.xml"
+
+python:
+#  installer: "python-2.7.13.msi"
+#  vcredist: "vs2008-vcredist_x86.exe"
+  pip:
+    url_prefix: "https://bootstrap.pypa.io"
+    script: "get-pip.py"
+  paths:
+    - "C:\\Python27"
+    - "C:\\Python27\\Scripts"
+  binary: "C:\\Python27\\python.exe"
+
+#pywin:
+#  installer: "pywin32-218.win32-py2.7.exe"
+
+scons:
+  url_prefix: "{{ url_prefix }}/scons"
+  installer: "scons-2.3.0-setup.exe"
+
+perl:
+#  installer: "ActivePerl-5.16.3.1604-MSWin32-x86-298023.msi"
+  path: "C:\\Perl64"
+  env:
+    - "C:\\Perl64\\bin"
+    - "C:\\Perl64\\site\\bin"
+  binary: "C:\\Perl64\\bin\\perl.exe"

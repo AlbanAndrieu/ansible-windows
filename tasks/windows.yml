@@ -1,9 +1,9 @@
 ---
 # This playbook contains common plays that will be run on all nodes.
 
-- name: Ping 
+- name: Ping
   win_ping:
-    
+
 - name: run ipconfig
   raw: ipconfig
   register: ipconfig
@@ -29,13 +29,51 @@
     password: "Microsoft123$"
     state: present
 
-#- name: Copy helloworld.ps1 to c:\temp (results in C:\Temp\temp_files)
+- name: Save the result of 'whoami' in 'whoami_out'
+  win_command: whoami
+  register: whoami_out
+
+- debug: var=whoami_out.stdout_lines
+
+- name: Save the result of 'whoami' in 'whoami_out'
+  win_shell: echo $PSVersionTable
+  register: ps_out
+
+- debug: var=ps_out.stdout_lines
+
+- name: echo 'temp' in 'temp_out'
+  win_shell: echo $temp
+  register: temp_out
+
+- debug: var=temp_out.stdout_lines
+
+#- name: Copy helloworld.ps1 to TMP
 #  win_copy:
 #    src: files/helloworld.ps1
-#    dest: C:\TEMP
+#    dest: C:\Windows\Temp
+#  register: out
+#
+#- debug: var=out.stdout_lines
+#
+#- name: Run powershell script
+#  script: C:\Windows\Temp\helloworld.ps1
+#  register: out
+#
+#- debug: var=out.stdout_lines
 
-#- name: Run powershell script 
-#  script: C:\TEMP\helloworld.ps1
+- name: "Try command choco"
+  win_command: choco -v
+  register: result
+  ignore_errors: true
+
+#- name: "install chocolatey"
+#  include: chocolatey.yml
+#  when: result|failed
+  
+#- name: update installed chocolatey packages
+#  win_chocolatey:
+#    name: all
+#    state: latest
 
 - include: common.yml
 
@@ -46,6 +84,8 @@
 - include: tools.yml
 
 - include: build.yml
+
+- include: perl.yml
 
 - include: cpp.yml
 
@@ -61,20 +101,20 @@
 
 #- include: admin.yml
 
-#- name: Install the vc thingy
-#  win_package:
-#    name="Microsoft Visual C thingy"
-#    path="http://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe"
-#    Product_Id="{CF2BEA3C-26EA-32F8-AA9B-331F7E34BA97}"
-#    Arguments="/install /passive /norestart"
-#
+#- include: browser.yml
+
+#- include: database.yml
+
 ## Install/uninstall an msi-based package
 #- name: Install msi-based package (Remote Desktop Connection Manager)
 #  win_package:
 #    path: "https://download.microsoft.com/download/A/F/0/AF0071F3-B198-4A35-AA90-C68D103BDCCF/rdcman.msi"
 #    product_id: "{0240359E-6A4C-4884-9E94-B397A02D893C}"
-    
+
 #See https://docs.ansible.com/ansible/list_of_windows_modules.html
 
 #- name: Install common prerequisite like (GIT, meld, notepadplusplus and zabbix-agent)
 #  script: common-setup.ps1
+
+#- name: "reboot"
+#  win_reboot:
