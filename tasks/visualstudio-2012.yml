@@ -1,0 +1,28 @@
+---
+- name: "visual studio 2012 : download iso"
+  win_get_url:
+    url: "{{ visualstudio.url_prefix }}/{{ visualstudio.2012.iso }}"
+    dest: "{{ ansible_user_dir }}\\{{ visualstudio.2012.iso }}"
+    force: no
+
+- name: "visual studio 2012 : extract files from iso"
+  win_command: 7z x -aos -o"{{ visualstudio.2012.installer.path }}" "{{ ansible_user_dir }}\\{{ visualstudio.2012.iso }}"
+
+- name: "visual studio 2012 : copy unattended installation script"
+  win_copy:
+    src: "{{ visualstudio.2012.installer.ini }}"
+    dest: "{{ ansible_user_dir }}\\{{ visualstudio.2012.installer.ini }}"
+
+- name: "visual studio 2012 : unattended installation"
+  win_command: "{{ visualstudio.2012.installer.path }}\\vs_professional.exe /AdminFile {{ ansible_user_dir }}\\{{ visualstudio.2012.installer.ini }} /passive /norestart"
+
+- name: "visual studio 2012 : clean installation files"
+  win_file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ ansible_user_dir }}\\{{ visualstudio.2012.iso }}"
+    - "{{ ansible_user_dir }}\\{{ visualstudio.2012.installer.ini }}"
+    - "{{ ansible_user_dir }}\\{{ visualstudio.2012.installer.path }}"
+  tags:
+    - cleanup

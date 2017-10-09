@@ -42,24 +42,35 @@
 - debug: var=ps_out.stdout_lines
 
 - name: echo 'temp' in 'temp_out'
-  win_shell: echo $temp
+  win_shell: echo $TEMP
   register: temp_out
 
 - debug: var=temp_out.stdout_lines
 
-#- name: Copy helloworld.ps1 to TMP
-#  win_copy:
-#    src: files/helloworld.ps1
-#    dest: C:\Windows\Temp
-#  register: out
-#
-#- debug: var=out.stdout_lines
-#
+- name: Create temp directory
+  win_file:
+    path: C:\Windows\Temp
+    state: directory
+        
+- name: Copy helloworld.ps1 to TMP
+  win_copy:
+    src: files/helloworld.ps1
+    dest: C:\Windows\Temp\helloworld.ps1
+    force: True
+    remote_src: False
+    register: out
+
+- debug: var=out.stdout_lines
+
 #- name: Run powershell script
 #  script: C:\Windows\Temp\helloworld.ps1
 #  register: out
-#
-#- debug: var=out.stdout_lines
+
+- name: Run powershell script
+  script: files/helloworld.ps1
+  register: out
+  
+- debug: var=out.stdout_lines
 
 - name: "Try command choco"
   win_command: choco -v
@@ -69,7 +80,7 @@
 #- name: "install chocolatey"
 #  include: chocolatey.yml
 #  when: result|failed
-  
+
 #- name: update installed chocolatey packages
 #  win_chocolatey:
 #    name: all

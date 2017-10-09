@@ -1,18 +1,8 @@
 ---
-url_prefix: http://kgrdb01/download
+url_prefix: http://home.nabla.mobi/download
 
 visualstudio:
   url_prefix: "{{ url_prefix }}/winnt-compilation-tools"
-  2005:
-    iso: "1_en_vs_2005_pro_dvd.iso"
-    patches:
-      - "2_VS80sp1-KB926601-X86-ENU.exe"
-      - "3_VS80sp1-KB932232-X86-ENU.exe"
-      - "4_vcredist_x86.EXE"
-      - "5_vcredist_x86.exe"
-    installer:
-      path: "{{ ansible_user_dir }}\\1_visualstudio2005"
-      ini: "vs2005.ini"
   2008:
     iso: "en_visual_studio_2008_professional_x86_dvd_x14-26326.iso"
     installer:
