@@ -15,7 +15,6 @@
 
 - name: "visual studio 2008 : unattended installation"
   win_command: "{{ visualstudio.2008.installer.path }}\\setup\\setup.exe /q /norestart"
-#   win_command: "{{ visualstudio.2008.installer.path }}\\setup\\setup.exe /unattendfile {{ ansible_user_dir }}\\{{ visualstudio.2008.installer.ini }}"
 
 - name: "visual studio 2008 : clean installation files"
   win_file:

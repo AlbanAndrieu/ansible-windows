@@ -28,6 +28,12 @@
 
 #choco install visualstudio2017-workload-nativecrossplat --package-parameters "--productId Microsoft.VisualStudio.Product.Enterprise --channelId VisualStudio.15.Release --includeOptional"
 
+#- name: Install visualstudio2017community
+#  win_chocolatey:
+#    name: visualstudio2017community
+#    version: '15.2.26430.20170605'
+#    state: present 
+
 - name: Install microsoft-build-tools
   win_chocolatey:
     name: microsoft-build-tools
@@ -55,34 +61,14 @@
 #- name: "Enable .net"
 #  win_shell: "Import-Module ServerManager; Add-WindowsFeature as-net-framework"
 
-#- name: Install visualstudio2017community
-#  win_chocolatey:
-#    name: visualstudio2017community
-#    version: '15.2.26430.20170605'
-#    state: present 
-
-#- name: "Install Visual Studio 2005"
-#  include: visualstudio-2005.yml
-#  tags:
-#    - vs
-#    - vs2005
-#
 #- name: "Install Visual Studio 2008"
 #  include: visualstudio-2008.yml
 #  tags:
 #    - vs
 #    - vs2008
-
-- name: "Install Visual Studio 2012"
-  include: visualstudio-2012.yml
-  tags:
-    - vs
-    - vs2012
-
-#- name: Install the vc thingy
-#  win_package:
-#    name="Microsoft Visual C thingy"
-#    path="http://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe"
-#    Product_Id="{CF2BEA3C-26EA-32F8-AA9B-331F7E34BA97}"
-#    Arguments="/install /passive /norestart"
 #
+#- name: "Install Visual Studio 2012"
+#  include: visualstudio-2012.yml
+#  tags:
+#    - vs
+#    - vs2012

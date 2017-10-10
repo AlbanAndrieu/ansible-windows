@@ -57,13 +57,13 @@
 #    version: '0.6.3.1'
 #    state: present
 
-- name: "download scons"
-  win_get_url:
-    url: "{{ scons.url_prefix }}/{{ scons.installer }}"
-    dest: "{{ ansible_user_dir }}\\{{ scons.installer }}"
-    force: no
-  tags:
-    - scons
+#- name: "download scons"
+#  win_get_url:
+#    url: "{{ scons.url_prefix }}/{{ scons.installer }}"
+#    dest: "{{ ansible_user_dir }}\\{{ scons.installer }}"
+#    force: no
+#  tags:
+#    - scons
 
 #- name: "install scons"
 #  win_command: "easy_install {{ ansible_user_dir }}\\{{ scons.installer }}"
