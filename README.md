@@ -28,7 +28,7 @@ sudo pip install https://github.com/diyan/pywinrm/archive/df049454a9309280866e01
 
 It is working with the following version :
 
-# Os is an Ubuntu 12
+# Os is an Ubuntu 12/14/16
 
 python -V
 ```
@@ -58,7 +58,8 @@ vagrant plugin list
 
 ansible --version
 ```
-#ansible 1.7.2
+#ansible 1.7.2 (without win_copy)
+#ansible 2.5.0 (callback for ssl no more needed)
 ```
 
 On the windows VM :
@@ -69,7 +70,7 @@ Try :
 
 ```
 powershell -File ConfigureRemotingForAnsible.ps1 
-\\powershell -File ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert
+#powershell -File ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert
 ```
 
 [Configure user for remoting](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/ConfigureRemotingUserForAnsible.ps1)
