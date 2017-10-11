@@ -18,4 +18,3 @@
   win_chocolatey:
     name: wget
     version: '1.19.1'  
-

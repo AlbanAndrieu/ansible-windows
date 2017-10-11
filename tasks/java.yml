@@ -1,4 +1,10 @@
 
+#- name: Install jdk7
+#  win_chocolatey:
+#    name: jdk7
+#    version: '7.0.79'
+#    state: present
+    
 - name: Install jdk8
   win_chocolatey:
     name: jdk8
@@ -16,4 +22,3 @@
     name: maven
     version: '3.5.0'
     state: present
-        

@@ -6,7 +6,7 @@ galaxy_info:
   description: A role for installing windows
   company: Nabla
   license: Apache
-  min_ansible_version: '2.3.1.0'
+  min_ansible_version: '2.5.0'
   platforms:
   - name: Windows
     versions:
@@ -59,7 +59,29 @@ ansigenome_info:
 
     ansible --version
     #ansible 1.7.2
+    
+    Ansible 2.5.0 is required on order to have win_copy working on Windows 7 and Windows Server 2016
 
+    Check winrm in target host
+    
+    ```	
+    winrm id
+    winrm get winrm/config
+    ```	
+    
+    For oler version od Windows, please do
+    
+    ```	    
+    Set-Item WSMan:\localhost\Shell\MaxMemoryPerShellMB 5000
+    Set-Item WSMan:\localhost\Plugin\Microsoft.PowerShell\Quotas\MaxMemoryPerShellMB 5000
+    ```	
+    
+    Restart-Service winrm
+    
+    ```	
+    winrm set winrm/config/winrs '@{MaxMemoryPerShellMB="0"}'
+    ```	
+    
     On the windows VM :
     
     Try :

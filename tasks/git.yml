@@ -11,7 +11,14 @@
     version: '2.5.0.0'
     state: present
 
-- name: Install git-credential-manager-for-windows
-  win_chocolatey:
-    name: git-credential-manager-for-windows
-    version: '1.12.0'
+#- name: Install git-credential-manager-for-windows
+#  win_chocolatey:
+#    name: git-credential-manager-for-windows
+#    version: '1.12.0'
+
+- name: "disable git ssl verification"
+  win_command: "git config --global http.sslVerify false"
+
+- name: "enable longpaths for git"
+  win_command: "git config --system core.longpaths true"
+  

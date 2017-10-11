@@ -17,3 +17,8 @@
 #    version: '3.0.1'
 #    state: present    
 
+- name: "install sysinternals"
+  win_chocolatey:
+    name: sysinternals
+    state: present
+    ignore_checksums: true

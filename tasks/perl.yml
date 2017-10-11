@@ -1,0 +1,57 @@
+
+- name: Install activeperl
+  win_chocolatey:
+    name: activeperl
+    version: '5.24.1.2402'
+    state: present
+
+- name: "Add ActivePerl to PATH"
+  win_path:
+    elements: "{{ perl.env }}"
+
+- name: "Mark extension .pl as PerlScript"
+  win_shell: "assoc .pl=PerlScript"
+  args:
+    executable: cmd
+
+- name: "Associate PerlScript with ActivePerl"
+  win_shell: "ftype PerlScript={{ perl.binary }} \"%1\" %*"
+  args:
+    executable: cmd
+
+#- name: "Clean ActivePerl installer"
+#  win_file:
+#    path: "{{ ansible_user_dir }}/{{ perl.installer }}"
+#    state: absent
+#  tags:
+#    - cleanup
+
+#- name: "Install cpan perl modules needed e XML::DOM"
+#  win_shell: cpan XML::DOM
+#
+#- name: "Install cpan perl modules needed  XML::Handler::YAWriter"
+#  win_shell: cpan XML::Handler::YAWriter
+
+- name: Install cpan perl modules needed by cpp generator
+  win_shell: cpan {{ item }}
+  with_items:
+    - XML::DOM
+    - XML::Handler::YAWriter
+    - XML::Simple
+    - Test::Harness
+    - Test::Pod::Coverage
+    - Test::Pod
+    - JSON
+    - IO::Prompt
+    - Text::SimpleTable
+    - HTTP::Date
+    - Date::Calc
+    - Date::Format
+    - Date::Manip
+    - LWP::Protocol::https
+    - Crypt::SSLeay
+    - File::Copy::Recursive
+  register: cpan_result    
+  changed_when: false
+  become: yes
+  ignore_errors: true

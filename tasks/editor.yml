@@ -18,4 +18,3 @@
 #  win_chocolatey:
 #    name: visualstudiocode
 #    version: '1.16.1'
-    

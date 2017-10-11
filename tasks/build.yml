@@ -1,24 +1,79 @@
 
-- name: Install activeperl
+#- name: Install msys2
+#  win_chocolatey:
+#    name: msys2
+#    version: '20160719.1.1'
+#    state: present
+#    ignore_checksums: yes
+
+#- name: Install mingw
+#  win_chocolatey:
+#    name: mingw
+#    version: '5.3.0'
+#    state: present
+
+#- name: Install mingw-get
+#  win_chocolatey:
+#    name: mingw-get
+#    version: '1.0.2'
+#    state: present
+
+#TODO
+#mingw-get install gcc g++ mingw32-make gdb objc msys-base
+
+- name: Install cygwin
   win_chocolatey:
-    name: activeperl
-    version: '5.24.1.2402'
+    name: cygwin
+    version: '2.9.0'
     state: present
 
-- name: Install msys2
+- name: Install cyg-get
   win_chocolatey:
-    name: msys2
-    version: '20160719.1.1'
+    name: cyg-get
+    version: '1.2.1'
     state: present
 
-- name: Install mingw
+- name: Install cyg-get ansible required packages
+  win_shell: cyg-get python python-paramiko python-crypto gcc-g++ wget openssh python-setuptools vim openssl-devel libsasl2 ca-certificates python-setuptools python-openssl curl
+
+- name: Install cyg-get git packages
+  win_shell: cyg-get git gitk git-completion
+  
+- name: Install cyg-get editor required packages
+  win_shell: cyg-get vim nano
+
+- name: Install cyg-get packages
+  win_shell: cyg-get ksh binutils util-linux ncurses-demo diffutils openssl
+
+- name: Install X windows
   win_chocolatey:
-    name: mingw
-    version: '5.3.0'
+    name: vcxsrv
+    version: '1.19.3.1'
     state: present
 
-- name: Install gnuwin
-  win_chocolatey:
-    name: gnuwin
-    version: '0.6.3.1'
-    state: present
+#- name: Install gnuwin
+#  win_chocolatey:
+#    name: gnuwin
+#    version: '0.6.3.1'
+#    state: present
+
+#- name: "download scons"
+#  win_get_url:
+#    url: "{{ scons.url_prefix }}/{{ scons.installer }}"
+#    dest: "{{ ansible_user_dir }}\\{{ scons.installer }}"
+#    force: no
+#  tags:
+#    - scons
+
+#- name: "install scons"
+#  win_command: "easy_install {{ ansible_user_dir }}\\{{ scons.installer }}"
+#
+#- name: "clean scons installer"
+#  win_file:
+#    path: "{{ ansible_user_dir }}\\{{ scons.installer }}"
+#    state: absent
+#  tags:
+#    - cleanup
+
+#cd scons-2.5.1
+# python setup.py install
