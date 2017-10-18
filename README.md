@@ -19,33 +19,48 @@ VM was taken from
 
 https://vagrantcloud.com/opentable/boxes/win-2012r2-standard-amd64-nocm/versions/1.0.0/providers/virtualbox.box
 
-###Requirements
+### Requirements
 
-On Ubuntu, where VirtualBox and Vagrant are installed, do not forge to do the following :
+On Ubuntu, where VirtualBox and Vagrant are installed, do not forge to do the following
+```
 sudo pip install https://github.com/diyan/pywinrm/archive/df049454a9309280866e0156805ccda12d71c93a.zip --upgrade
+```
 
 It is working with the following version :
 
-#Os is an Ubuntu 12
+# Os is an Ubuntu 12/14/16
 
 python -V
+```
 #Python 2.7.3
+```
 pip -V
+```
 #pip 1.4.1 from /usr/local/lib/python2.7/dist-packages (python 2.7)
+```
 
 VBoxManage --version
+```
 #4.3.28r100309
+```
 
 vagrant --version
+```
 #Vagrant 2.3.0.0
+```
 
 vagrant plugin list
+```
 #winrm (1.1.3)
 #vagrant-login (1.0.1, system)
 #vagrant-share (1.1.0, system)
+```
 
 ansible --version
-#ansible 1.7.2
+```
+#ansible 1.7.2 (without win_copy)
+#ansible 2.5.0 (callback for ssl no more needed)
+```
 
 On the windows VM :
 
@@ -55,7 +70,7 @@ Try :
 
 ```
 powershell -File ConfigureRemotingForAnsible.ps1 
-\\powershell -File ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert
+#powershell -File ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert
 ```
 
 [Configure user for remoting](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/ConfigureRemotingUserForAnsible.ps1)
@@ -71,7 +86,7 @@ powershell -File ConfigureRemotingUserForAnsible.ps1
 powershell -File upgrade_to_ps3-1.ps1
 ```
 
-[Install PowerShell]
+[Install PowerShell]()
 
 ```
 @powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%systemdrive%\chocolatey\bin
@@ -83,7 +98,6 @@ choco install powershell
 choco upgrade powershell
 ```
 
-cd
 [Disable password](http://www.tenniswood.co.uk/technology/windows/how-to-disable-password-expiration-for-windows-server-2012/)
 
 
