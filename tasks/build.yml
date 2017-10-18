@@ -1,10 +1,20 @@
 
-#- name: Install msys2
-#  win_chocolatey:
-#    name: msys2
-#    version: '20160719.1.1'
-#    state: present
+- name: Install msys2
+  win_chocolatey:
+    name: msys2
+    version: '20160719.1.1'
+    state: present
 #    ignore_checksums: yes
+
+#See inside C:\tools
+
+#pacman -Sy
+#pacman -Su
+#pacman -S autoconf automake make pkg-config libtool
+
+#TODO RUN
+# pacman -Sy zsh sh curl
+#SHELL=/usr/bin/sh
 
 #- name: Install mingw
 #  win_chocolatey:

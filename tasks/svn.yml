@@ -1,0 +1,12 @@
+
+#- name: Install svn
+#  win_chocolatey:
+#    name: svn
+#    version: '1.8.15'
+#    state: present
+
+- name: Install sliksvn
+  win_chocolatey:
+    name: sliksvn
+    version: '1.8.5.20140421'
+    state: present

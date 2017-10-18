@@ -90,6 +90,8 @@
 
 - include: git.yml
 
+- include: svn.yml
+
 - include: editor.yml
 
 - include: tools.yml
