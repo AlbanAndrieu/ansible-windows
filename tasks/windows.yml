@@ -86,11 +86,19 @@
 #    name: all
 #    state: latest
 
+#choco install chocolatey-core.extension -y
+#- name: Install activeperl
+#  win_chocolatey:
+#    name: chocolatey-core.extension
+#    state: present
+
+#- include: windows-diskE.yml
+
 - include: common.yml
 
 - include: git.yml
 
-- include: svn.yml
+#- include: svn.yml
 
 - include: editor.yml
 
@@ -117,6 +125,8 @@
 #- include: browser.yml
 
 #- include: database.yml
+
+#- include: openssl.yml
 
 ## Install/uninstall an msi-based package
 #- name: Install msi-based package (Remote Desktop Connection Manager)

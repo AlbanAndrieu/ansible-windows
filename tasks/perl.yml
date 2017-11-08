@@ -3,7 +3,17 @@
   win_chocolatey:
     name: activeperl
     version: '5.24.1.2402'
+#    install_args: "--install-directory {{ perl.path }}"
     state: present
+
+- name: Install activeperl
+  win_chocolatey:
+    name: activeperl-eqemu-x86
+    version: '5.16.3.1605'
+    state: present
+    
+#assoc .pl=PerlScript
+#ftype PerlScript=c:\perl\bin\perl.exe %1 %*
 
 - name: "Add ActivePerl to PATH"
   win_path:
@@ -19,6 +29,9 @@
   args:
     executable: cmd
 
+#- name: "Link 1 for bash between mingw and msys"
+#  win_command: 'mklink \"C:\tools\msys64\mingw64\bin\bash.exe\" \"C:\tools\msys64\usr\bin\bash.exe\"'
+
 #- name: "Clean ActivePerl installer"
 #  win_file:
 #    path: "{{ ansible_user_dir }}/{{ perl.installer }}"
@@ -32,9 +45,17 @@
 #- name: "Install cpan perl modules needed  XML::Handler::YAWriter"
 #  win_shell: cpan XML::Handler::YAWriter
 
+- name: "Tell CPAN to install all dependencies"
+  win_shell: perl -MCPAN -e 'my $c = \"CPAN::HandleConfig\"; $c->load(doit => 1, autoconfig => 1); $c->edit(prerequisites_policy => \"follow\"); $c->edit(build_requires_install_policy => \"yes\"); $c->commit'
+
 - name: Install cpan perl modules needed by cpp generator
   win_shell: cpan {{ item }}
   with_items:
+    - XML::Parser 
+    - LWP::UserAgent 
+    - XML::Parser::PerlSAX
+    - HTML::Entities 
+    - HTML::HeadParser
     - XML::DOM
     - XML::Handler::YAWriter
     - XML::Simple
@@ -51,7 +72,11 @@
     - LWP::Protocol::https
     - Crypt::SSLeay
     - File::Copy::Recursive
-  register: cpan_result    
+  register: cpan_result
   changed_when: false
-  become: yes
   ignore_errors: true
+
+- name: Install cpanm
+  win_shell: "cpan App::cpanminus"
+  args:
+    executable: cmd

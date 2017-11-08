@@ -10,11 +10,54 @@
 
 #pacman -Sy
 #pacman -Su
-#pacman -S autoconf automake make pkg-config libtool
 
-#TODO RUN
-# pacman -Sy zsh sh curl
-#SHELL=/usr/bin/sh
+#See https://wiki.archlinux.org/index.php/mirrors
+
+#nano /etc/pacman.conf
+#Enable the extra repository on /etc/pacman.conf:
+#[extra]
+#Server = http://mirrors.kernel.org/archlinux/$repo/os/$arch
+#
+#[core]
+#Server = ftp://ftp.hosteurope.de/mirror/ftp.archlinux.org/core/os/$arch
+
+#pacman -Syu --debug
+
+#Refresh package list
+# pacman -Syyu
+ 
+- name: Make sure msys2 pacman gcc packages is properly installed
+  win_shell: pacman -S mingw-w64-x86_64-gcc
+#  ignore_errors: true
+  
+- name: Install msys2 required build packages
+  win_shell: pacman -Sy autoconf automake make pkg-config libtool
+  ignore_errors: true
+
+- name: Install msys2 required editor packages
+  win_shell: pacman -Sy nano
+  ignore_errors: true
+  
+- name: Install msys2 required packages
+  win_shell: pacman -Sy lsof
+  ignore_errors: true
+  
+- name: Install msys2 required compression packages
+  win_shell: pacman -Sy zip unzip
+
+#Installing GCC & MSYS2
+#See https://github.com/orlp/dev-on-windows/wiki/Installing-GCC--&-MSYS2
+#pacman -S --needed base-devel mingw-w64-i686-toolchain mingw-w64-x86_64-toolchain \
+#                   git subversion mercurial \
+#                   mingw-w64-i686-cmake mingw-w64-x86_64-cmake
+
+- name: Install msys2 required fonts packages
+  win_shell: pacman -Sy mingw-w64-x86_64-freetype mingw-w64-x86_64-SDL mingw-w64-x86_64-SDL_ttf 
+  ignore_errors: true
+
+- name: Install msys2 optional packages
+  win_shell: pacman -Sy zsh sh curl
+  ignore_errors: true
 
 #- name: Install mingw
 #  win_chocolatey:
@@ -22,14 +65,18 @@
 #    version: '5.3.0'
 #    state: present
 
+#TODO do below by hand because of wrong network and checksum
+#Please install it in C:\tools\MinGW like chocolatey would have done it
 #- name: Install mingw-get
 #  win_chocolatey:
 #    name: mingw-get
 #    version: '1.0.2'
 #    state: present
 
-#TODO
+#See C:\tools\MinGW\bin\mingw-get.exe
 #mingw-get install gcc g++ mingw32-make gdb objc msys-base
+
+#mingw-get install msys-wget msys-zip msys-unzip
 
 - name: Install cygwin
   win_chocolatey:
@@ -54,6 +101,17 @@
 
 - name: Install cyg-get packages
   win_shell: cyg-get ksh binutils util-linux ncurses-demo diffutils openssl
+
+#TODO cyg-get lsof
+
+- name: Install cyg-get packages
+  win_shell: cyg-get zip unzip
+
+#- name: "Link 1 for bash between mingw and msys"
+#  win_command: 'mklink \"C:\tools\msys64\mingw64\bin\bash.exe\" \"C:\tools\msys64\usr\bin\bash.exe\"'
+#    
+#- name: "Link 2 for sh between mingw and msys"
+#  win_command: 'mklink \"C:\tools\msys64\mingw64\bin\sh.exe\" \"C:\tools\msys64\usr\bin\sh.exe\"'
 
 - name: Install X windows
   win_chocolatey:
@@ -87,3 +145,10 @@
 
 #cd scons-2.5.1
 # python setup.py install
+
+- name: Install pywin32 for scons parallel
+  win_chocolatey:
+    name: pywin32
+    version: '219.0'
+    state: present
+#    ignore_checksums: yes

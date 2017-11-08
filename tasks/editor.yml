@@ -18,3 +18,10 @@
 #  win_chocolatey:
 #    name: visualstudiocode
 #    version: '1.16.1'
+
+#cinst nano
+
+- name: Install nano
+  win_chocolatey:
+    name: nano
+    version: '2.5.3'

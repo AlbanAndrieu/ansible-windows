@@ -28,14 +28,14 @@
 #- name: "User name for git"
 #  win_command: "git config --global user.name \"Andrieu, Alban\""
     
-- name: "Link 1 between mingw and git"
-  win_command: "mklink \"C:\Program Files\Git\cmd\nohup.exe\" \"C:\Program Files\git\usr\bin\nohup.exe\""
-
-- name: "Link 2 between mingw and git"
-  win_command: "mklink \"C:\Program Files\Git\cmd\msys-2.0.dll\" \"C:\Program Files\git\usr\bin\msys-2.0.dll\""
-
-- name: "Link 3 between mingw and git"
-  win_command: "mklink \"C:\Program Files\Git\cmd\msys-iconv-2.dll\" \"C:\Program Files\git\usr\bin\msys-iconv-2.dll\""  
-
-- name: "Link 4 between mingw and git"
-  win_command: "mklink \"C:\Program Files\Git\cmd\msys-intl-8.dll\" \"C:\Program Files\git\usr\bin\msys-intl-8.dll\""
+#- name: "Link 1 between mingw and git"
+#  win_command: 'mklink "C:\Program Files\Git\cmd\nohup.exe" "C:\Program Files\git\usr\bin\nohup.exe"'
+#     
+#- name: "Link 2 between mingw and git"
+#  win_command: 'mklink "C:\Program Files\Git\cmd\msys-2.0.dll" "C:\Program Files\git\usr\bin\msys-2.0.dll"'
+#  
+#- name: "Link 3 between mingw and git"
+#  win_command: 'mklink "C:\Program Files\Git\cmd\msys-iconv-2.dll" "C:\Program Files\git\usr\bin\msys-iconv-2.dll"'
+#    
+#- name: "Link 4 between mingw and git"
+#  win_command: 'mklink "C:\Program Files\Git\cmd\msys-intl-8.dll" "C:\Program Files\git\usr\bin\msys-intl-8.dll"'

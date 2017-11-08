@@ -22,3 +22,8 @@
     name: maven
     version: '3.5.0'
     state: present
+
+#TODO by hand
+#Replace Path Environment variable from C:\ProgramData\Oracle\Java\javapath by %JAVA_HOME%\bin
+#Replace regedit Registry key 'Software\JavaSoft\Java Runtime Environment'\CurrentVersion' bu 1.7
+#Replace regedit Registry key 'Software\JavaSoft\Java Development Kit'\CurrentVersion' bu 1.7

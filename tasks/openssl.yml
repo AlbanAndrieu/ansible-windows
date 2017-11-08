@@ -1,0 +1,29 @@
+- name: "Download openssl"
+  win_get_url:
+    url: https://slproweb.com/download/Win64OpenSSL-1_1_0f.exe
+    dest: C:\openssl-installer.exe
+    
+- name: "Install openssl"
+  raw: 'C:\openssl-installer.exe /silent /verysilent /sp- /suppressmsgboxes'
+  
+- name: "Remove installer"
+  win_file:
+    path: C:\openssl-installer.exe
+    state: absent
+    
+- name: "Update PATH"
+  win_path:
+    elements: "{{ item }}"
+    scope: machine
+    state: present
+  with_items:
+    - C:\OpenSSL-Win64\include
+    - C:\OpenSSL-Win64\lib
+    
+- name: "Reload environment variables"
+  win_shell: "Stop-Process -processName: Explorer -Force"
+  
+- name: "Wait for it to start"
+  pause:
+    seconds: 7
+     

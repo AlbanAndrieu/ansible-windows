@@ -6,11 +6,12 @@ galaxy_info:
   description: A role for installing windows
   company: Nabla
   license: GPLv3
-  min_ansible_version: '2.3.1.0'
+  min_ansible_version: '2.5.0'
   platforms:
   - name: Windows
     versions:
       - all
       - 2012R2
+      - 2016
   categories:
   - system
