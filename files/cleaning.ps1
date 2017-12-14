@@ -15,8 +15,26 @@ if (-Not $myWindowsPrincipal.IsInRole($adminRole))
     Exit 2
 }
 
-$tempfolders = @( "C:\temp\*", "C:\Windows\Temp\*", "C:\Windows\Prefetch\*", "C:\Documents and Settings\*\Local Settings\temp\*", "C:\Users\*\Appdata\Local\Temp\*", )
+$tempfolders = @( "C:\temp\*")
 Remove-Item $tempfolders -force -recurse -verbose
 
-$tempfolders = @( "D:\Jenkins-Slave\workspace\*", "E:\Jenkins-Slave\workspace\*", "E:\Jenkins-Slave-Other\workspace\*" )
+$tempfolders = @( "C:\Windows\Temp\*")
+Remove-Item $tempfolders -force -recurse -verbose
+
+$tempfolders = @( "C:\Windows\Prefetch\*")
+Remove-Item $tempfolders -force -recurse -verbose
+
+$tempfolders = @( "C:\Documents and Settings\*\Local Settings\temp\*")
+Remove-Item $tempfolders -force -recurse -verbose
+
+$tempfolders = @(  "C:\Users\*\Appdata\Local\Temp\*")
+Remove-Item $tempfolders -force -recurse -verbose
+
+$tempfolders = @( "D:\Jenkins-Slave\workspace\*" )
+Remove-Item $tempfolders -force -recurse -verbose
+
+$tempfolders = @( "E:\Jenkins-Slave\workspace\*" )
+Remove-Item $tempfolders -force -recurse -verbose
+
+$tempfolders = @( "E:\Jenkins-Slave-Other\workspace\*" )
 Remove-Item $tempfolders -force -recurse -verbose

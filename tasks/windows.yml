@@ -78,7 +78,7 @@
   ignore_errors: true
 
 #- name: "install chocolatey"
-#  include: chocolatey.yml
+#  import_tasks: chocolatey.yml
 #  when: result|failed
 
 #- name: update installed chocolatey packages
@@ -92,41 +92,41 @@
 #    name: chocolatey-core.extension
 #    state: present
 
-#- include: windows-diskE.yml
+#- import_tasks: windows-diskE.yml
 
-- include: common.yml
+- import_tasks: common.yml
 
-- include: git.yml
+- import_tasks: git.yml
 
-#- include: svn.yml
+#- import_tasks: svn.yml
 
-- include: editor.yml
+- import_tasks: editor.yml
 
-- include: tools.yml
+- import_tasks: tools.yml
 
-- include: build.yml
+- import_tasks: build.yml
 
-- include: perl.yml
+- import_tasks: perl.yml
 
-- include: cpp.yml
+- import_tasks: cpp.yml
 
-#- include: objc.yml
+#- import_tasks: objc.yml
 
-- include: java.yml
+- import_tasks: java.yml
 
-- include: python.yml
+- import_tasks: python.yml
 
-- include: javascript.yml
+- import_tasks: javascript.yml
 
-#- include: quality.yml
+#- import_tasks: quality.yml
 
-#- include: admin.yml
+#- import_tasks: admin.yml
 
-#- include: browser.yml
+#- import_tasks: browser.yml
 
-#- include: database.yml
+#- import_tasks: database.yml
 
-#- include: openssl.yml
+#- import_tasks: openssl.yml
 
 ## Install/uninstall an msi-based package
 #- name: Install msi-based package (Remote Desktop Connection Manager)
