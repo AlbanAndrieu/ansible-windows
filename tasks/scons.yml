@@ -1,0 +1,21 @@
+
+- name: "download scons"
+  win_get_url:
+    url: "{{ scons.url_prefix }}/{{ scons.installer }}"
+    dest: "{{ ansible_user_dir }}\\{{ scons.installer }}"
+    force: no
+  tags:
+    - scons
+
+- name: "install scons"
+  win_command: "easy_install {{ ansible_user_dir }}\\{{ scons.installer }}"
+
+- name: "clean scons installer"
+  win_file:
+    path: "{{ ansible_user_dir }}\\{{ scons.installer }}"
+    state: absent
+  tags:
+    - cleanup
+
+#cd scons-2.5.1
+# python setup.py install

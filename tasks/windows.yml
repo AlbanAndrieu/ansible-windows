@@ -116,6 +116,8 @@
 
 - import_tasks: python.yml
 
+#- import_tasks: scons.yml
+
 - import_tasks: javascript.yml
 
 #- import_tasks: quality.yml
@@ -126,7 +128,7 @@
 
 #- import_tasks: database.yml
 
-#- import_tasks: openssl.yml
+- import_tasks: openssl.yml
 
 ## Install/uninstall an msi-based package
 #- name: Install msi-based package (Remote Desktop Connection Manager)

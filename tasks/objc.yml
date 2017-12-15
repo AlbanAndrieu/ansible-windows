@@ -4,4 +4,4 @@
     name: winobjc-tools
     version: '0.2.170609'
     state: present
-    
+  ignore_errors: true

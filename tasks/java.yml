@@ -2,13 +2,13 @@
 #- name: Install jdk7
 #  win_chocolatey:
 #    name: jdk7
-#    version: '7.0.79'
+#    version: '7.0.80'
 #    state: present
     
 - name: Install jdk8
   win_chocolatey:
     name: jdk8
-    version: '8.0.144'
+    version: '8.0.152'
     state: present
     
 - name: Install ant
@@ -27,3 +27,16 @@
 #Replace Path Environment variable from C:\ProgramData\Oracle\Java\javapath by %JAVA_HOME%\bin
 #Replace regedit Registry key 'Software\JavaSoft\Java Runtime Environment'\CurrentVersion' bu 1.7
 #Replace regedit Registry key 'Software\JavaSoft\Java Development Kit'\CurrentVersion' bu 1.7
+
+- name: Ensure that C:\Program Files\Java\jdk1.8.0_152 is on the current user's JAVA_HOME
+  win_path:
+    name: JAVA_HOME
+    elements: C:\Program Files\Java\jdk1.8.0_152
+    scope: user
+#    state: absent
+
+- name: Ensure that jdk7 are present on the global system path, and in the specified order
+  win_path:
+    elements:
+    - '%JAVA_HOME%\bin'
+    scope: user

@@ -1,0 +1,69 @@
+
+#this role required msys2 tool
+
+- name: Ensure that Msys64 are present on the global system path, and in the specified order
+  win_path:
+    elements:
+    - 'C:\tools\msys64'
+    - 'C:\tools\msys64\usr\bin'
+
+#See inside C:\tools
+
+#pacman -Sy
+#pacman -Su
+
+#See https://wiki.archlinux.org/index.php/mirrors
+
+#nano /etc/pacman.conf
+#Enable the extra repository on /etc/pacman.conf:
+#[extra]
+#Server = http://mirrors.kernel.org/archlinux/$repo/os/$arch
+#
+#[core]
+#Server = ftp://ftp.hosteurope.de/mirror/ftp.archlinux.org/core/os/$arch
+
+#pacman -Syu --debug
+
+#Refresh package list
+# pacman -Syyu
+
+# Run the equivalent of "pacman -Syu" as a separate step
+- pacman:
+    update_cache: yes
+    upgrade: yes
+  when: (ansible_os_family != 'Windows' )
+
+- name: Make sure msys2 pacman gcc packages is properly installed
+  win_shell: pacman -S mingw-w64-x86_64-gcc
+#  ignore_errors: true
+
+- name: Install msys2 required build packages
+  win_shell: pacman -Sy autoconf automake make pkg-config libtool
+  ignore_errors: true
+
+- name: Install msys2 required editor packages
+  win_shell: pacman -Sy nano
+  ignore_errors: true
+
+- name: Install msys2 required packages
+  win_shell: pacman -Sy lsof
+  ignore_errors: true
+
+- name: Install msys2 required compression packages
+  win_shell: pacman -Sy zip unzip
+  ignore_errors: true
+
+#Installing GCC & MSYS2
+#See https://github.com/orlp/dev-on-windows/wiki/Installing-GCC--&-MSYS2
+#or https://github.com/mangband/mangband/wiki/MSYS2
+#pacman -S --needed base-devel mingw-w64-i686-toolchain mingw-w64-x86_64-toolchain \
+#                   git subversion mercurial \
+#                   mingw-w64-i686-cmake mingw-w64-x86_64-cmake
+
+- name: Install msys2 required fonts packages
+  win_shell: pacman -Sy mingw-w64-x86_64-freetype mingw-w64-x86_64-SDL mingw-w64-x86_64-SDL_ttf
+  ignore_errors: true
+
+- name: Install msys2 optional packages
+  win_shell: pacman -Sy zsh sh curl
+#  ignore_errors: true

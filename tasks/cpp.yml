@@ -4,6 +4,7 @@
     name: graphviz
     version: '2.38.0.1'
     state: present
+  ignore_errors: true
     
 #- name: Install gnuplot
 #  win_chocolatey:
@@ -16,6 +17,7 @@
     name: doxygen.install
     version: '1.8.11'
     state: present
+  ignore_errors: true
 
 #choco install vcpython27
 

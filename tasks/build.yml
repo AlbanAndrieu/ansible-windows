@@ -6,58 +6,7 @@
     state: present
 #    ignore_checksums: yes
 
-#See inside C:\tools
-
-#pacman -Sy
-#pacman -Su
-
-#See https://wiki.archlinux.org/index.php/mirrors
-
-#nano /etc/pacman.conf
-#Enable the extra repository on /etc/pacman.conf:
-#[extra]
-#Server = http://mirrors.kernel.org/archlinux/$repo/os/$arch
-#
-#[core]
-#Server = ftp://ftp.hosteurope.de/mirror/ftp.archlinux.org/core/os/$arch
-
-#pacman -Syu --debug
-
-#Refresh package list
-# pacman -Syyu
- 
-- name: Make sure msys2 pacman gcc packages is properly installed
-  win_shell: pacman -S mingw-w64-x86_64-gcc
-#  ignore_errors: true
-  
-- name: Install msys2 required build packages
-  win_shell: pacman -Sy autoconf automake make pkg-config libtool
-  ignore_errors: true
-
-- name: Install msys2 required editor packages
-  win_shell: pacman -Sy nano
-  ignore_errors: true
-  
-- name: Install msys2 required packages
-  win_shell: pacman -Sy lsof
-  ignore_errors: true
-  
-- name: Install msys2 required compression packages
-  win_shell: pacman -Sy zip unzip
-
-#Installing GCC & MSYS2
-#See https://github.com/orlp/dev-on-windows/wiki/Installing-GCC--&-MSYS2
-#pacman -S --needed base-devel mingw-w64-i686-toolchain mingw-w64-x86_64-toolchain \
-#                   git subversion mercurial \
-#                   mingw-w64-i686-cmake mingw-w64-x86_64-cmake
-
-- name: Install msys2 required fonts packages
-  win_shell: pacman -Sy mingw-w64-x86_64-freetype mingw-w64-x86_64-SDL mingw-w64-x86_64-SDL_ttf 
-  ignore_errors: true
-
-- name: Install msys2 optional packages
-  win_shell: pacman -Sy zsh sh curl
-  ignore_errors: true
+- import_tasks: pacman.yml
 
 #- name: Install mingw
 #  win_chocolatey:
@@ -124,27 +73,6 @@
 #    name: gnuwin
 #    version: '0.6.3.1'
 #    state: present
-
-#- name: "download scons"
-#  win_get_url:
-#    url: "{{ scons.url_prefix }}/{{ scons.installer }}"
-#    dest: "{{ ansible_user_dir }}\\{{ scons.installer }}"
-#    force: no
-#  tags:
-#    - scons
-
-#- name: "install scons"
-#  win_command: "easy_install {{ ansible_user_dir }}\\{{ scons.installer }}"
-#
-#- name: "clean scons installer"
-#  win_file:
-#    path: "{{ ansible_user_dir }}\\{{ scons.installer }}"
-#    state: absent
-#  tags:
-#    - cleanup
-
-#cd scons-2.5.1
-# python setup.py install
 
 - name: Install pywin32 for scons parallel
   win_chocolatey:

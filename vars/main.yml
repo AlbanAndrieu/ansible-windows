@@ -39,3 +39,8 @@ perl:
     - "C:\\Perl64\\bin"
     - "C:\\Perl64\\site\\bin"
   binary: "C:\\Perl64\\bin\\perl.exe"
+
+openssl:
+#  url_prefix: "https://slproweb.com/download"
+  url_prefix: "{{ url_prefix }}/openssl"
+  installer: "Win64OpenSSL-1_1_0g.exe"

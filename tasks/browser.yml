@@ -22,6 +22,7 @@
     name: selenium-ie-driver
     version: '3.5.1'
     state: present
+  ignore_errors: true
 
 #- name: Install selenium-all-drivers
 #  win_chocolatey:
@@ -34,3 +35,4 @@
     name: seleniumgridinabox.node 
     version: '1.9.1.5'
     state: present
+  ignore_errors: true

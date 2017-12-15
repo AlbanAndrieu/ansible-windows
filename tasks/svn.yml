@@ -10,3 +10,8 @@
     name: sliksvn
     version: '1.8.5.20140421'
     state: present
+
+- name: Ensure that sliksvn are present on the global system path, and in the specified order
+  win_path:
+    elements:
+    - 'C:\Program Files\SlikSvn\bin'
