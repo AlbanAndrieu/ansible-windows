@@ -130,6 +130,8 @@
 
 - import_tasks: openssl.yml
 
+- import_tasks: user.yml
+
 ## Install/uninstall an msi-based package
 #- name: Install msi-based package (Remote Desktop Connection Manager)
 #  win_package:

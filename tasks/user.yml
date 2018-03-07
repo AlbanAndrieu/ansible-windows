@@ -1,0 +1,26 @@
+---
+# This playbook contains common plays that will be run on all nodes.
+
+- name: Add User
+  win_user:
+    name: '{{ jenkins_user }}'
+    password: '{{ jenkins_password }}'
+
+- name: Save the result of 'whoami' in 'whoami_out'
+  win_command: whoami
+  register: whoami_out
+
+- debug: var=whoami_out.stdout_lines
+
+- name: Copy .bash_profile to misys64
+  win_copy:
+    src: files/.bash_profile
+    dest: C:\tools\misys64\home\{{ jenkins_user }}/.bash_profile
+    force: True
+    remote_src: False
+    register: out
+
+- debug: var=out.stdout_lines
+
+
+#TODO add certificates and ssh key to user

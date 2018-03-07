@@ -51,9 +51,10 @@
 - name: Install cyg-get packages
   win_shell: cyg-get ksh binutils util-linux ncurses-demo diffutils openssl
 
-#TODO cyg-get lsof
+- name: Install cyg-get rsync ssh packages
+  win_shell: cyg-get rsync openssh
 
-- name: Install cyg-get packages
+- name: Install cyg-get archive packages
   win_shell: cyg-get zip unzip
 
 #- name: "Link 1 for bash between mingw and msys"

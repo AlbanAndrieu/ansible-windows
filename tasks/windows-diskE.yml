@@ -1,5 +1,37 @@
 ---
 
-- name: "add disk E:"
+- name: "jenkins-slave | Add disk E:"
   win_shell: Get-Disk | Where partitionstyle -eq ‘raw’ | Initialize-Disk -PartitionStyle MBR -PassThru | New-Partition -AssignDriveLetter -UseMaximumSize | Format-Volume -FileSystem NTFS -NewFileSystemLabel “jenkins” -Confirm:$false
  
+- name: jenkins-slave | Checking slave folders
+  win_stat:
+   path: "{{item}}"
+  register: folder_stats
+  with_items: "{{ jenkins_slave_directory }}"
+  when: jenkins_slave_directory | length > 0
+  become: yes
+  changed_when: false
+
+- debug: var=folder_stats
+
+- name: jenkins-slave | Creating multiple folders without disturbing previous permissions
+  win_file:
+   path: "{{item.item}}"
+   state: directory
+   mode: 0755
+   group: "{{ jenkins_user }}"
+   owner: "{{ jenkins_group }}"
+  when: item.stat.exists == false
+  with_items:
+    - "{{folder_stats.results}}"
+  become: yes
+  changed_when: false
+
+- name: jenkins-slave | Create a file from a Jinja2 template
+  win_template:
+    src: "jenkins-slave.xml.j2"
+    dest: "{{item.item}}\\jenkins-slave.xml"
+  with_items:
+    - "{{folder_stats.results}}"
+  become: yes
+  changed_when: false

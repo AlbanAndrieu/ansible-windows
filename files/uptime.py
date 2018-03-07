@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+# -*- coding: utf-8 -*-
 from collections import namedtuple
 
 from ansible.executor.task_queue_manager import TaskQueueManager
@@ -31,30 +31,41 @@ class ResultsCollector(CallbackBase):
 
 def main():
     host_list = ['localhost', 'www.example.com', 'www.google.com']
-    Options = namedtuple('Options', ['connection', 'module_path', 'forks', 'remote_user',
+    Options = namedtuple(
+        'Options', [
+            'connection', 'module_path', 'forks', 'remote_user',
                                      'private_key_file', 'ssh_common_args', 'ssh_extra_args', 'sftp_extra_args',
-                                     'scp_extra_args', 'become', 'become_method', 'become_user', 'verbosity', 'check'])
+            'scp_extra_args', 'become', 'become_method', 'become_user', 'verbosity', 'check',
+        ],
+    )
 
     # initialize needed objects
     variable_manager = VariableManager()
     loader = DataLoader()
-    options = Options(connection='smart', module_path='/usr/share/ansible', forks=100,
+    options = Options(
+        connection='smart', module_path='/usr/share/ansible', forks=100,
                       remote_user=None, private_key_file=None, ssh_common_args=None, ssh_extra_args=None,
                       sftp_extra_args=None, scp_extra_args=None, become=None, become_method=None,
-                      become_user=None, verbosity=None, check=False)
+        become_user=None, verbosity=None, check=False,
+    )
 
     passwords = dict()
 
     # create inventory and pass to var manager
-    inventory = Inventory(loader=loader, variable_manager=variable_manager, host_list=host_list)
+    inventory = Inventory(
+        loader=loader, variable_manager=variable_manager, host_list=host_list,
+    )
     variable_manager.set_inventory(inventory)
 
     # create play with tasks
     play_source = dict(
-        name="Ansible Play",
+        name='Ansible Play',
         hosts=host_list,
         gather_facts='no',
-        tasks=[dict(action=dict(module='command', args=dict(cmd='/usr/bin/uptime')))]
+        tasks=[dict(action=dict(
+            module='command',
+            args=dict(cmd='/usr/bin/uptime'),
+        ))],
     )
     play = Play().load(play_source, variable_manager=variable_manager, loader=loader)
 
@@ -75,17 +86,18 @@ def main():
         if tqm is not None:
             tqm.cleanup()
 
-    print("UP ***********")
+    print('UP ***********')
     for host, result in callback.host_ok.items():
         print('{} >>> {}'.format(host, result._result['stdout']))
 
-    print("FAILED *******")
+    print('FAILED *******')
     for host, result in callback.host_failed.items():
         print('{} >>> {}'.format(host, result._result['msg']))
 
-    print("DOWN *********")
+    print('DOWN *********')
     for host, result in callback.host_unreachable.items():
         print('{} >>> {}'.format(host, result._result['msg']))
+
 
 if __name__ == '__main__':
     main()

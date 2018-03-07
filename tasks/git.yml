@@ -39,3 +39,14 @@
 #    
 #- name: "Link 4 between mingw and git"
 #  win_command: 'mklink "C:\Program Files\Git\cmd\msys-intl-8.dll" "C:\Program Files\git\usr\bin\msys-intl-8.dll"'
+
+#TODO copy .gitconfig to C:\tools\misys64\home\fru
+- name: Copy .gitconfig to misys64
+  win_copy:
+    src: C:\Users\{{ jenkins_user }}\.gitconfig
+    dest: C:\tools\misys64\home\{{ jenkins_user }}
+    force: True
+    remote_src: False
+    register: out
+
+- debug: var=out.stdout_lines

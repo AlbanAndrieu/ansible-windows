@@ -45,7 +45,17 @@
   win_shell: pacman -Sy nano
   ignore_errors: true
 
-- name: Install msys2 required packages
+- name: Install msys2 required lsof packages
+  win_shell: pacman -Sy lsof
+  ignore_errors: true
+
+- name: Install msys2 required rsync packages
+  win_shell: pacman -Sy rsync openssh
+  ignore_errors: true
+
+#FYI : I had to refresh package list to make ssh working
+# pacman -Syyu
+
   win_shell: pacman -Sy lsof
   ignore_errors: true
 
@@ -67,3 +77,12 @@
 - name: Install msys2 optional packages
   win_shell: pacman -Sy zsh sh curl
 #  ignore_errors: true
+
+#TODO python 3 install
+#pacman -S mingw32/mingw-w64-i686-python3-numpy
+#pacman -S mingw32/mingw-w64-i686-python3-pip
+#pacman -S mingw32/mingw-w64-i686-python3-setuptools
+#pacman -S msys/python3-pip
+#curl https://bootstrap.pypa.io/ez_setup.py | python
+#easy_install pip
+#pip install grip
