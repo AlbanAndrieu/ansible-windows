@@ -134,6 +134,8 @@
 
 #- import_tasks: debug.yml
 
+- import_tasks: kubernetes.yml
+
 ## Install/uninstall an msi-based package
 #- name: Install msi-based package (Remote Desktop Connection Manager)
 #  win_package:
