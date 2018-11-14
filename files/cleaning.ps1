@@ -70,14 +70,53 @@ Remove-Item $tempfolders -force -recurse -verbose
 $tempfolders = @(  "C:\Users\*\Appdata\Local\Temp\*")
 Remove-Item $tempfolders -force -recurse -verbose
 
-$tempfolders = @( "D:\Jenkins-Slave\workspace\*" )
-Remove-Item $tempfolders -force -recurse -verbose
+# Enable output streams 3-6
+$WarningPreference = 'Continue'
+$VerbosePreference = 'Continue'
+$DebugPreference = 'Continue'
+$InformationPreference = 'Continue'
 
-$tempfolders = @( "E:\Jenkins-Slave\workspace\*" )
-Remove-Item $tempfolders -force -recurse -verbose
+$limit = (Get-Date).AddDays(-7)
+$path = "C:\\Jenkins-Slave\\workspace"
 
-$tempfolders = @( "E:\Jenkins-Slave-Other\workspace\*" )
-Remove-Item $tempfolders -force -recurse -verbose
+function Remove-PathToLongDirectory 
+{
+    # To prevent below error with very long paths created by Jenkins:
+    #
+    # Remove-Item : The specified path, file name, or both are too long. The fully 
+    # qualified file name must be less than 260 characters, and the directory name 
+    # must be less than 248 characters.
+    Param(
+        [string]$directory
+    )
+
+    # create a temporary (empty) directory
+    $parent = [System.IO.Path]::GetTempPath()
+    [string] $name = [System.Guid]::NewGuid()
+    $tempDirectory = New-Item -ItemType Directory -Path (Join-Path $parent $name)
+
+    robocopy /MIR $tempDirectory.FullName $directory | out-null
+    Remove-Item $directory -Force -Recurse |
+    Remove-Item $tempDirectory -Force -Recurse 
+}
+
+
+$directoriesToRemove = (Get-ChildItem -Path $path |
+    Where-Object {
+        $_.PSIsContainer -and $_.CreationTime -lt $limit       
+    }
+)
+
+ForEach ($directory in $directoriesToRemove) {
+    Echo "will remove directory: $directory"
+    Remove-PathToLongDirectory "$path\\$directory" 
+}
+
+# $tempfolders = @( "D:\Jenkins-Slave\workspace\*" )
+# Remove-Item $tempfolders -force -recurse -verbose
+# 
+# $tempfolders = @( "E:\Jenkins-Slave\workspace\*" )
+# Remove-Item $tempfolders -force -recurse -verbose
 
 Write-Host -NoNewLine "Press any key to continue...";
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown");
