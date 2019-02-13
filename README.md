@@ -70,7 +70,7 @@ winrm id
 winrm get winrm/config
 ```	
 
-For oler version of Windows, please do
+For older version of Windows, please do
 
 ```	    
 Set-Item WSMan:\localhost\Shell\MaxMemoryPerShellMB 5000
