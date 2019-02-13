@@ -42,24 +42,24 @@ It is working with the following version :
 
 # Os is an Ubuntu 18.04
 
-python -V
-#Python 2.7.3
-pip -V
-#pip 1.4.1 from /usr/local/lib/python2.7/dist-packages (python 2.7)
+$ python -V
+Python 2.7.3
+$ pip -V
+pip 1.4.1 from /usr/local/lib/python2.7/dist-packages (python 2.7)
 
-VBoxManage --version
-#4.3.28r100309
+$ VBoxManage --version
+4.3.28r100309
 
-vagrant --version
-#Vagrant 2.3.1.0
+$ vagrant --version
+Vagrant 2.3.1.0
 
-vagrant plugin list
-#winrm (1.1.3)
-#vagrant-login (1.0.1, system)
-#vagrant-share (1.1.0, system)
+$ vagrant plugin list
+winrm (1.1.3)
+vagrant-login (1.0.1, system)
+vagrant-share (1.1.0, system)
 
-ansible --version
-#ansible 1.7.2
+$ ansible --version
+ansible 1.7.2
 
 Ansible 2.5.0 is required on order to have win_copy working on Windows 7 and Windows Server 2016
 
@@ -84,8 +84,6 @@ winrm set winrm/config/winrs '@{MaxMemoryPerShellMB="0"}'
 ```	
 
 On the windows VM :
-
-Try :
 
 ```
 powershell -File upgrade_to_ps3.ps1
@@ -115,49 +113,51 @@ See [common-winrm-issues](https://docs.ansible.com/ansible/devel/user_guide/wind
 
 From windows
 
-# local user
+Local user
 $ winrm identify -u:myuser -p:Mypass123! -r:http://targetHost:5985
-# domain user
+Domain user
 $ winrm identify -u:MISYSROOT\aandrieu -p:Mypass123! -r:http://targetHost:5985
 
-# Test out HTTP
-winrs -r:http://server:5985/wsman -u:Username -p:Password ipconfig
+Test out HTTP
+$ winrs -r:http://server:5985/wsman -u:Username -p:Password ipconfig
 
-# Test out HTTPS (will fail if the cert is not verifiable)
-winrs -r:http://server:5985/wsman -u:Username -p:Password -ssl ipconfig
+Test out HTTPS (will fail if the cert is not verifiable)
+$ winrs -r:http://server:5985/wsman -u:Username -p:Password -ssl ipconfig
 
 From unix
 
-# user prompted for REALM name and KDC for Kerberos
+User prompted for REALM name and KDC for Kerberos
 $ sudo apt-get install python-dev libkrb5-dev krb5-user
 
-# python WinRM module
+Python WinRM module
 $ sudo pip install pyOpenSSL --upgrade
 $ sudo pip install "pywinrm>=0.2.2"
 
-# ignore warnings about maj_stat
+Ignore warnings about maj_stat
 $ sudo pip install kerberos
-# Kerberos and CredSSP
+
+Kerberos and CredSSP
 $ sudo pip install "pywinrm[kerberos]"
 $ sudo pip install "pywinrm[credssp]"
 $ sudo pip install "requests-credssp" "requests-kerberos"  
 
-# get xmllint for pretty print of SOAP response
+Get xmllint for pretty print of SOAP response
 $ sudo apt-get install libxml2-utils -y
 
-# replace 'targetHost' with the target Windows host
+Replace 'targetHost' with the target Windows host
 $ curl --header "Content-Type: application/soap+xml;charset=UTF-8" --header "WSMANIDENTIFY: unauthenticated" http://targetHost:5985/wsman --data '&lt;s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:wsmid="http://schemas.dmtf.org/wbem/wsman/identity/1/wsmanidentity.xsd"&gt;&lt;s:Header/&gt;&lt;s:Body&gt;&lt;wsmid:Identify/&gt;&lt;/s:Body&gt;&lt;/s:Envelope&gt;' | xmllint --format -
 
-# Basic authentication is not enabled by default on a Windows host but can be enabled by running the following in PowerShell:
+Basic authentication is not enabled by default on a Windows host but can be enabled by running the following in PowerShell:
 $ Set-Item -Path WSMan:\localhost\Service\Auth\Basic -Value $true
 
 $ Set-Item -Path WSMan:\localhost\Service\Auth\Certificate -Value $true
-#$ New-SelfSignedCertificate
+$ New-SelfSignedCertificate
 $ (Get-Service -Name winrm).Status
 
 $ .\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert
 
 On the windows VM :
+
 [Install PowerShell](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/upgrade_to_ps3.ps1)
 [Configure remoting](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/ConfigureRemotingForAnsible.ps1)
 [Disable password](http://www.tenniswood.co.uk/technology/windows/how-to-disable-password-expiration-for-windows-server-2012/)
@@ -166,24 +166,24 @@ On the windows VM :
 Automate jenkins service
 ------------
 
-# Change default JDK if wrong 
-# Replace Path Environment variable from C:\ProgramData\Oracle\Java\javapath by %JAVA_HOME%\bin
-# Replace regedit Registry key 'Software\JavaSoft\Java Runtime Environment'\CurrentVersion' but 1.7
-# Replace regedit Registry key 'Software\JavaSoft\Java Development Kit'\CurrentVersion' but 1.7
+Change default JDK if wrong 
+Replace Path Environment variable from C:\ProgramData\Oracle\Java\javapath by %JAVA_HOME%\bin
+Replace regedit Registry key 'Software\JavaSoft\Java Runtime Environment'\CurrentVersion' but 1.7
+Replace regedit Registry key 'Software\JavaSoft\Java Development Kit'\CurrentVersion' but 1.7
 
-# Check the java web start default JDK
+Check the java web start default JDK
 $ javaws -viewer
-# Run the java web start by hand if the JDK is not right
+Run the java web start by hand if the JDK is not right
 $ javaws  "slave-agent.jnlp"
 
-# Add -noCertificateCheck to the jenkins-slave.xml in the jenkins directory if missing
+Add -noCertificateCheck to the jenkins-slave.xml in the jenkins directory if missing
 
-# Generate id_rsa from MSYS2
-# Copy it from C:\msys64\home\mysuser or C:\tools\msys64\home\mysuser to the user
-# Add the key to Bitbucket
-# Test doing git clone ssh://stash:7999/test/repo.git
+Generate id_rsa from MSYS2
+Copy it from C:\msys64\home\mysuser or C:\tools\msys64\home\mysuser to the user
+Add the key to Bitbucket
+Test doing git clone ssh://stash:7999/test/repo.git
 
-# Change jenkins service to start as Log on as -> This account and use my user
+Change jenkins service to start as Log on as -> This account and use my user
 
 ### Documentation
 
