@@ -2,7 +2,7 @@
 - name: Install msys2
   win_chocolatey:
     name: msys2
-    version: '20160719.1.1'
+    version: '20180531.1.0.0'
     state: present
 #    ignore_checksums: yes
 
@@ -30,7 +30,7 @@
 - name: Install cygwin
   win_chocolatey:
     name: cygwin
-    version: '2.9.0'
+    version: '2.11.2.20181212'
     state: present
 
 - name: Install cyg-get
@@ -44,7 +44,7 @@
 
 - name: Install cyg-get git packages
   win_shell: cyg-get git gitk git-completion
-  
+
 - name: Install cyg-get editor required packages
   win_shell: cyg-get vim nano
 

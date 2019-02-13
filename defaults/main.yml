@@ -9,7 +9,9 @@ windows_enabled: yes                       # Enable module
 #ansible_ssh_port: 55985
 ansible_connection: winrm
 
-jenkins_slave_home: 'E:\'
+jenkins_slave_home: 'C:\'
 jenkins_slave_directory: ["{{ jenkins_slave_home }}/slave","{{ jenkins_slave_home }}/slavetest"]
 jenkins_user: jenkins
-jenkins_password : "todo"
+jenkins_password: "todo"
+
+java_version: 8.0.201

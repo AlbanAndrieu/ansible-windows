@@ -26,7 +26,7 @@ param([string]$packageName = '')
 
 #install chocolatey
 if (Install-NeededFor 'chocolatey') {
-  iex ((new-object net.webclient).DownloadString('http://bit.ly/psChocInstall')) 
+  iex ((new-object net.webclient).DownloadString('http://bit.ly/psChocInstall'))
 }
 
 # install nuget

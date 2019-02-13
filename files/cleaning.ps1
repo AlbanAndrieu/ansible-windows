@@ -17,7 +17,7 @@ $adminRole=[System.Security.Principal.WindowsBuiltInRole]::Administrator
 
 # Check to see if we are currently running "as Administrator"
 if ($myWindowsPrincipal.IsInRole($adminRole))
-{
+   {
    # We are running "as Administrator" - so change the title to indicate this
    $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + "(Elevated)"
    $Host.UI.RawUI.BackgroundColor = "DarkBlue";
@@ -53,7 +53,7 @@ else
 
    # Exit from the current, unelevated, process
    exit
-}
+   }
 
 $tempfolders = @( "C:\temp\*")
 Remove-Item $tempfolders -force -recurse -verbose
@@ -67,7 +67,7 @@ Remove-Item $tempfolders -force -recurse -verbose
 $tempfolders = @( "C:\Documents and Settings\*\Local Settings\temp\*")
 Remove-Item $tempfolders -force -recurse -verbose
 
-$tempfolders = @(  "C:\Users\*\Appdata\Local\Temp\*")
+$tempfolders = @( "C:\Users\*\Appdata\Local\Temp\*")
 Remove-Item $tempfolders -force -recurse -verbose
 
 # Enable output streams 3-6

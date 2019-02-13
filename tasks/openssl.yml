@@ -2,22 +2,22 @@
   win_get_url:
     url: "{{ openssl.url_prefix }}/{{ openssl.installer }}"
     dest: C:\openssl-installer.exe
-    force: no
+#    force: no
   tags:
     - openssl
-    
+
 - name: "Install openssl"
   raw: 'C:\openssl-installer.exe /silent /verysilent /sp- /suppressmsgboxes'
   tags:
     - openssl
-  
+
 - name: "Remove installer"
   win_file:
     path: C:\openssl-installer.exe
     state: absent
   tags:
     - openssl
-    
+
 - name: "Update PATH"
   win_path:
     elements: "{{ item }}"
@@ -28,15 +28,15 @@
     - C:\OpenSSL-Win64\lib
   tags:
     - openssl
-    
+
 - name: "Reload environment variables"
   win_shell: "Stop-Process -processName: Explorer -Force"
   tags:
     - openssl
-  
+
 - name: "Wait for it to start"
   pause:
     seconds: 7
   tags:
     - openssl
-     
+

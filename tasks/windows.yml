@@ -21,12 +21,11 @@
          - "stat_file.stat.exists"
          - "not stat_file.stat.isdir"
          - "stat_file.stat.size > 0"
-         - "stat_file.stat.md5"
 
 - name: Add User
   win_user:
     name: jenkins
-    password: "Microsoft123$"
+    password: "Jenkins123$"
     state: present
 
 - name: Save the result of 'whoami' in 'whoami_out'
@@ -51,7 +50,7 @@
   win_file:
     path: C:\Windows\Temp
     state: directory
-        
+
 - name: Copy helloworld.ps1 to TMP
   win_copy:
     src: files/helloworld.ps1
@@ -69,7 +68,7 @@
 - name: Run powershell script
   script: files/helloworld.ps1
   register: out
-  
+
 - debug: var=out.stdout_lines
 
 - name: "Try command choco"
@@ -80,6 +79,13 @@
 #- name: "install chocolatey"
 #  import_tasks: chocolatey.yml
 #  when: result|failed
+
+- name: "Upgrade chocolatey"
+  win_command: choco upgrade chocolatey -y
+  
+- name: "Installl chocolateygui"
+  win_command: choco install chocolateygui -y
+#  ignore_errors: true
 
 #- name: update installed chocolatey packages
 #  win_chocolatey:

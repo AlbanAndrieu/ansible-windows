@@ -56,9 +56,6 @@
 #FYI : I had to refresh package list to make ssh working
 # pacman -Syyu
 
-  win_shell: pacman -Sy lsof
-  ignore_errors: true
-
 - name: Install msys2 required compression packages
   win_shell: pacman -Sy zip unzip
   ignore_errors: true
@@ -70,6 +67,10 @@
 #                   git subversion mercurial \
 #                   mingw-w64-i686-cmake mingw-w64-x86_64-cmake
 
+- name: Install msys2 required git
+  win_shell: pacman -Sy git
+  ignore_errors: true
+  
 - name: Install msys2 required fonts packages
   win_shell: pacman -Sy mingw-w64-x86_64-freetype mingw-w64-x86_64-SDL mingw-w64-x86_64-SDL_ttf
   ignore_errors: true

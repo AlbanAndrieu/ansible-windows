@@ -34,7 +34,7 @@ def main():
     Options = namedtuple(
         'Options', [
             'connection', 'module_path', 'forks', 'remote_user',
-                                     'private_key_file', 'ssh_common_args', 'ssh_extra_args', 'sftp_extra_args',
+            'private_key_file', 'ssh_common_args', 'ssh_extra_args', 'sftp_extra_args',
             'scp_extra_args', 'become', 'become_method', 'become_user', 'verbosity', 'check',
         ],
     )
@@ -44,8 +44,8 @@ def main():
     loader = DataLoader()
     options = Options(
         connection='smart', module_path='/usr/share/ansible', forks=100,
-                      remote_user=None, private_key_file=None, ssh_common_args=None, ssh_extra_args=None,
-                      sftp_extra_args=None, scp_extra_args=None, become=None, become_method=None,
+        remote_user=None, private_key_file=None, ssh_common_args=None, ssh_extra_args=None,
+        sftp_extra_args=None, scp_extra_args=None, become=None, become_method=None,
         become_user=None, verbosity=None, check=False,
     )
 

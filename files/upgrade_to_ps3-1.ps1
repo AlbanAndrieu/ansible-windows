@@ -5,7 +5,7 @@
 # some Ansible modules that may use Powershell 3 features, so systems may need
 # to be upgraded.  This may be used by a sample playbook.  Refer to the windows
 # documentation on docs.ansible.com for details.
-# 
+#
 # - hosts: windows
 #   tasks:
 #     - script: upgrade_to_ps3.ps1

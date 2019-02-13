@@ -1,21 +1,22 @@
 
-- name: Install zabbix-agent
-  win_chocolatey:
-    name: zabbix-agent
-    version: '3.2.0'
-    state: present
+#Disable zabbix-agent install using chocolatey, instead we are using https://github.com/dj-wasabi/ansible-zabbix-agent
+#- name: Install zabbix-agent
+#  win_chocolatey:
+#    name: zabbix-agent
+#    version: '3.2.0'
+#    state: present
 
 - name: Install rdcman
   win_chocolatey:
     name: rdcman
     version: '2.7.1406.20160916'
     state: present
-            
+
 #- name: Install powerdelivery3
 #  win_chocolatey:
 #    name: powerdelivery3
 #    version: '3.0.1'
-#    state: present    
+#    state: present
 
 - name: "install sysinternals"
   win_chocolatey:

@@ -4,24 +4,24 @@
     name: sqlserver-odbcdriver
     version: '13.1.4413.46'
     state: present
-    
+
 - name: Install sqljdbc
   win_chocolatey:
     name: sqljdbc
     version: '6.0.8112.100'
     state: present
-    
+
 #- name: Install mysql-connector
 #  win_chocolatey:
 #    name: mysql-connector
 #    version: '6.6.6.2014060203'
-#    state: present    
-#    
+#    state: present
+#
 #- name: Install mysql.odbc
 #  win_chocolatey:
 #    name: mysql.odbc
 #    version: '5.1.14'
-#    state: present        
+#    state: present
 
 - name: Install sql-server-management-studio
   win_chocolatey:
@@ -35,5 +35,5 @@
     version: '3.5.3'
     state: present
 
-- name: Open firewall for default SQLServer port 
+- name: Open firewall for default SQLServer port
   win_command: netsh advfirewall firewall add rule name = SQLPort dir = in protocol = tcp action = allow localport = 1433 remoteip = localsubnet profile = DOMAIN

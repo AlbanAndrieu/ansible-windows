@@ -34,11 +34,11 @@ scons:
 
 perl:
 #  installer: "ActivePerl-5.16.3.1604-MSWin32-x86-298023.msi"
-  path: "C:\\Perl64"
+  path: "C:\\Perl"
   env:
-    - "C:\\Perl64\\bin"
-    - "C:\\Perl64\\site\\bin"
-  binary: "C:\\Perl64\\bin\\perl.exe"
+    - "C:\\Perl\\bin"
+    - "C:\\Perl\\site\\bin"
+  binary: "C:\\Perl\\bin\\perl.exe"
 
 openssl:
 #  url_prefix: "https://slproweb.com/download"

@@ -52,6 +52,6 @@ $LocalAdmin.UserFlags = 64 + 65536 # ADS_UF_PASSWD_CANT_CHANGE + ADS_UF_DONT_EXP
 $LocalAdmin.SetInfo()
 
 $group = [ADSI]("WinNT://"+$env:COMPUTERNAME+"/administrators,group")
-$group.add("WinNT://fru,user")
+$group.add("WinNT://jenkins,user")
 
 #Write-VerboseLog "PS Remoting User has been successfully configured for Ansible."

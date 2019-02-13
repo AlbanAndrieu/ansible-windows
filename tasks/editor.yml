@@ -1,4 +1,4 @@
-    
+
 - name: Install notepadplusplus
   win_chocolatey:
     name: notepadplusplus.install

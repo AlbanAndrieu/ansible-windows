@@ -5,13 +5,13 @@
     version: '2.38.0.1'
     state: present
   ignore_errors: true
-    
+
 #- name: Install gnuplot
 #  win_chocolatey:
 #    name: gnuplot
 #    version: '5.0.5'
 #    state: present
-    
+
 - name: Install doxygen
   win_chocolatey:
     name: doxygen.install
@@ -34,7 +34,7 @@
 #  win_chocolatey:
 #    name: visualstudio2017community
 #    version: '15.2.26430.20170605'
-#    state: present 
+#    state: present
 
 - name: Install microsoft-build-tools
   win_chocolatey:
