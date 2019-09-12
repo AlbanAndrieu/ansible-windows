@@ -5,7 +5,7 @@
 
 - name: jenkins-slave | Checking slave folders
   win_stat:
-   path: "{{item}}"
+   path: "{{ item }}"
   register: folder_stats
   with_items: "{{ jenkins_slave_directory }}"
   when: jenkins_slave_directory | length > 0
@@ -16,22 +16,22 @@
 
 - name: jenkins-slave | Creating multiple folders without disturbing previous permissions
   win_file:
-   path: "{{item.item}}"
+   path: "{{ item.item }}"
    state: directory
    mode: 0755
    group: "{{ jenkins_user }}"
    owner: "{{ jenkins_group }}"
   when: item.stat.exists == false
   with_items:
-    - "{{folder_stats.results}}"
+    - "{{ folder_stats.results }}"
   become: true
   changed_when: false
 
 - name: jenkins-slave | Create a file from a Jinja2 template
   win_template:
     src: "jenkins-slave.xml.j2"
-    dest: "{{item.item}}\\jenkins-slave.xml"
+    dest: "{{ item.item }}\\jenkins-slave.xml"
   with_items:
-    - "{{folder_stats.results}}"
+    - "{{ folder_stats.results }}"
   become: true
   changed_when: false

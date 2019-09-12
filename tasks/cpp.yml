@@ -1,3 +1,4 @@
+---
 
 - name: Install graphviz
   win_chocolatey:

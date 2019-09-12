@@ -1,3 +1,4 @@
+---
 
 - name: Install msys2
   win_chocolatey:
@@ -33,35 +34,7 @@
     version: '2.11.2.20181212'
     state: present
 
-- name: Install cyg-get
-  win_chocolatey:
-    name: cyg-get
-    version: '1.2.1'
-    state: present
-
-- name: Install cyg-get ansible required packages
-  win_shell: cyg-get python python-paramiko python-crypto gcc-g++ wget openssh python-setuptools vim openssl-devel libsasl2 ca-certificates python-setuptools python-openssl curl
-
-- name: Install cyg-get git packages
-  win_shell: cyg-get git gitk git-completion
-
-- name: Install cyg-get editor required packages
-  win_shell: cyg-get vim nano
-
-- name: Install cyg-get packages
-  win_shell: cyg-get ksh binutils util-linux ncurses-demo diffutils openssl
-
-- name: Install cyg-get rsync ssh packages
-  win_shell: cyg-get rsync openssh
-
-- name: Install cyg-get archive packages
-  win_shell: cyg-get zip unzip
-
-#- name: "Link 1 for bash between mingw and msys"
-#  win_command: 'mklink \"C:\tools\msys64\mingw64\bin\bash.exe\" \"C:\tools\msys64\usr\bin\bash.exe\"'
-#    
-#- name: "Link 2 for sh between mingw and msys"
-#  win_command: 'mklink \"C:\tools\msys64\mingw64\bin\sh.exe\" \"C:\tools\msys64\usr\bin\sh.exe\"'
+#- import_tasks: cygwin.yml
 
 - name: Install X windows
   win_chocolatey:
@@ -81,3 +54,17 @@
     version: '219.0'
     state: present
 #    ignore_checksums: yes
+
+- name: Ensure that Msys64 are present on the global system path, and in the specified order (OLD)
+  win_path:
+    elements:
+    - 'C:\tools\msys64'
+    - 'C:\tools\msys64\usr\bin'
+
+- name: Ensure that Msys64 are present on the global system path, and in the specified order (NEW)
+  win_path:
+    elements:
+    - 'C:\msys64'
+    - 'C:\msys64\usr\bin'
+
+# TODO in order to test, open a cmd prompt and type bash

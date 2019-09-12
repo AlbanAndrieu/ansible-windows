@@ -82,7 +82,7 @@
 
 - name: "Upgrade chocolatey"
   win_command: choco upgrade chocolatey -y
-  
+
 - name: "Installl chocolateygui"
   win_command: choco install chocolateygui -y
 #  ignore_errors: true
@@ -152,6 +152,14 @@
 
 #- name: Install common prerequisite like (GIT, meld, notepadplusplus and zabbix-agent)
 #  script: common-setup.ps1
+
+# Only for Windows Server 2012 (not neededed for Windows Server 2016), you need to change DEP.
+#
+# Go in « Control panel / System »,
+# Then « Advanced system settings »,
+# Then in tab « Advanced / Performances », click on « Settings »,
+# Then in tab  « Data Execution Prevention », tick the first option, « Turn on DEP for essential Windows programs and services only »,
+# Reboot
 
 #- name: "reboot"
 #  win_reboot:

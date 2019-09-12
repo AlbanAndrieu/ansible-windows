@@ -1,3 +1,4 @@
+---
 
 #this role required msys2 tool
 
@@ -28,7 +29,8 @@
 # pacman -Syyu
 
 # Run the equivalent of "pacman -Syu" as a separate step
-- pacman:
+- name: Upgrade pacman
+  pacman:
     update_cache: yes
     upgrade: yes
   when: (ansible_os_family != 'Windows' )
@@ -36,6 +38,9 @@
 - name: Make sure msys2 pacman gcc packages is properly installed
   win_shell: pacman -S mingw-w64-x86_64-gcc
 #  ignore_errors: true
+
+- name: Make sure msys2 pacman ssl is properly installed for ansible
+  win_shell: pacman -S libcrypt-devel libffi-devel openssl-devel
 
 - name: Install msys2 required build packages
   win_shell: pacman -Sy autoconf automake make pkg-config libtool
@@ -70,7 +75,7 @@
 - name: Install msys2 required git
   win_shell: pacman -Sy git
   ignore_errors: true
-  
+
 - name: Install msys2 required fonts packages
   win_shell: pacman -Sy mingw-w64-x86_64-freetype mingw-w64-x86_64-SDL mingw-w64-x86_64-SDL_ttf
   ignore_errors: true
@@ -87,3 +92,4 @@
 #curl https://bootstrap.pypa.io/ez_setup.py | python
 #easy_install pip
 #pip install grip
+#pip install "pywinrm>=0.3.0"

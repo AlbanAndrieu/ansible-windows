@@ -8,7 +8,7 @@
 - name: Install sqljdbc
   win_chocolatey:
     name: sqljdbc
-    version: '6.0.8112.100'
+    version: '7.0.0.0'
     state: present
 
 #- name: Install mysql-connector
@@ -26,7 +26,7 @@
 - name: Install sql-server-management-studio
   win_chocolatey:
     name: sql-server-management-studio
-    version: '14.0.17177.0'
+    version: '17.9.1'
     state: present
 
 - name: Install liquibase
@@ -36,4 +36,58 @@
     state: present
 
 - name: Open firewall for default SQLServer port
-  win_command: netsh advfirewall firewall add rule name = SQLPort dir = in protocol = tcp action = allow localport = 1433 remoteip = localsubnet profile = DOMAIN
+  win_command: netsh advfirewall firewall add rule name = SQLPort dir = in protocol = tcp action = allow localport = 1433 remoteip = localsubnet profile = DOMAIN # noqa 204
+
+# On windows install only 32 bits
+# TODO add instantclient_12_2 from http://FR1CSLFRBM0059/download/oracle/
+# instantclient-basic-nt-12.2.0.1.0.zip
+# instantclient-odbc-nt-12.2.0.1.0-2.zip
+# instantclient-sqlplus-nt-12.2.0.1.0.zip for dev
+
+- name: Download instantclient (1)
+  win_get_url:
+    url: http://FR1CSLFRBM0059/download/oracle/instantclient-basic-nt-12.2.0.1.0.zip
+    dest: C:\oreclient\instantclient_12_2/instantclient-basic-nt-12.2.0.1.0.zip
+    force: no
+
+- name: Install instantclient (1)
+  win_unzip:
+    src: C:\oreclient\instantclient_12_2\instantclient-basic-nt-12.2.0.1.0.zip
+    dest: C:\oreclient\instantclient_12_2
+    creates: C:\oreclient\instantclient_12_2
+
+- name: Download instantclient (2)
+  win_get_url:
+    url: http://FR1CSLFRBM0059/download/oracle/instantclient-odbc-nt-12.2.0.1.0-2.zip
+    dest: C:\oreclient\instantclient_12_2/instantclient-odbc-nt-12.2.0.1.0-2.zip
+    force: no
+
+- name: Install instantclient (2)
+  win_unzip:
+    src: C:\oreclient\instantclient_12_2\instantclient-odbc-nt-12.2.0.1.0-2.zip
+    dest: C:\oreclient\instantclient_12_2
+    creates: C:\oreclient\instantclient_12_2
+
+- name: Download instantclient (3)
+  win_get_url:
+    url: http://FR1CSLFRBM0059/download/oracle/instantclient-sqlplus-nt-12.2.0.1.0.zip
+    dest: C:\oreclient\instantclient_12_2/instantclient-sqlplus-nt-12.2.0.1.0.zip
+    force: no
+
+- name: Install instantclient (3)
+  win_unzip:
+    src: C:\oreclient\instantclient_12_2\instantclient-sqlplus-nt-12.2.0.1.0.zip
+    dest: C:\oreclient\instantclient_12_2
+    creates: C:\oreclient\instantclient_12_2
+
+- name: Ensure that C:\oreclient\instantclient_12_2 OCI_LIB64 is on the current user's CLASSPATH
+  win_path:
+    name: OCI_LIB64
+    elements: C:\oreclient\instantclient_12_2
+    scope: user
+
+- name: Ensure that instantclient_12_2 are present on the global system path, and in the specified order
+  win_path:
+    elements:
+    - '%OCI_LIB64%\bin'
+    scope: user

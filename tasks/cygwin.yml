@@ -1,0 +1,31 @@
+---
+
+- name: Install cygwin
+  win_chocolatey:
+    name: cygwin
+    version: '2.11.2.20181212'
+    state: present
+
+- name: Install cyg-get
+  win_chocolatey:
+    name: cyg-get
+    version: '1.2.1'
+    state: present
+
+- name: Install cyg-get ansible required packages
+  win_shell: cyg-get python python-paramiko python-crypto gcc-g++ wget openssh python-setuptools vim openssl-devel libsasl2 ca-certificates python-setuptools python-openssl curl
+
+- name: Install cyg-get git packages
+  win_shell: cyg-get git gitk git-completion
+
+- name: Install cyg-get editor required packages
+  win_shell: cyg-get vim nano
+
+- name: Install cyg-get packages
+  win_shell: cyg-get ksh binutils util-linux ncurses-demo diffutils openssl
+
+- name: Install cyg-get rsync ssh packages
+  win_shell: cyg-get rsync openssh
+
+- name: Install cyg-get archive packages
+  win_shell: cyg-get zip unzip

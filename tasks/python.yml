@@ -1,14 +1,23 @@
+---
+
+#choco install python2 --package-parameters '"/InstallDir:C:\Python27"'
 
 - name: Install python2
   win_chocolatey:
     name: python2
-    version: '2.7.14'
+    version: '2.7.16'
+#    install_args: "--install-directory C:\Python27"
+    package_params: '"/InstallDir:C:\Python27"'
     state: present
+
+#choco install python3 --package-parameters '"/InstallDir:C:\Python37"'
 
 - name: Install python3
   win_chocolatey:
     name: python3
-    version: '3.6.2'
+    version: '3.7.4'
+#    install_args: "--install-directory C:\Python37"
+    package_params: '"/InstallDir:C:\Python37"'
     state: present
 
 #- name: Install pip
@@ -43,3 +52,4 @@
   win_path:
     elements:
     - 'C:\Python27'
+    - 'C:\Python27\Scripts'

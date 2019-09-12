@@ -24,14 +24,14 @@ https://vagrantcloud.com/opentable/boxes/win-2012r2-standard-amd64-nocm/versions
 WARNING : In inventory file, please use ansible_ssh_user and ansible_ssh_pass instead of ansible_user ansible_password, because of vault overriden values
 
 Usage example
-------------
+-------------
 
     - name: Install windows
-      connection: local  
+      connection: local
       hosts: windows
 
       roles:
-        - role: windows  
+        - role: windows
 
 ### Requirements
 
@@ -105,7 +105,7 @@ powershell -File ConfigureRemotingForAnsible.ps1
 
 
 Test winrm
-------------
+-----------
 
 See [windows_winrm](https://docs.ansible.com/ansible/latest/user_guide/windows_winrm.html)
 
@@ -114,40 +114,51 @@ See [common-winrm-issues](https://docs.ansible.com/ansible/devel/user_guide/wind
 From windows
 
 Local user
+----------
 $ winrm identify -u:myuser -p:Mypass123! -r:http://targetHost:5985
 Domain user
+-----------
 $ winrm identify -u:MISYSROOT\aandrieu -p:Mypass123! -r:http://targetHost:5985
 
 Test out HTTP
-$ winrs -r:http://server:5985/wsman -u:Username -p:Password ipconfig
+------------
+winrs -r:http://server:5985/wsman -u:Username -p:Password ipconfig
 
 Test out HTTPS (will fail if the cert is not verifiable)
-$ winrs -r:http://server:5985/wsman -u:Username -p:Password -ssl ipconfig
+------------
+winrs -r:http://server:5985/wsman -u:Username -p:Password -ssl ipconfig
 
 From unix
 
 User prompted for REALM name and KDC for Kerberos
+-------------------------------------------------
 $ sudo apt-get install python-dev libkrb5-dev krb5-user
 
 Python WinRM module
+---------------------
 $ sudo pip install pyOpenSSL --upgrade
 $ sudo pip install "pywinrm>=0.2.2"
 
 Ignore warnings about maj_stat
+------------------------------
 $ sudo pip install kerberos
 
 Kerberos and CredSSP
+--------------------
 $ sudo pip install "pywinrm[kerberos]"
 $ sudo pip install "pywinrm[credssp]"
-$ sudo pip install "requests-credssp" "requests-kerberos"  
+$ sudo pip install "requests-credssp" "requests-kerberos"
 
 Get xmllint for pretty print of SOAP response
+---------------------------------------------
 $ sudo apt-get install libxml2-utils -y
 
 Replace 'targetHost' with the target Windows host
+---------------------------------------------------
 $ curl --header "Content-Type: application/soap+xml;charset=UTF-8" --header "WSMANIDENTIFY: unauthenticated" http://targetHost:5985/wsman --data '&lt;s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:wsmid="http://schemas.dmtf.org/wbem/wsman/identity/1/wsmanidentity.xsd"&gt;&lt;s:Header/&gt;&lt;s:Body&gt;&lt;wsmid:Identify/&gt;&lt;/s:Body&gt;&lt;/s:Envelope&gt;' | xmllint --format -
 
-Basic authentication is not enabled by default on a Windows host but can be enabled by running the following in PowerShell:
+Basic authentication is not enabled by default on a Windows host but can be enabled by running the following in PowerShell
+--------------------------------------------------------------------------------------------------------------------------
 $ Set-Item -Path WSMan:\localhost\Service\Auth\Basic -Value $true
 
 $ Set-Item -Path WSMan:\localhost\Service\Auth\Certificate -Value $true
@@ -164,26 +175,31 @@ On the windows VM :
 
 
 Automate jenkins service
-------------
+------------------------
 
-Change default JDK if wrong 
+Change default JDK if wrong
 Replace Path Environment variable from C:\ProgramData\Oracle\Java\javapath by %JAVA_HOME%\bin
 Replace regedit Registry key 'Software\JavaSoft\Java Runtime Environment'\CurrentVersion' but 1.7
 Replace regedit Registry key 'Software\JavaSoft\Java Development Kit'\CurrentVersion' but 1.7
 
 Check the java web start default JDK
+------------
 $ javaws -viewer
 Run the java web start by hand if the JDK is not right
+------------
 $ javaws  "slave-agent.jnlp"
 
 Add -noCertificateCheck to the jenkins-slave.xml in the jenkins directory if missing
+------------
 
 Generate id_rsa from MSYS2
+------------
 Copy it from C:\msys64\home\mysuser or C:\tools\msys64\home\mysuser to the user
 Add the key to Bitbucket
 Test doing git clone ssh://stash:7999/test/repo.git
 
 Change jenkins service to start as Log on as -> This account and use my user
+------------
 
 ### Documentation
 

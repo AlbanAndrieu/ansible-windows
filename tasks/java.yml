@@ -50,3 +50,16 @@
     elements:
     - '%JAVA_HOME%\bin'
     scope: user
+
+#Instead run the java web start by hand
+#javaws -viewer
+#javaws  "slave-agent.jnlp"
+
+#Add -noCertificateCheck to the jenkins-slave.xml
+
+# Generate id_rsa from MSYS2
+# Copyy it from C:\msys64\home\fru or C:\tools\msys64\home\jenkins to the user
+# Add the key to Bitbucket
+# Test doing git clone ssh://todo
+
+# Change jenkins service to start as Log on as -> This account
