@@ -61,6 +61,13 @@
 
 - debug: var=out.stdout_lines
 
+- debug:
+    msg: set-executionpolicy remotesigned
+
+- name: "Change executionpolicy to remotesigned"
+  win_command: set-executionpolicy remotesigned
+  ignore_errors: true
+
 #- name: Run powershell script
 #  script: C:\Windows\Temp\helloworld.ps1
 #  register: out
@@ -141,6 +148,8 @@
 #- import_tasks: debug.yml
 
 - import_tasks: kubernetes.yml
+
+- import_tasks: security.yml
 
 ## Install/uninstall an msi-based package
 #- name: Install msi-based package (Remote Desktop Connection Manager)

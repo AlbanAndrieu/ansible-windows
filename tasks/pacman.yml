@@ -23,6 +23,25 @@
 #[core]
 #Server = ftp://ftp.hosteurope.de/mirror/ftp.archlinux.org/core/os/$arch
 
+- name: Create a Unix-style pacman.conf
+  win_template:
+    src: pacman.conf.j2
+    dest: C:\tools\msys64\etc\pacman.conf
+    newline_sequence: '\n'
+    backup: yes
+
+- name: Upgrade pacman extra repo for lsof
+  win_lineinfile:
+    path: C:\tools\msys64\etc\pacman.conf
+    regexp: '^[extra]'
+    line: "{{ item }}"
+  with_items: "{{ pacman_extra_repo }}"
+  when: pacman_extra_repo | length > 0
+  become: true
+  become_method: sudo
+  tags:
+    - pacman
+
 #pacman -Syu --debug
 
 #Refresh package list
@@ -36,22 +55,37 @@
   when: (ansible_os_family != 'Windows' )
 
 - name: Make sure msys2 pacman gcc packages is properly installed
-  win_shell: pacman -S mingw-w64-x86_64-gcc
-#  ignore_errors: true
+  pacman:
+    name: mingw-w64-x86_64-gcc
+    state: present
+  ignore_errors: true
 
 - name: Make sure msys2 pacman ssl is properly installed for ansible
-  win_shell: pacman -S libcrypt-devel libffi-devel openssl-devel
+  pacman:
+    name:
+      - libcrypt-devel
+      - libffi-devel
+      - openssl-devel
+    state: present
+  ignore_errors: true
 
 - name: Install msys2 required build packages
-  win_shell: pacman -Sy autoconf automake make pkg-config libtool
+  pacman:
+    name:
+      - autoconf
+      - automake
+      - make
+      - pkg-config
+      - libtool
+    state: present
   ignore_errors: true
 
 - name: Install msys2 required editor packages
-  win_shell: pacman -Sy nano
+  win_shell: pacman -Syu nano
   ignore_errors: true
 
 - name: Install msys2 required lsof packages
-  win_shell: pacman -Sy lsof
+  win_shell: pacman -Sy glibc lsof  # lsof from extra repo meed glic from core repo
   ignore_errors: true
 
 - name: Install msys2 required rsync packages
@@ -62,7 +96,11 @@
 # pacman -Syyu
 
 - name: Install msys2 required compression packages
-  win_shell: pacman -Sy zip unzip
+  pacman:
+    name:
+      - zip
+      - unzip
+    state: present
   ignore_errors: true
 
 #Installing GCC & MSYS2

@@ -62,10 +62,14 @@ def main():
         name='Ansible Play',
         hosts=host_list,
         gather_facts='no',
-        tasks=[dict(action=dict(
-            module='command',
-            args=dict(cmd='/usr/bin/uptime'),
-        ))],
+        tasks=[
+            dict(
+                action=dict(
+                    module='command',
+                    args=dict(cmd='/usr/bin/uptime'),
+                ),
+            ),
+        ],
     )
     play = Play().load(play_source, variable_manager=variable_manager, loader=loader)
 

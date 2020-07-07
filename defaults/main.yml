@@ -15,3 +15,12 @@ jenkins_user: jenkins
 jenkins_password: "todo"
 
 java_version: 8.0.201
+
+pacman_extra_repo: "http://mirrors.kernel.org/archlinux/$repo/os/$arch"         # for lsof
+pacman_core_repo: "ftp://ftp.hosteurope.de/mirror/ftp.archlinux.org/core/os/$arch"         # for libc
+
+# See https://github.com/mto79/ansible_role_sep
+sep_win_dir_install: "C:\\Temp\\"
+sep_win_repo: "https://repomanager.nationaalarchief.net/repository/raw-symantec/symantec/windows"
+sep_win_file_install: "SEP-WinServer-setup-v14.2.4815.exe"
+sep_win_file_ps1: "CheckSEPInstallation.ps1"

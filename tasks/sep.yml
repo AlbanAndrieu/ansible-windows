@@ -1,0 +1,63 @@
+---
+
+- name: "SEP - Cleaning - Add sopsadm (1)"
+  win_command: net localgroup administrators NABLA\nablaadm /add
+  ignore_errors: true
+
+- name: "SEP - Cleaning - Add sopsadm (1)"
+  win_shell: |
+    Add-LocalGroupMember –group Administrators –member NABLA\nablaadm
+  ignore_errors: true
+
+- name: SEP - Install - Obtain information about folder {{ sep_win_dir_install }} (Windows)
+  win_stat:
+    path: "{{ sep_win_dir_install }}"
+  register: folder_utils
+
+- name: SEP - Install - Create directory {{ sep_win_dir_install }} (Windows)
+  win_file:
+    path: "{{ sep_win_dir_install }}"
+    state: directory
+  when: folder_utils.stat.exists == false
+
+- name: SEP - Install - Copy the cleaning exe file (Windows)
+  win_get_url:
+    url: "http://albandrieu.com/falcon/SEP/1583139897540__CleanWipe_14.2RU2MP1_Build5569.zip"
+    dest: "{{ sep_win_dir_install }}\\CleanWipe.zip"
+    when: folder_utils.stat.exists == true
+
+- name: "SEP - Cleaning - Unzip CleanWipe"
+  win_unzip:
+    src: {{ sep_win_dir_install }}\\CleanWipe.zip
+    remote_src: True
+    dest: "{{ sep_win_dir_install }}\\CleanWipe\"
+
+- name: "SEP - Cleaning - Delete cep zip"
+  win_file:
+    path: "{{ sep_win_dir_install }}\\CleanWipe.zip"
+    state: absent
+
+#- name: "SEP - Cleaning - Run CleanWipe"
+#  register: clean_out
+
+#- debug: var=clean_out.stdout_lines
+
+#- name: "reboot"
+#  win_reboot:
+
+- name: SEP - Install - Copy the installation exe file (Windows)
+  win_get_url:
+    url: "http://albandrieu.com/falcon/SEP/Europe_Server_setup_14.2.RU2.MP1_64bit.exe"
+    dest: "{{ sep_win_dir_install }}\\Europe_Server_setup_14.2.RU2.MP1_64bit.exe"
+
+- name: SEP - Install - Copy the Powershell script (Windows)
+  win_get_url:
+    url: "{{ sep_win_repo }}/{{ sep_win_file_ps1 }}"
+    dest: '{{ sep_win_dir_install }}\\{{ sep_win_file_ps1 }}'
+  when: folder_utils.stat.exists == true
+
+- name: SEP - Install - Execute the Powershell script (Windows)
+  win_shell: "{{ sep_win_dir_install }}\\Europe_Server_setup_14.2.RU2.MP1_64bit.exe >> {{ sep_win_dir_install }}\\PS-Install-SEPM-Server-Client.log"
+
+#- name: "reboot"
+#  win_reboot:

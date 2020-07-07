@@ -1,5 +1,5 @@
 ---
-url_prefix: http://home.nabla.mobi/download
+url_prefix: http://albandrieu.com/download
 
 visualstudio:
   url_prefix: "{{ url_prefix }}/winnt-compilation-tools"

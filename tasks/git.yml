@@ -2,31 +2,44 @@
 - name: Install git
   win_chocolatey:
     name: git
-    version: '2.20.1'
+    version: '2.23.0'
     state: present
+    force: yes
 
 - name: Install tortoisegit
   win_chocolatey:
     name: tortoisegit
-    version: '2.7.0.0'
+    version: '2.8.0.0'
     state: present
+    force: yes
+  ignore_errors: true
 
 #- name: Install git-credential-manager-for-windows
 #  win_chocolatey:
 #    name: git-credential-manager-for-windows
 #    version: '1.12.0'
 
+- name: "Add .gitconfig to jenkins user"
+  copy:
+   # content: "# Ansible managed"
+   content: " "
+   dest: C:\Users\{{ jenkins_user }}\.gitconfig
+
 - name: "Disable git ssl verification"
   win_command: "git config --global http.sslVerify false"
+  ignore_errors: true # could not lock config file /home/jenkins/.gitconfig: No such file or directory
 
 - name: "Enable longpaths for git"
   win_command: "git config --system core.longpaths true"
+  ignore_errors: true # could not lock config file /home/jenkins/.gitconfig: No such file or directory
 
-#- name: "User email for git"
-#  win_command: "git config --global user.email \"alban.andrieu@free.fr\""
-  
-#- name: "User name for git"
-#  win_command: "git config --global user.name \"Andrieu, Alban\""
+- name: "User email for git"
+  win_command: "git config --global user.email \"alban.andrieu@free.fr\""
+  ignore_errors: true # could not lock config file /home/jenkins/.gitconfig: No such file or directory
+
+- name: "User name for git"
+  win_command: "git config --global user.name \"Andrieu, Alban\""
+  ignore_errors: true # could not lock config file /home/jenkins/.gitconfig: No such file or directory
 
 #- name: "Link 1 between mingw and git"
 #  win_command: 'mklink "C:\Program Files\Git\cmd\nohup.exe" "C:\Program Files\git\usr\bin\nohup.exe"'
@@ -48,5 +61,6 @@
     force: True
     remote_src: False
     register: out
+  ignore_errors: true # could not lock config file /home/jenkins/.gitconfig: No such file or directory
 
 - debug: var=out.stdout_lines
