@@ -2,17 +2,17 @@
 - name: Install git
   win_chocolatey:
     name: git
-    version: '2.23.0'
+    version: '2.27.0'
     state: present
     force: yes
 
-- name: Install tortoisegit
-  win_chocolatey:
-    name: tortoisegit
-    version: '2.8.0.0'
-    state: present
-    force: yes
-  ignore_errors: true
+#- name: Install tortoisegit
+#  win_chocolatey:
+#    name: tortoisegit
+#    version: '2.8.0.0'
+#    state: present
+#    force: yes
+#  ignore_errors: true
 
 #- name: Install git-credential-manager-for-windows
 #  win_chocolatey:
