@@ -1,12 +1,12 @@
 ---
 
 - name: "SEP - Cleaning - Add sopsadm (1)"
-  win_command: net localgroup administrators NABLA\nablaadm /add
+  win_command: net localgroup administrators NABLA\jenkins /add
   ignore_errors: true
 
 - name: "SEP - Cleaning - Add sopsadm (1)"
   win_shell: |
-    Add-LocalGroupMember –group Administrators –member NABLA\nablaadm
+    Add-LocalGroupMember –group Administrators –member NABLA\jenkins
   ignore_errors: true
 
 - name: SEP - Install - Obtain information about folder {{ sep_win_dir_install }} (Windows)

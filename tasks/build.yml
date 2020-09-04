@@ -5,6 +5,8 @@
     name: msys2
     version: '20180531.1.0.0'
     state: present
+    force: yes
+  ignore_errors: true
 #    ignore_checksums: yes
 
 - import_tasks: pacman.yml

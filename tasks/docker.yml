@@ -1,0 +1,12 @@
+
+- name: Install docker packages
+  win_chocolatey:
+    name: 'docker-desktop'
+    version: '2.3.0.3'
+    state: present
+
+- name: Install docker-compose packages
+  win_chocolatey:
+    name: 'docker-compose'
+    version: '1.26.0'
+    state: present

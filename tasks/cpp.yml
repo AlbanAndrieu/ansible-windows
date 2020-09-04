@@ -58,7 +58,7 @@
 - name: Install dependencywalker
   win_chocolatey:
     name: dependencywalker
-    version: '2.2.6000.8'
+    version: '2.2.6000.9'
     state: present
 
 #- name: "Enable .net"
@@ -75,3 +75,10 @@
 #  tags:
 #    - vs
 #    - vs2012
+
+- name: "Install Visual Studio 2017"
+  import_tasks: visualstudio-2017.yml
+  tags:
+    - vs
+    - vs2017
+

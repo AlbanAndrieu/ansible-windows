@@ -1,9 +1,12 @@
 
-- name: install kubernetes packages
+- name: Install kubernetes cli packages
   win_chocolatey:
-    name: '{{ item }}'
+    name: 'kubernetes-cli'
+    version: '1.18.5'
     state: present
-  with_items:
-  - kubernetes-helm
-  - kubernetes-cli
 
+- name: Install helm packages
+  win_chocolatey:
+    name: 'kubernetes-helm'
+    version: '3.2.4'
+    state: present

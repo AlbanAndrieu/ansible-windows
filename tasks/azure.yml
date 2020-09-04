@@ -1,0 +1,6 @@
+
+- name: Install azure cli packages
+  win_chocolatey:
+    name: 'azure-cli'
+    version: '2.8.0
+    state: present
