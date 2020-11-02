@@ -64,8 +64,11 @@
 - debug:
     msg: set-executionpolicy remotesigned
 
-- name: "Change executionpolicy to remotesigned"
-  win_command: set-executionpolicy remotesigned
+- name: "Check executionpolicy"
+  win_shell: Get-ExecutionPolicy
+
+- name: "Change ExecutionPolicy"
+  win_command: Set-ExecutionPolicy AllSigned
   ignore_errors: true
 
 #- name: Run powershell script

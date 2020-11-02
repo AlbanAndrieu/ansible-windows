@@ -14,7 +14,7 @@
 - name: Install 7zip.install
   win_chocolatey:
     name: 7zip.install
-    version: '16.4.0.20170506'
+    version: '19.0'
 
 - name: Install wget
   win_chocolatey:

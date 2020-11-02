@@ -50,12 +50,20 @@
 #    version: '0.6.3.1'
 #    state: present
 
+
 - name: Install pywin32 for scons parallel
   win_chocolatey:
     name: pywin32
     version: '219.0'
     state: present
-#    ignore_checksums: yes
+  ignore_errors: true
+
+#export PATH="$PATH:/c/tools/msys64/mingw32/bin"
+
+- name: Ensure that mingw32 are present on the global system path, and in the specified order (OLD)
+  win_path:
+    elements:
+    - 'C:\tools\msys64\mingw32\bin'
 
 - name: Ensure that Msys64 are present on the global system path, and in the specified order (OLD)
   win_path:

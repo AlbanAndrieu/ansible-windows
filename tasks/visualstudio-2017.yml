@@ -50,3 +50,9 @@
 #    name: visualstudio2017community
 #    version: '15.9.26.0'
 #    state: present
+
+- name: "Link 1 to Visual Studio to avoid spaces"
+  win_command: mklink /D "C:\VS" "C:\Program Files (x86)\Microsoft Visual Studio"
+
+#New-Item -ItemType SymbolicLink -Path C:\VS -Target "C:\Program Files (x86)\Microsoft Visual Studio"
+

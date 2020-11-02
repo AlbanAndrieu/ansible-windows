@@ -3,7 +3,6 @@
   win_chocolatey:
     name: activeperl
     version: '5.24.3.2404'
-#    install_args: "--install-directory {{ perl.path }}"
     state: present
 
 - name: Install activeperl

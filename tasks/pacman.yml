@@ -1,6 +1,6 @@
 ---
 
-#this role required msys2 tool
+# This role required msys2 tool
 
 - name: Ensure that Msys64 are present on the global system path, and in the specified order
   win_path:
@@ -42,6 +42,12 @@
   tags:
     - pacman
 
+# rm -f /var/lib/pacman/db.lck
+- name: "Delete /var/lib/pacman/db.lck"
+  win_file:
+    path: C:\tools\msys64\var\lib\pacman\db.lck
+    state: absent
+
 #pacman -Syu --debug
 
 #Refresh package list
@@ -64,8 +70,10 @@
     state: present
   ignore_errors: true
 
-#pacman -S mingw-w64-x86_64-gperf
-##pacman -S mingw32-runtime
+# pacman -S mingw-w64-x86_64-gperf
+# #pacman -S mingw32-runtime
+
+# pacman -Ss | grep msys/mingw
 
 - name: Make sure msys2 pacman gcc 32 bits packages are properly installed
   pacman:
@@ -73,6 +81,10 @@
      - mingw-w64-i686-toolchain
     state: present
   ignore_errors: true
+
+# wget https://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-libs-5.1.0-1-any.pkg.tar.xz
+# wget https://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-5.1.0-1-any.pkg.tar.xz
+# pacman -U mingw-w64-i686-gcc-5.1.0-1-any.pkg.tar.xz
 
 - name: Make sure msys2 pacman ssl is properly installed for ansible
   pacman:
@@ -90,7 +102,7 @@
       - automake
       - make
       - cmake
-      - scons
+      # - scons # DO NOT install use pip instead
       - pkg-config
       - libtool
       - doxygen
@@ -123,9 +135,6 @@
 #Installing GCC & MSYS2
 #See https://github.com/orlp/dev-on-windows/wiki/Installing-GCC--&-MSYS2
 #or https://github.com/mangband/mangband/wiki/MSYS2
-#pacman -S --needed base-devel mingw-w64-i686-toolchain mingw-w64-x86_64-toolchain \
-#                   git subversion mercurial \
-#                   mingw-w64-i686-cmake mingw-w64-x86_64-cmake
 
 - name: Install msys2 required git
   win_shell: pacman -Sy git mingw-w64-x86_64-git-lfs
@@ -140,7 +149,7 @@
   ignore_errors: true
 
 - name: Install msys2 optional packages
-  win_shell: pacman -Sy zsh sh curl
+  win_shell: pacman -Sy zsh sh curl tar
   ignore_errors: true
 
 - name: Install msys2 required python 3
@@ -176,11 +185,19 @@
 #mingw-w64-apr
 #mingw-w64-apr-util
 
-- name: Install msys2 optional build packages
+- name: Install msys2 cppunit packages
   win_shell: pacman -Sy mingw64/mingw-w64-x86_64-cppunit
   ignore_errors: true
 
-#
+- name: Install msys2 cpptest packages
+  win_shell: pacman -Sy mingw-w64-x86_64-cpptest
+  ignore_errors: true
+
+# will be inside C:\tools\msys64\usr\bin
+- name: Install msys2 lex yacc build packages
+  win_shell: pacman -Sy bison flex
+  ignore_errors: true
+
 #pacman -S mingw-w64-x86_64-gnuplot
 #pacman -S mingw-w64-x86_64-gettext
 #pacman -S mingw-w64-x86_64-libiconv
@@ -189,6 +206,49 @@
 #pacman -S mingw64/mingw-w64-x86_64-gnome-latex
 #pacman -S mingw-w64-x86_64-compiler-rt
 
+# pacman -S mingw-w64-i686-llvm
+# pacman -S mingw-w64-x86_64-llvm
+
+- name: Install msys2 uuidgen runtime packages
+  win_shell: pacman -Sy util-linux
+  ignore_errors: true
+
+- name: Install msys2 meld3 packages
+  win_shell: pacman -Sy mingw-w64-x86_64-meld3
+  ignore_errors: true
+
+- name: Initialize PATH for MSYS
+  win_shell: echo "export PATH=/mingw32/bin:/mingw64/bin:/opt/mssql-tools/bin:$PATH" >> ~/.bashrc
+  ignore_errors: true
+
+- name: Initialize PATH for MINGW64
+  win_shell: echo "export PATH=\"/c/tools/msys64/mingw32/bin:/c/tools/msys64/usr/bin:$PATH\"" >> ~/.bashrc
+  ignore_errors: true
+
+#export TARGET=mingw
+
+- name: Initialize ALIAS for MSYS and MINGW64
+  win_shell: echo "alias scons=\"/c/Python27/python.exe  /c/Python27/Scripts/scons\"" >> ~/.bashrc
+  ignore_errors: true
+
+# See https://stackoverflow.com/questions/25981703/pip-install-fails-with-connection-error-ssl-certificate-verify-failed-certi
+
+# CMD
+# call C:\Python27\Scripts\pip2.7.exe uninstall pywin32
+# call C:\Python27\Scripts\pip2.7.exe --trusted-host pypi.org --trusted-host files.pythonhosted.org install pywin32==227 distro==1.5.0
+
+# MSYS
+# /c/Python27/Scripts/pip2.7.exe --trusted-host pypi.org --trusted-host files.pythonhosted.org install pywin32==227 distro==1.5.0
+# /c/Python27/python.exe -m pip --trusted-host pypi.org --trusted-host files.pythonhosted.org install --upgrade pip
+
+- name: Install scons==2.4.1
+  win_shell: pip install scons==2.4.1 pywin32==228 distro==1.5.0
+#  ignore_errors: true
+
 - name: Initialize PATH
   win_shell: echo "export PATH=/mingw32/bin:/mingw64/bin:$PATH" >> ~/.bashrc
   ignore_errors: true
+
+# Get-Item -Path "C:\Program Files\Git\usr\bin\*.exe" | %{ Set-ProcessMitigation -Name $_.Name -Disable ForceRelocateImages }
+# Get-ChildItem -Path C:\tools\msys64 -Recurse -Include *exe | %{ Set-ProcessMitigation -Name $_.Name -Disable ForceRelocateImages }
+# Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux

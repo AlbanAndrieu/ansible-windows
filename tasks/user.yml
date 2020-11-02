@@ -15,12 +15,47 @@
 - name: Copy .bash_profile to misys64
   win_copy:
     src: files/.bash_profile
-    dest: C:\tools\misys64\home\{{ jenkins_user }}/.bash_profile
+    dest: C:\tools\misys64\home\{{ jenkins_user }}\.bash_profile
     force: True
     remote_src: False
     register: out
 
 - debug: var=out.stdout_lines
 
+# All General users has only permission "Read & Execute, List Folder Contents and Read "
+- name: Checking OSR (Operating system files) permission
+  loop:
+  - C:\Windows
+  - C:\Windows\security
+  - C:\Windows\System
+  - C:\Windows\System32
+  - C:\Windows\System32\drivers
+  - C:\Windows\System32\spool
+  - C:\Windows\System32\GroupPolicy
+  - C:\Windows\WinSxS\Backup
+  - C:\Windows\SysWOW64\drivers
+  win_acl:
+  path: "{{ item }}"
+  user: Intern
+  rights: Read,Write,Modify,FullControl,Delete
+  type: allow
+  state: present
 
 #TODO add certificates and ssh key to user
+
+- name: "Shortcut to workspace"
+  win_command: 'mklink /j "C:\repos" "C:\Users\{{ jenkins_user }}\source\repos"'
+  ignore_errors: true
+  
+- name: "Shortcut to workspace"
+  win_command: 'mklink /j "C:\repos" "C:\Users\aandrieu\source\repos"'
+  ignore_errors: true
+
+- name: "Shortcut to Program Files"
+  win_command: 'mklink /j "C:\tools\ProgramFiles" "C:\Program Files"'
+  ignore_errors: true
+  
+- name: "Shortcut to Program Files x86"
+  win_command: 'mklink /j "C:\tools\ProgramFilesx86" "C:\Program Files (x86)"'
+  ignore_errors: true
+

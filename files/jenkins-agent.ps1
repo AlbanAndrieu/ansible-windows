@@ -1,3 +1,5 @@
+# https://github.com/jenkinsci/docker-inbound-agent/blob/master/jenkins-agent.ps1
+#
 # The MIT License
 #
 #  Copyright (c) 2019-2020, Alex Earl
@@ -114,7 +116,7 @@ if(![System.String]::IsNullOrWhiteSpace($Cmd)) {
     if(![System.String]::IsNullOrWhiteSpace($InstanceIdentity)) {
         $AgentArguments += @('-instanceIdentity', $InstanceIdentity)
     }
-    
+
     if(![System.String]::IsNullOrWhiteSpace($Protocols)) {
         $AgentArguments += @('-protocols', $Protocols)
     }

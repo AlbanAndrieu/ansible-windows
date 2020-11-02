@@ -58,7 +58,7 @@
 #Add -noCertificateCheck to the jenkins-slave.xml
 
 # Generate id_rsa from MSYS2
-# Copy it from C:\msys64\home\fru or C:\tools\msys64\home\jenkins to the user
+# Copy it from C:\msys64\home\jenkins or C:\tools\msys64\home\jenkins to the user
 # Add the key to Bitbucket
 # Test doing git clone ssh://todo
 
