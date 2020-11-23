@@ -17,6 +17,12 @@ VM was taken from
 
 https://vagrantcloud.com/opentable/boxes/win-2012r2-standard-amd64-nocm/versions/1.0.0/providers/virtualbox.box
 
+# Table of contents
+
+<!-- toc -->
+
+<!-- tocstop -->
+
 ## Actions
 
 - Ensures that windows is installed

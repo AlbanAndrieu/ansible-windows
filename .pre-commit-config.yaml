@@ -27,17 +27,17 @@ repos:
                       .mvn/
                   )$
     -   id: check-json
+        exclude: ^.vscode/
     -   id: check-xml
     -   id: check-yaml
     -   id: check-symlinks
     -   id: check-merge-conflict
     -   id: debug-statements
+        exclude: ^.cache/
     -   id: detect-private-key
         exclude: >
                   (?x)^(
                       .ssh/id_rsa|
-                      roles/jenkins-master/defaults/main.yml|
-                      roles/jenkins-master/README.md|
                   )$
     -   id: double-quote-string-fixer
     -   id: name-tests-test
@@ -45,8 +45,8 @@ repos:
                   (?x)^(
                       .*/molecule/default/tests/test_default.py|
                   )$
-    -   id: no-commit-to-branch
-        args: [--branch, develop, --branch, master, --branch, release/*]
+#    -   id: no-commit-to-branch
+#        args: [--branch, develop, --branch, master, --branch, release/*]
     -   id: end-of-file-fixer
     -   id: fix-encoding-pragma
     -   id: requirements-txt-fixer
@@ -69,6 +69,7 @@ repos:
     rev: v2.3.6
     hooks:
     -   id: reorder-python-imports
+        exclude: ^.cache/
 #       language_version: python3
 #       language_version: python2.7
 -   repo: https://github.com/asottile/add-trailing-comma
@@ -80,8 +81,6 @@ repos:
     hooks:
     -   id: ansible-lint
         files: \.(yaml|yml)$
-        #config.yaml
-        #--vault-password-file ./vault.passwd
         exclude: >
                   (?x)^(
                       .travis.yml|
@@ -112,10 +111,10 @@ repos:
     rev: v1.5.4
     hooks:
     -   id: autopep8
-#-   repo: https://github.com/PyCQA/bandit
-#    rev: master
-#    hooks:
-#    - id: bandit
+-   repo: https://github.com/PyCQA/bandit
+    rev: 1.6.2
+    hooks:
+    - id: bandit
 -   repo: https://github.com/IamTheFij/ansible-pre-commit
     rev: v0.1.2
     hooks:
@@ -129,10 +128,3 @@ repos:
         args: [--maxdepth, "3", -i]
     -   id: dockerfile_lint
         args: [--json, --verbose, --dockerfile]
--   repo: ssh://git@scm-git-eur.misys.global.ad:7999/rktmp/fusionrisk-hooks.git
-    rev: develop
-    hooks:
-    -   id: git-branches-check
-        always_run: true
-        args: [--max=3]
-        verbose: true
