@@ -23,23 +23,23 @@
 - debug: var=out.stdout_lines
 
 # All General users has only permission "Read & Execute, List Folder Contents and Read "
-- name: Checking OSR (Operating system files) permission
-  loop:
-  - C:\Windows
-  - C:\Windows\security
-  - C:\Windows\System
-  - C:\Windows\System32
-  - C:\Windows\System32\drivers
-  - C:\Windows\System32\spool
-  - C:\Windows\System32\GroupPolicy
-  - C:\Windows\WinSxS\Backup
-  - C:\Windows\SysWOW64\drivers
-  win_acl:
-  path: "{{ item }}"
-  user: Intern
-  rights: Read,Write,Modify,FullControl,Delete
-  type: allow
-  state: present
+# - name: Checking OSR (Operating system files) permission
+#   loop:
+#   - C:\\Windows
+#   - C:\\Windows\\security
+#   - C:\\Windows\\System
+#   - C:\\Windows\\System32
+#   - C:\\Windows\\System32\\drivers
+#   - C:\\Windows\\System32\\spool
+#   - C:\\Windows\\System32\\GroupPolicy
+#   - C:\\Windows\\WinSxS\\Backup
+#   - C:\\Windows\\SysWOW64\\drivers
+#   win_acl:
+#   path: "{{ item }}"
+#   user: Intern
+#   rights: Read,Write,Modify,FullControl,Delete
+#   type: allow
+#   state: present
 
 #TODO add certificates and ssh key to user
 

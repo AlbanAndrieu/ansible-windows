@@ -246,6 +246,14 @@ $ ansible-galaxy install alban.andrieu.windows
 $ vagrant up
 ```
 
+Ansible lint
+------------
+
+```shell
+$ git add tasks/pacman.yml # First add your file, then
+$ pre-commit run ansible-lint
+```
+
 ### Contributing
 
 The [issue tracker](https://github.com/AlbanAndrieu/ansible-windows/issues) is the preferred channel for bug reports, features requests and submitting pull requests.

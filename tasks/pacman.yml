@@ -229,4 +229,3 @@
 - name: Initialize PATH
   win_shell: echo "export PATH=/mingw32/bin:/mingw64/bin:$PATH" >> ~/.bashrc
   ignore_errors: true
- mingw-w64-x86_64-diffutils
