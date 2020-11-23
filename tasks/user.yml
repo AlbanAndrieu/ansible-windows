@@ -46,7 +46,7 @@
 - name: "Shortcut to workspace"
   win_command: 'mklink /j "C:\repos" "C:\Users\{{ jenkins_user }}\source\repos"'
   ignore_errors: true
-  
+
 - name: "Shortcut to workspace"
   win_command: 'mklink /j "C:\repos" "C:\Users\aandrieu\source\repos"'
   ignore_errors: true
@@ -54,8 +54,7 @@
 - name: "Shortcut to Program Files"
   win_command: 'mklink /j "C:\tools\ProgramFiles" "C:\Program Files"'
   ignore_errors: true
-  
+
 - name: "Shortcut to Program Files x86"
   win_command: 'mklink /j "C:\tools\ProgramFilesx86" "C:\Program Files (x86)"'
   ignore_errors: true
-

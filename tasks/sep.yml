@@ -26,13 +26,13 @@
     dest: "{{ sep_win_dir_install }}\\CleanWipe.zip"
     when: folder_utils.stat.exists == true
 
-- name: "SEP - Cleaning - Unzip CleanWipe"
+- name: SEP - Cleaning - Unzip CleanWipe
   win_unzip:
-    src: {{ sep_win_dir_install }}\\CleanWipe.zip
-    remote_src: True
-    dest: "{{ sep_win_dir_install }}\\CleanWipe\"
+    src: "{{ sep_win_dir_install }}\\CleanWipe.zip"
+    remote_src: true
+    dest: "{{ sep_win_dir_install }}\\CleanWipe\\"
 
-- name: "SEP - Cleaning - Delete cep zip"
+- name: SEP - Cleaning - Delete cep zip
   win_file:
     path: "{{ sep_win_dir_install }}\\CleanWipe.zip"
     state: absent

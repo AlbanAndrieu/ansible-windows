@@ -122,6 +122,8 @@
 
 - import_tasks: build.yml
 
+- import_tasks: pacman.yml
+
 - import_tasks: perl.yml
 
 - import_tasks: cpp.yml

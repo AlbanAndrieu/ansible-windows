@@ -9,8 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta name="viewport" content="width=1020">
-    
-    
+
+
     <title>vagrant-box-templates/fix-ssl.pyc at master · mrlesmithjr/vagrant-box-templates · GitHub</title>
     <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
     <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
@@ -25,9 +25,9 @@
       <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
     <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
     <link rel="assets" href="https://assets-cdn.github.com/">
-    
+
     <meta name="pjax-timeout" content="1000">
-    
+
 
     <meta name="msapplication-TileImage" content="/windows-tile.png">
     <meta name="msapplication-TileColor" content="#ffffff">
@@ -57,13 +57,13 @@
 
     <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github-5ccfffb27ecb48e213b8582952578f145ffded2d5c7e090e9d9b98e7a9f7e4d2.css" media="all" rel="stylesheet" />
     <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github2-bfa4d26fd36d7a0dcd2ae2d9fdc7f00efade56f7feb7655898f6918f4ae949e9.css" media="all" rel="stylesheet" />
-    
-    
+
+
 
 
     <meta http-equiv="x-pjax-version" content="2302ce94cd22b012a1d3b8852afd9dd6">
 
-      
+
   <meta name="description" content="Contribute to vagrant-box-templates development by creating an account on GitHub.">
   <meta name="go-import" content="github.com/mrlesmithjr/vagrant-box-templates git https://github.com/mrlesmithjr/vagrant-box-templates.git">
 
@@ -76,13 +76,13 @@
   <body class="logged_out   env-production  vis-public page-blob">
     <a href="#start-of-content" tabindex="1" class="accessibility-aid js-skip-to-content">Skip to content</a>
 
-    
-    
-    
 
 
 
-      
+
+
+
+
       <div class="header header-logged-out" role="banner">
   <div class="container clearfix">
 
@@ -142,11 +142,11 @@
     <div role="main" class="main-content">
         <div itemscope itemtype="http://schema.org/WebPage">
     <div id="js-repo-pjax-container" class="context-loader-container js-repo-nav-next" data-pjax-container>
-      
+
 <div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav">
   <div class="container repohead-details-container">
 
-    
+
 
 <ul class="pagehead-actions">
 
@@ -205,7 +205,7 @@
 
   </div>
   <div class="container">
-    
+
 <nav class="reponav js-repo-nav js-sidenav-container-pjax js-octicon-loaders"
      role="navigation"
      data-pjax="#js-repo-pjax-container">
@@ -242,14 +242,14 @@
 <div class="container new-discussion-timeline experiment-repo-nav">
   <div class="repository-content">
 
-    
+
 
 <a href="/mrlesmithjr/vagrant-box-templates/blob/0d0d2aac842d50fef8cd918f5680d810991b7c80/Windows/Windows_2012_r2/callback_plugins/fix-ssl.pyc" class="hidden js-permalink-shortcut" data-hotkey="y">Permalink</a>
 
 <!-- blob contrib key: blob_contributors:v21:9a496b656762b211f01d652d282be01c -->
 
 <div class="file-navigation js-zeroclipboard-container">
-  
+
 <div class="select-menu js-menu-container js-select-menu left">
   <button class="btn btn-sm select-menu-button js-menu-target css-truncate" data-hotkey="w"
     title="master"
@@ -348,7 +348,7 @@
         <strong>1</strong>
          contributor
       </a>
-      
+
     </div>
 
     <div id="blob_contributors_box" style="display:none">
@@ -384,7 +384,7 @@
   </div>
 </div>
 
-  
+
 
   <div class="blob-wrapper data type-text">
       <div class="image">
@@ -439,9 +439,9 @@
 
 
 
-    
-    
-    
+
+
+
 
     <div id="ajax-error-message" class="flash flash-error">
       <span class="octicon octicon-alert"></span>
@@ -454,9 +454,9 @@
 
       <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/frameworks-ef8eb4a89ee9f3c8b7613307fe589a8f5705817f7cee27bec51ce5e963234abf.js"></script>
       <script async="async" crossorigin="anonymous" src="https://assets-cdn.github.com/assets/github-5b83ba63ee585108ecb82c170d0e6cd00e424114f31ecc0de1cf982e536b70d8.js"></script>
-      
-      
-      
+
+
+
     <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner hidden">
       <span class="octicon octicon-alert"></span>
       <span class="signed-in-tab-flash">You signed in with another tab or window. <a href="">Reload</a> to refresh your session.</span>
@@ -464,4 +464,3 @@
     </div>
   </body>
 </html>
-

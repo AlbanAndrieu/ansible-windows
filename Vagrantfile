@@ -25,12 +25,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     VAGRANT_BASE_PORT = port
     VAGRANT_SSH_PORT = "22" + VAGRANT_BASE_PORT
     VAGRANT_NETWORK_IP = "192.168.11." + VAGRANT_BASE_PORT
-	
+
     # Vagrant file for Modern IE (https://www.modern.ie/en-us) boxes
     # This file is for Windown 7 running IE9, but there are other possibilities.
     # NB: Vagrant wants to ssh into the VM, but these VMs don't have ssh.  So,
     # you'll get a timeout error message, which is safe to ignore.
-     
+
     # To use a different box, replace the config.vm.box_url with the URL and
     # update the config.vm.box to some name you want to refer to it as.
     #
@@ -45,7 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Windows 8.1 with IE11: http://aka.ms/vagrant-win81-ie11
     #config.vm.box_url = "http://aka.ms/vagrant-win7-ie9"
     #config.vm.box = "Win7-ie9"
-    
+
     #Windows server 2012
     #
     #in order to export VM as a vagrant image do the following:

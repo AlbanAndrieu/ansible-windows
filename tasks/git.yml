@@ -29,6 +29,12 @@
   win_command: "git config --global http.sslVerify false"
   ignore_errors: true # could not lock config file /home/jenkins/.gitconfig: No such file or directory
 
+# With mingw (on windows) force core.autocrlf true (it will not replace LF by CR LF)
+# make sure .gitattributes HAVE *.files text eol=lf
+#- name: "Enable autocrlf for git "
+#  win_command: "git config --system core.autocrlf true"
+#  ignore_errors: true # could not lock config file /home/jenkins/.gitconfig: No such file or directory
+
 - name: "Enable longpaths for git"
   win_command: "git config --system core.longpaths true"
   ignore_errors: true # could not lock config file /home/jenkins/.gitconfig: No such file or directory

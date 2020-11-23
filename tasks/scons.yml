@@ -20,8 +20,8 @@
 #cd scons-2.5.1
 # python setup.py install
 
-- name: Install pypiwin32
-  win_shell: pip install pypiwin32
+- name: Install scons==2.4.1
+  win_shell: pip install scons==2.4.1 pywin32==227 distro==1.5.0
   register: pip_out
 
 - debug: var=pip_out.stdout_lines

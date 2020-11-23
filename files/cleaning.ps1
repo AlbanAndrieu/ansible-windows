@@ -1,4 +1,8 @@
 #!powershell
+$WarningPreference = 'Continue'
+$VerbosePreference = 'Continue'
+$DebugPreference = 'Continue'
+$InformationPreference = 'Continue'
 
 # Get the ID and security principal of the current user account
 $myWindowsID=[System.Security.Principal.WindowsIdentity]::GetCurrent()
@@ -55,36 +59,25 @@ else
    exit
    }
 
-$tempfolders = @( "C:\temp\*")
-Remove-Item $tempfolders -force -recurse -verbose
+# We can declare any number of custom paths because script
+# will not exit with error, when given path does not exist
+$timeLimit = (Get-Date).AddDays(-7)
+$baseCleanedPaths = @(
+    "C:\\Windows\\TEMP",
+    "C:\\temp\\*",
+    "C:\\Temp\\*",
+    "C:\\Windows\\Temp\\*",
+    "C:\\Windows\\Prefetch\\*",
+    "C:\\Documents and Settings\\*\\Local Settings\\temp\\*",
+    "C:\\Users\\*\\Appdata\\Local\\Temp\\*"
+)
 
-$tempfolders = @( "C:\Windows\Temp\*")
-Remove-Item $tempfolders -force -recurse -verbose
-
-$tempfolders = @( "C:\Windows\Prefetch\*")
-Remove-Item $tempfolders -force -recurse -verbose
-
-$tempfolders = @( "C:\Documents and Settings\*\Local Settings\temp\*")
-Remove-Item $tempfolders -force -recurse -verbose
-
-$tempfolders = @( "C:\Users\*\Appdata\Local\Temp\*")
-Remove-Item $tempfolders -force -recurse -verbose
-
-# Enable output streams 3-6
-$WarningPreference = 'Continue'
-$VerbosePreference = 'Continue'
-$DebugPreference = 'Continue'
-$InformationPreference = 'Continue'
-
-$limit = (Get-Date).AddDays(-7)
-$path = "C:\\Jenkins-Slave\\workspace"
-
-function Remove-PathToLongDirectory 
+function Remove-PathToLongDirectory
 {
     # To prevent below error with very long paths created by Jenkins:
     #
-    # Remove-Item : The specified path, file name, or both are too long. The fully 
-    # qualified file name must be less than 260 characters, and the directory name 
+    # Remove-Item : The specified path, file name, or both are too long. The fully
+    # qualified file name must be less than 260 characters, and the directory name
     # must be less than 248 characters.
     Param(
         [string]$directory
@@ -97,26 +90,39 @@ function Remove-PathToLongDirectory
 
     robocopy /MIR $tempDirectory.FullName $directory | out-null
     Remove-Item $directory -Force -Recurse |
-    Remove-Item $tempDirectory -Force -Recurse 
+    Remove-Item $tempDirectory -Force -Recurse
 }
 
+ForEach ($path in $baseCleanedPaths) {
 
-$directoriesToRemove = (Get-ChildItem -Path $path |
-    Where-Object {
-        $_.PSIsContainer -and $_.CreationTime -lt $limit       
+    Echo "Cleaning local directory: $path"
+
+    $directoriesToRemove = (Get-ChildItem -Path $path |
+        Where-Object {
+            $_.PSIsContainer -and $_.CreationTime -lt $timeLimit
+        }
+    )
+
+    ForEach ($directory in $directoriesToRemove) {
+        $fullyQualifiedPath = (Join-Path $path $directory)
+        Echo "will remove directory: $fullyQualifiedPath"
+        Remove-PathToLongDirectory $fullyQualifiedPath
     }
-)
 
-ForEach ($directory in $directoriesToRemove) {
-    Echo "will remove directory: $directory"
-    Remove-PathToLongDirectory "$path\\$directory" 
 }
 
-# $tempfolders = @( "D:\Jenkins-Slave\workspace\*" )
-# Remove-Item $tempfolders -force -recurse -verbose
-# 
-# $tempfolders = @( "E:\Jenkins-Slave\workspace\*" )
-# Remove-Item $tempfolders -force -recurse -verbose
+$myDay = [Int] [DayOfWeek] "Saturday"
+Echo "DayOfWeek: $myDay"
+# should be 6
+
+if ((Get-Date).DayOfWeek -eq "Saturday")
+{
+    #It's Saturday, reboot in 24 hours (86400 seconds)
+    Echo "shutdown"
+    #shutdown -r -t 86400
+    #Reboot immediately
+    #shutdown -r -t 0
+}
 
 Write-Host -NoNewLine "Press any key to continue...";
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown");

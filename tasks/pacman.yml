@@ -1,6 +1,7 @@
 ---
 
 # This role required msys2 tool
+- import_tasks: mingw.yml
 
 - name: Ensure that Msys64 are present on the global system path, and in the specified order
   win_path:
@@ -102,7 +103,7 @@
       - automake
       - make
       - cmake
-      # - scons # DO NOT install use pip instead
+      # - scons   # DO NOT install use pip instead, see scons.yml instead
       - pkg-config
       - libtool
       - doxygen
@@ -149,7 +150,7 @@
   ignore_errors: true
 
 - name: Install msys2 optional packages
-  win_shell: pacman -Sy zsh sh curl tar
+  win_shell: pacman -Sy zsh sh curl tar dos2unix
   ignore_errors: true
 
 - name: Install msys2 required python 3
@@ -214,7 +215,7 @@
   ignore_errors: true
 
 - name: Install msys2 meld3 packages
-  win_shell: pacman -Sy mingw-w64-x86_64-meld3
+  win_shell: pacman -Sy mingw-w64-x86_64-meld3 mingw-w64-x86_64-diffutils
   ignore_errors: true
 
 - name: Initialize PATH for MSYS
@@ -225,30 +226,7 @@
   win_shell: echo "export PATH=\"/c/tools/msys64/mingw32/bin:/c/tools/msys64/usr/bin:$PATH\"" >> ~/.bashrc
   ignore_errors: true
 
-#export TARGET=mingw
-
-- name: Initialize ALIAS for MSYS and MINGW64
-  win_shell: echo "alias scons=\"/c/Python27/python.exe  /c/Python27/Scripts/scons\"" >> ~/.bashrc
-  ignore_errors: true
-
-# See https://stackoverflow.com/questions/25981703/pip-install-fails-with-connection-error-ssl-certificate-verify-failed-certi
-
-# CMD
-# call C:\Python27\Scripts\pip2.7.exe uninstall pywin32
-# call C:\Python27\Scripts\pip2.7.exe --trusted-host pypi.org --trusted-host files.pythonhosted.org install pywin32==227 distro==1.5.0
-
-# MSYS
-# /c/Python27/Scripts/pip2.7.exe --trusted-host pypi.org --trusted-host files.pythonhosted.org install pywin32==227 distro==1.5.0
-# /c/Python27/python.exe -m pip --trusted-host pypi.org --trusted-host files.pythonhosted.org install --upgrade pip
-
-- name: Install scons==2.4.1
-  win_shell: pip install scons==2.4.1 pywin32==228 distro==1.5.0
-#  ignore_errors: true
-
 - name: Initialize PATH
   win_shell: echo "export PATH=/mingw32/bin:/mingw64/bin:$PATH" >> ~/.bashrc
   ignore_errors: true
-
-# Get-Item -Path "C:\Program Files\Git\usr\bin\*.exe" | %{ Set-ProcessMitigation -Name $_.Name -Disable ForceRelocateImages }
-# Get-ChildItem -Path C:\tools\msys64 -Recurse -Include *exe | %{ Set-ProcessMitigation -Name $_.Name -Disable ForceRelocateImages }
-# Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+ mingw-w64-x86_64-diffutils
