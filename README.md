@@ -21,6 +21,41 @@ https://vagrantcloud.com/opentable/boxes/win-2012r2-standard-amd64-nocm/versions
 
 <!-- toc -->
 
+  * [Actions](#actions)
+  * [Usage example](#usage-example)
+    + [Requirements](#requirements)
+- [Os is an Ubuntu 18.04](#os-is-an-ubuntu-1804)
+  * [Test winrm](#test-winrm)
+  * [From windows](#from-windows)
+    + [Local user](#local-user)
+    + [Domain user](#domain-user)
+    + [Test out HTTP](#test-out-http)
+    + [Test out HTTPS (will fail if the cert is not verifiable)](#test-out-https-will-fail-if-the-cert-is-not-verifiable)
+  * [From unix](#from-unix)
+    + [User prompted for REALM name and KDC for Kerberos](#user-prompted-for-realm-name-and-kdc-for-kerberos)
+    + [Python WinRM module](#python-winrm-module)
+    + [Ignore warnings about maj_stat](#ignore-warnings-about-maj_stat)
+    + [Kerberos and CredSSP](#kerberos-and-credssp)
+    + [Get xmllint for pretty print of SOAP response](#get-xmllint-for-pretty-print-of-soap-response)
+    + [Replace 'targetHost' with the target Windows host](#replace-targethost-with-the-target-windows-host)
+    + [Basic authentication is not enabled by default on a Windows host but can be enabled by running the following in PowerShell](#basic-authentication-is-not-enabled-by-default-on-a-windows-host-but-can-be-enabled-by-running-the-following-in-powershell)
+  * [Automate jenkins service](#automate-jenkins-service)
+    + [Check the java web start default JDK](#check-the-java-web-start-default-jdk)
+    + [Run the java web start by hand if the JDK is not right](#run-the-java-web-start-by-hand-if-the-jdk-is-not-right)
+    + [Add -noCertificateCheck to the jenkins-slave.xml in the jenkins directory if missing](#add--nocertificatecheck-to-the-jenkins-slavexml-in-the-jenkins-directory-if-missing)
+    + [Generate id_rsa from MSYS2](#generate-id_rsa-from-msys2)
+    + [Log on](#log-on)
+    + [Recovery](#recovery)
+    + [Documentation](#documentation)
+    + [Role variables](#role-variables)
+    + [Detailed usage guide](#detailed-usage-guide)
+    + [Testing](#testing)
+  * [Ansible lint](#ansible-lint)
+    + [Contributing](#contributing)
+    + [Authors and license](#authors-and-license)
+  * [License](#license)
+    + [Feedback, bug-reports, requests, ...](#feedback-bug-reports-requests-)
+
 <!-- tocstop -->
 
 ## Actions

@@ -12,8 +12,8 @@ galaxy_info:
     versions:
       - all
       - 2012R2
-  categories:
-  - system
+  galaxy_tags:
+    - system
 
 ansigenome_info:
   galaxy_id: ''
