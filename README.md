@@ -247,6 +247,15 @@ Test doing git clone ssh://stash:7999/test/repo.git
 Make sure in the jenkins you have Log on -> Log on as -> Local System account
 BUT NOT Change jenkins service to start as Log on as -> This account and use my user, otherwise is do not reconnect automatically after reboot
 
+Add HOME C:\Users\jenkins
+
+```
+setx -m HOME ^%UserProfile^%
+```
+
+See [Git Bash](https://stackoverflow.com/questions/36011084/could-not-create-directory-home-username-ssh)
+See [Access denied](https://stackoverflow.com/questions/4267051/error-5-access-denied-when-starting-windows-service#:~:text=If%20you%20are%20getting%20this,same%20for%20the%20exe%20too.)
+
 ### Recovery
 
 Reset fail count after: 1 days
