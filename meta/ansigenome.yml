@@ -98,7 +98,7 @@ ansigenome_info:
     winrm set winrm/config/winrs '@{MaxMemoryPerShellMB="0"}'
     ```
 
-    On the windows VM :
+    # On the windows VM :
 
     ```
     powershell -File upgrade_to_ps3.ps1
@@ -171,7 +171,7 @@ ansigenome_info:
 
     $ .\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert
 
-    On the windows VM :
+    Link :
 
     [Install PowerShell](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/upgrade_to_ps3.ps1)
     [Configure remoting](https://github.com/AlbanAndrieu/ansible-windows/blob/master/files/ConfigureRemotingForAnsible.ps1)
@@ -199,6 +199,25 @@ ansigenome_info:
     Test doing git clone ssh://stash:7999/test/repo.git
 
     Change jenkins service to start as Log on as -> This account and use my user
+
+   # Docker build on windows
+
+   Fix docker 
+
+   `
+   "C:\Program Files\Docker\Docker\DockerCli.exe" -SwitchDaemon
+   `
+
+   Build docker image
+
+   `
+   docker pull mcr.microsoft.com/windows/servercore:ltsc2019
+
+   cd /c/workspace/fusionrisk-ansible/roles/windows/
+   docker login
+   docker build .
+   `
+
 
   usage: |
     Run the following command :

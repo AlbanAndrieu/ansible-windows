@@ -20,3 +20,8 @@
   win_chocolatey:
     name: wget
     version: '1.19.1'
+
+- name: Install winscp
+  win_chocolatey:
+    name: winscp
+    version: '5.19.2'
