@@ -9,15 +9,26 @@
 #    install_args: "--install-directory C:\Python27"
     package_params: '"/InstallDir:C:\Python27"'
     state: present
+  tags:
+    - package
+    - python
+    - python2
+    - build
 
 #choco install python3 --package-parameters '"/InstallDir:C:\Python37"'
 
-- name: Install python3.7
-  win_chocolatey:
-    name: python3
-    version: '3.7.4'
-    package_params: '"/InstallDir:C:\Python37"'
-    state: present
+#- name: Install python3.7
+#  win_chocolatey:
+#    name: python3
+#    version: '3.7.4'
+#    package_params: '"/InstallDir:C:\Python37"'
+#    state: present
+#    allow_multiple: yes
+#  tags:
+#    - package
+#    - python
+#    - python37
+#    - build
 
 - name: Install python3.8
   win_chocolatey:
@@ -25,13 +36,25 @@
     version: '3.8.0'
     package_params: '"/InstallDir:C:\Python38"'
     state: present
+    allow_multiple: yes
+  tags:
+    - package
+    - python
+    - python38
+    - build
 
-- name: Install python3.9
-  win_chocolatey:
-    name: python3
-    version: '3.9.0'
-    package_params: '"/InstallDir:C:\Python39"'
-    state: present
+#- name: Install python3.9
+#  win_chocolatey:
+#    name: python3
+#    version: '3.9.8'
+#    package_params: '"/InstallDir:C:\Python39"'
+#    state: present
+#    allow_multiple: yes
+#  tags:
+#    - package
+#    - python
+#    - python39
+#    - build
 
 #- name: Install pip
 #  win_chocolatey:
@@ -42,8 +65,14 @@
 - name: Install pywin32
   win_chocolatey:
     name: pywin32
-    version: '219.0'
+    version: '219.0' # 218.0 is deprecated too
     state: present
+  tags:
+    - package
+    - python
+    - pywin32
+    - build
+  ignore_errors: true
 
 #- name: "download {{ python.pip.script }} script"
 #  win_get_url:
@@ -66,3 +95,12 @@
     elements:
     - 'C:\Python27'
     - 'C:\Python27\Scripts'
+  tags:
+    - path
+    - python
+    - python2
+    - env
+    - build
+
+#/c/Python27/Scripts/pip2.7 install scons==2.4.1
+#/c/Python39/Scripts/pip3.9 install --user scons==4.1.0 conan==1.36.0

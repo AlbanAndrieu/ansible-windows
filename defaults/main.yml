@@ -14,7 +14,10 @@ jenkins_slave_directory: ["{{ jenkins_slave_home }}/slave","{{ jenkins_slave_hom
 jenkins_user: jenkins
 jenkins_password: "todo"
 
-java_version: 8.0.201
+java_version: 8.0.211
+java_openjdk8_version: 8.292.10
+java_openjdk11_version: 11.0.11_9
+maven_version: 3.8.1
 
 pacman_extra_repo: "http://mirrors.kernel.org/archlinux/$repo/os/$arch"         # for lsof
 pacman_core_repo: "ftp://ftp.hosteurope.de/mirror/ftp.archlinux.org/core/os/$arch"         # for libc

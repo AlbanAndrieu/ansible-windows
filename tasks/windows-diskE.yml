@@ -35,3 +35,11 @@
     - "{{ folder_stats.results }}"
   become: true
   changed_when: false
+- name: "Clean old slave.jar"
+  win_file:
+    path: "{{ jenkins_slave_directory }}/slave.jar"
+    state: absent
+  tags:
+    - cleanup
+  become: true
+  changed_when: false

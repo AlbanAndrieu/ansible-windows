@@ -1,12 +1,52 @@
+---
 
-- name: Install kubernetes cli packages
+#- name: Install kubernetes cli packages
+#  win_chocolatey:
+#    name: 'kubernetes-cli'
+#    version: '1.21.1'
+#    state: present
+
+# minikube is installing kubernetes-cli
+- name: Install minikube packages
   win_chocolatey:
-    name: 'kubernetes-cli'
-    version: '1.18.5'
+    name: 'minikube '
+    version: '1.23.2'
     state: present
+  tags:
+    - kubernetes  
+    - minikube
+    - debug
+    - dev
 
 - name: Install helm packages
   win_chocolatey:
     name: 'kubernetes-helm'
-    version: '3.2.4'
+    version: '3.7.0'
     state: present
+  tags:
+    - kubernetes  
+    - helm
+    - debug
+    - dev
+    
+- name: Install skaffold packages
+  win_chocolatey:
+    name: 'skaffold '
+#    version: '1.33.0'
+    state: present
+  tags:
+    - kubernetes  
+    - skaffold
+    - debug
+    - dev
+    
+- name: Install lens packages
+  win_chocolatey:
+    name: 'lens'
+#    version: '5.2.5'
+    state: present
+  tags:
+    - kubernetes  
+    - lens
+    - debug
+    - dev

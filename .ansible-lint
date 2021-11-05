@@ -1,9 +1,73 @@
 exclude_paths:
   - ./requirements.yml
   - ./.travis.yml
-  - ./playbooks/group_vars/all/vault.yml
+  - ./playbooks/group_vars/all/
+
+  - ./playbooks/jenkins_node.yml
   - ./docker/
   - ./roles/Stouts.python/
+  - ./roles/Stouts.collectd/
+  - ./roles/andrewrothstein.terraform/
+  - ./roles/andrewrothstein.unarchive-deps/
+  - ./roles/andrewrothstein.kubernetes-helm/
+  - ./roles/angstwad.docker-ubuntu/
+  - ./roles/elliotweiser.osx-command-line-tools/
+  - ./roles/geerlingguy.ansible-role-nodejs/
+  - ./roles/geerlingguy.homebrew/
+  - ./roles/geerlingguy.php/
+  - ./roles/geerlingguy.security/
+  - ./roles/geerlingguy.apache/
+  - ./roles/geerlingguy.kubernetes/
+  - ./roles/geerlingguy.phpmyadmin/
+  - ./roles/geerlingguy.sonar-runner/
+  - ./roles/geerlingguy.clamav/
+  - ./roles/geerlingguy.mas/
+  - ./roles/geerlingguy.php-mysql/
+  - ./roles/geerlingguy.varnish/
+  - ./roles/geerlingguy.collectd-signalfx/
+  - ./roles/geerlingguy.mysql/
+  - ./roles/geerlingguy.pip/
+  - ./roles/geerlingguy.varnish-SAV/
+  - ./roles/geerlingguy.docker/
+  - ./roles/geerlingguy.nfs/
+  - ./roles/geerlingguy.repo-epel/
+  - ./roles/geerlingguy.dotfiles/
+  - ./roles/geerlingguy.nodejs/
+  - ./roles/geerlingguy.repo-remi/
+  - ./roles/geerlingguy.filebeat/
+  - ./roles/geerlingguy.packer/
+  - ./roles/geerlingguy.samba/
+  - ./roles/ansible-role-nodejs/
+  - ./roles/ansible-swapfile/
+  - ./roles/ansiblebit.oracle-java/
+  - ./roles/common/
+  - ./roles/devbox.chrome/
+  - ./roles/docker/
+  - ./roles/idealista-java/
+  - ./roles/locale/
+  - ./roles/mac-dev-playbook/
+  - ./roles/maven/
+  - ./roles/nexus/
+  - ./roles/nodejs/
+  - ./roles/opencl/
+  - ./roles/repo-epel/
+  - ./roles/repo-remi/
+  - ./roles/security/
+  - ./roles/ssl.ca-certificate/
+  - ./roles/ssl.certificate/
+  - ./roles/vagrant/
+  - ./roles/yarn/
+  - ./roles/zabbix/
+  - ./roles/jermon.ansible-role-cpan/
+  - ./roles/anxs.perl/
+  - ./k8s/
+
+
+
+
+
+
+
 #parseable: true
 #quiet: true
 #rulesdir:

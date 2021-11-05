@@ -1,0 +1,70 @@
+# http://editorconfig.org
+
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+trim_trailing_whitespace = true
+
+[dropdown-toggle.js]
+trim_trailing_whitespace = false
+insert_final_newline = false
+
+[htmlparser.js]
+insert_final_newline = false
+
+[*.{java,xml}]
+indent_size = 2
+trim_trailing_whitespace = true
+
+# Matches multiple files with brace expansion notation
+# Set default charset
+[*.{js,py}]
+charset = utf-8
+
+# 2 space indentation
+[*.py]
+indent_style = space
+indent_size = 2
+
+# Tab indentation (no size specified)
+[Makefile]
+indent_style = tab
+
+# Indentation override for all JS under lib directory
+[lib/**.js]
+indent_style = space
+indent_size = 2
+
+# Matches the exact files either package.json or .travis.yml
+[{package.json,.travis.yml}]
+indent_style = space
+indent_size = 2
+
+[{*.mod,*.dtd,*.ent,*.elt}]
+indent_style=space
+indent_size=2
+
+[{*.jhm,*.xjb,*.rng,*.wsdl,*.fxml,*.plan,*.pom,*.xslt,*.jrxml,*.ant,*.svg,*.xul,*.xsl,*.xsd,*.tld,*.jnlp,*.wsdd,*.wadl,*.xml}]
+indent_style=space
+indent_size=2
+
+[{.babelrc,.stylelintrc,.eslintrc,*.bowerrc,*.jsb3,*.jsb2,*.json}]
+indent_style=space
+indent_size=2
+
+[*.rst]
+indent_size=3
+
+[{*.yml,*.yaml}]
+indent_style=space
+indent_size=2
+
+[Jenkinsfile]
+indent_style = space
+indent_size = 2

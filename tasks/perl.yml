@@ -1,16 +1,28 @@
+---
 
 - name: Install activeperl
   win_chocolatey:
     name: activeperl
-    version: '5.24.3.2404'
+    version: '5.28'
     state: present
-
+  tags:
+    - package
+    - perl
+    - activeperl
+    - build
+    
 - name: Install activeperl
   win_chocolatey:
     name: activeperl-eqemu-x86
     version: '5.16.3.1605'
     state: present
-
+  tags:
+    - package
+    - perl
+    - activeperl
+    - activeperl-eqemu
+    - build
+    
 #assoc .pl=PerlScript
 #ftype PerlScript=c:\perl\bin\perl.exe %1 %*
 

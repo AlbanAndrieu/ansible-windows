@@ -1,3 +1,4 @@
+---
 
 #TODO
 ##Dependency Walker
@@ -6,3 +7,11 @@
 #Download Process Explorer from http://technet.microsoft.com/en-gb/sysinternals/bb896653
 #Download Process Dump from http://technet.microsoft.com/en-us/sysinternals/dd996900
 #Download List DLLs from http://technet.microsoft.com/en-us/sysinternals/bb896656
+
+- name: Install MobaXterm packages
+  win_chocolatey:
+    name: 'MobaXterm'
+    version: '21.1'
+    state: present
+#    force: yes
+  ignore_errors: true

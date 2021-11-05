@@ -1,0 +1,32 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+
+  "extends": [
+    //"plugin:prettier/recommended",
+    //"eslint:recommended"
+  ],
+
+  "globals": {
+    "angular": true
+  },
+
+  "rules": {
+    //"prettier/prettier": ["error", {"singleQuote": true, "dot-notation":false, "parser": "flow"}],
+    "semi": ["error", "always"],
+    "dot-notation": [2, { "allowKeywords": true, "allowPattern": "" }],
+    "space-before-function-paren": ["error", "never"]
+  },
+
+  "overrides": [
+    {
+      "files": ["bin/*.js", "lib/*.js"],
+      "excludedFiles": "*.test.js",
+      "rules": {
+        "quotes": ["error", "single"]
+      }
+    }
+  ]
+}

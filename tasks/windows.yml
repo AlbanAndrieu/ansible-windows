@@ -58,19 +58,29 @@
     force: True
     remote_src: False
     register: out
-
+  tags:
+    - helloworld
+    
 - debug: var=out.stdout_lines
-
+  tags:
+    - helloworld
+    
 - debug:
     msg: set-executionpolicy remotesigned
-
+  tags:
+    - security
+    
 - name: "Check executionpolicy"
   win_shell: Get-ExecutionPolicy
-
+  tags:
+    - security
+    
 - name: "Change ExecutionPolicy"
   win_command: Set-ExecutionPolicy AllSigned
   ignore_errors: true
-
+  tags:
+    - security
+    
 #- name: Run powershell script
 #  script: C:\Windows\Temp\helloworld.ps1
 #  register: out
@@ -78,14 +88,46 @@
 - name: Run powershell script
   script: files/helloworld.ps1
   register: out
-
+  tags:
+    - helloworld
+    - debug
+    
 - debug: var=out.stdout_lines
+  tags:
+    - helloworld
+    - debug
+
+
+- name: Set an http_proxy environment variable for all users
+  win_environment:
+    state: present
+    name: http_proxy
+    value: http://10.21.185.171:3128
+    level: machine
+
+- name: Set an http_proxy environment variable for all users
+  win_environment:
+    state: present
+    name: https_proxy
+    value: http://10.21.185.171:3128
+    level: machine
+       
+- name: Set an http_proxy environment variable for all users
+  win_environment:
+    state: present
+    name: no_proxy
+    value: localhost,127.0.0.1,.finastra.com,.misys.global.ad,.finastra.global,.azurecr.io,verdaccio,10.199.52.11,alm-npmjs,bm-artifacts,alm-artifacts,verdaccio,.microsoft.com,amazonaws.com,ftp.hosteurope.de,mirrors.kernel.org
+    level: machine
 
 - name: "Try command choco"
   win_command: choco -v
   register: result
   ignore_errors: true
 
+
+  tags:
+    - chocolatey
+    
 #- name: "install chocolatey"
 #  import_tasks: chocolatey.yml
 #  when: result|failed
@@ -93,8 +135,17 @@
 - name: "Upgrade chocolatey"
   win_command: choco upgrade chocolatey -y
 
+  tags:
+    - chocolatey
+    - upgrade
+    
 - name: "Installl chocolateygui"
+
   win_command: choco install chocolateygui -y
+
+  tags:
+    - chocolatey
+    - upgrade
 #  ignore_errors: true
 
 #- name: update installed chocolatey packages
@@ -112,6 +163,8 @@
 
 - import_tasks: common.yml
 
+
+- import_tasks: python.yml
 - import_tasks: git.yml
 
 #- import_tasks: svn.yml
@@ -123,13 +176,23 @@
 - import_tasks: build.yml
 
 - import_tasks: pacman.yml
-
+  tags:
+    - package
+    - pacman
+    - build
+    
 - import_tasks: perl.yml
-
+  tags:
+    - package
+    - perl
+    - build
+    
 - import_tasks: cpp.yml
 
 #- import_tasks: objc.yml
-
+#  tags:
+#    - objc
+    
 - import_tasks: java.yml
 
 - import_tasks: python.yml
@@ -144,22 +207,41 @@
 
 #- import_tasks: browser.yml
 
-#- import_tasks: database.yml
+- name: "Install database driver"
+  import_tasks: database.yml
+  tags:
+    - sqlserver
+    - driver-database
+    
+- name: "Install SqlServer management studio"
+  import_tasks: sqlserver.yml
+  tags:
+    - sqlserver
+    - sqlserver-database
+    
 
-- import_tasks: openssl.yml
+#- import_tasks: openssl.yml
 
 - import_tasks: user.yml
 
 #- import_tasks: debug.yml
 
 - import_tasks: docker.yml
-
+  tags:
+    - docker
+    
 - import_tasks: kubernetes.yml
-
+  tags:
+    - kubernetes
+    
 - import_tasks: security.yml
-
+  tags:
+    - security
+    
 - import_tasks: azure.yml
-
+  tags:
+    - azure
+    
 ## Install/uninstall an msi-based package
 #- name: Install msi-based package (Remote Desktop Connection Manager)
 #  win_package:

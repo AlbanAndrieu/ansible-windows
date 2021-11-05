@@ -1,0 +1,14 @@
+{
+    "extends": "recommended-jenkinsfile",
+    "rules": {
+        "CouldBeElvis": "off",
+        "CouldBeSwitchStatement": "off",
+        "formatting.Indentation": {
+            "spacesPerIndentLevel": 2,
+            "severity": "info"
+        },
+        "VariableName": {
+            "severity": "info"
+        }
+    }
+}

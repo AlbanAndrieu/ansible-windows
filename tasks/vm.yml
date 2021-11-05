@@ -1,0 +1,43 @@
+---
+
+- name: Install virtualbox packages
+  win_chocolatey:
+    name: 'virtualbox'
+    version: '6.1.26'
+    state: present
+#    force: yes
+  ignore_errors: true
+
+- name: Install virtualbox additions packages
+  win_chocolatey:
+    name: 'virtualbox-guest-additions-guest'
+    version: '6.1.26'
+    state: present
+#    force: yes
+  ignore_errors: true
+  
+- name: Install vagrant packages
+  win_chocolatey:
+    name: 'vagrant'
+    version: '2.2.18.20210807'
+    state: present
+#    force: yes
+  ignore_errors: true
+  
+- name: Install packer packages
+  win_chocolatey:
+    name: 'packer'
+    version: '1.7.4'
+    state: present
+#    force: yes
+  ignore_errors: true
+
+#choco install vmware-tools --params='"/ALL"'
+
+#- name: Install vmware-tools packages
+#  win_chocolatey:
+#    name: 'vmware-tools'
+#    version: '11.3.18090558'
+#    state: present
+#    force: yes
+#  ignore_errors: true

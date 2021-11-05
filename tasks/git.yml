@@ -2,7 +2,7 @@
 - name: Install git
   win_chocolatey:
     name: git
-    version: '2.28.0'
+    version: '2.33.0.2'
     state: present
     force: yes
 
@@ -70,3 +70,15 @@
   ignore_errors: true # could not lock config file /home/jenkins/.gitconfig: No such file or directory
 
 - debug: var=out.stdout_lines
+- name: Copy .ssh/config to misys64
+  win_copy:
+    src: files/config
+    dest: "C:\\tools\\misys64\\home\\{{ jenkins_user }}\\.ssh\config"
+    force: True
+    remote_src: False
+    register: out
+  tags:
+    - jenkins_user
+    - git 
+    - ssh
+  ignore_errors: true

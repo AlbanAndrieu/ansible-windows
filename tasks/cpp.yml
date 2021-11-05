@@ -3,7 +3,7 @@
 - name: Install graphviz
   win_chocolatey:
     name: graphviz
-    version: '2.38.0.1'
+    version: '2.47.1'
     state: present
   ignore_errors: true
 
@@ -28,12 +28,26 @@
     version: '10.0.10586.15'
     state: present
 
+
+  ignore_errors: true
 - name: Install dependencywalker
   win_chocolatey:
     name: dependencywalker
     version: '2.2.6000.9'
     state: present
 
+
+- name: Install cppcheck
+  win_chocolatey:
+    name: cppcheck
+    version: '2.4.1.1'
+    state: present
+
+- name: Install opencppcoverage
+  win_chocolatey:
+    name: opencppcoverage
+    version: '0.9.9.0'
+    state: present
 #- name: "Enable .net"
 #  win_shell: "Import-Module ServerManager; Add-WindowsFeature as-net-framework"
 

@@ -1,7 +1,24 @@
+---
 
+- name: Install visualstudio2017 - Build Tools allow you to build native and managed MSBuild-based applications without requiring the Visual Studio IDE.
+  win_chocolatey:
+    name: visualstudio2017buildtools
+    version: '15.9.39.0'
+    state: present
+  tags:
+    - package
+    - visualstudio2017
+    - winobjc
+    - build
+    
 - name: Install winobjc-tools
   win_chocolatey:
     name: winobjc-tools
-    version: '0.2.170609'
+    version: '0.2.180220'
     state: present
   ignore_errors: true
+  tags:
+    - package
+    - winobjc
+    - build
+    

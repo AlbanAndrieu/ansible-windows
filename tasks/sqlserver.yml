@@ -1,0 +1,11 @@
+---
+
+- name: Install sql-server-management-studio
+  win_chocolatey:
+    name: sql-server-management-studio
+    #version: '17.9.1'
+    version: '15.0.18386.0'
+    state: present
+  tags:
+    - sqlserver
+    - sqlserver-database

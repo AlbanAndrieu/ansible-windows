@@ -1,0 +1,30 @@
+---
+
+- name: Install chocolatey-visualstudio.extension
+  win_chocolatey:
+    name: chocolatey-visualstudio.extension
+    version: '1.9.0'
+    state: present
+
+- name: Install visualstudio2019 - Build Tools allow you to build native and managed MSBuild-based applications without requiring the Visual Studio IDE.
+  win_chocolatey:
+    name: visualstudio2019buildtools
+    version: '16.9.5.0'
+    state: present
+  tags:
+    - package
+    - visualstudio2019
+    - build
+    
+- name: "Link 1 to Visual Studio to avoid spaces"
+  win_command: mklink /D "C:\VS" "C:\Program Files (x86)\Microsoft Visual Studio"
+
+#- name: "Link 1 to mingw32 to avoid lon g path"
+#  win_command: mklink /j "C:\tools\msys64\mingw32" "C:\tools\MinGWARC\mingw32"
+
+- name: "Link 1 to fr-arc to avoid long path"
+  win_command: mklink /j "C:\arc" "C:\jenkins-arc\workspace"
+
+#New-Item -ItemType SymbolicLink -Path C:\VS -Target "C:\Program Files (x86)\Microsoft Visual Studio"
+
+#export PATH="$PATH:/c/VS/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx86/x86/"

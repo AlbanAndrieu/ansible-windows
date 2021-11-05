@@ -1,0 +1,5 @@
+Host *
+HostkeyAlgorithms +ssh-rsa
+PubkeyAcceptedKeyTypes +ssh-rsa
+HostbasedAcceptedAlgorithms +ssh-rsa
+KexAlgorithms +diffie-hellman-group1-sha1

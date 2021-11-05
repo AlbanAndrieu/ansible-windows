@@ -3,7 +3,7 @@
 - name: Install cygwin
   win_chocolatey:
     name: cygwin
-    version: '2.11.2.20181212'
+    version: '3.2.0'
     state: present
 
 - name: Install cyg-get

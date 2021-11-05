@@ -1,0 +1,12 @@
+
+- name: Install cmake packages
+  win_chocolatey:
+    name: 'cmake'
+    version: '3.20.2'
+    state: present
+
+- name: Install ninja packages
+  win_chocolatey:
+    name: 'ninja'
+    version: '1.10.2'
+    state: present

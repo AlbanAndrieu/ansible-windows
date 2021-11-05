@@ -10,12 +10,16 @@ repos:
 # pre-commit-hooks.git from v2.1.0 to v2.4.0
 #    rev: v2.1.0 # ok python3.6  # 18.04.3
 #    rev: v2.2.3 # ok python3.6  # 19.04 but failing on 18.04.3
-    rev: v3.3.0 # ok python3.6 on Ubuntu 18.04 AND python3.7 on Ubuntu 19.04
+    rev: v3.4.0  # ok python3.6 on Ubuntu 18.04 AND python3.7 on Ubuntu 19.04 AND python3.8 on Ubuntu 20.04
     hooks:
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
     -   id: check-added-large-files
         args: ['--maxkb=123']
+        exclude: >
+                  (?x)^(
+                      roles/windows/files/vs2008.ini|
+                  )$
     -   id: check-case-conflict
     -   id: check-docstring-first
     -   id: check-executables-have-shebangs
@@ -30,6 +34,10 @@ repos:
         exclude: ^.vscode/
     -   id: check-xml
     -   id: check-yaml
+        exclude: >
+          (?x)^(
+              k8s/.*|
+          )$
     -   id: check-symlinks
     -   id: check-merge-conflict
     -   id: debug-statements
@@ -53,27 +61,27 @@ repos:
     -   id: sort-simple-yaml
     -   id: file-contents-sorter
 -   repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: v1.5.4
+    rev: v1.5.7
     hooks:
     -   id: autopep8
 -   repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.4  # Use the sha / tag you want to point at
+    rev: 3.9.2  # Use the sha / tag you want to point at
     hooks:
     -   id: flake8
         args: [--max-line-length=120]
 -   repo: https://github.com/pre-commit/pre-commit.git
-    rev: v2.8.2
+    rev: v2.12.1
     hooks:
     -   id: validate_manifest
 -   repo: https://github.com/asottile/reorder_python_imports.git
-    rev: v2.3.6
+    rev: v2.5.0
     hooks:
     -   id: reorder-python-imports
         exclude: ^.cache/
 #       language_version: python3
 #       language_version: python2.7
 -   repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.0.1
+    rev: v2.1.0
     hooks:
     -   id: add-trailing-comma
 -   repo: https://github.com/willthames/ansible-lint.git
@@ -104,11 +112,11 @@ repos:
                       hooks|
                   )$
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v2.7.4
+    rev: v2.15.0
     hooks:
     -   id: pyupgrade
 -   repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: v1.5.4
+    rev: v1.5.7
     hooks:
     -   id: autopep8
 -   repo: https://github.com/PyCQA/bandit
@@ -126,5 +134,5 @@ repos:
         args: [--config, .htmlhintrc]
     -   id: markdown-toc
         args: [--maxdepth, "3", -i]
-    -   id: dockerfile_lint
-        args: [--json, --verbose, --dockerfile]
+#    -   id: dockerfile_lint
+#        args: [--json, --verbose, --dockerfile]

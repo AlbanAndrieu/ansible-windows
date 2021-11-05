@@ -1,16 +1,37 @@
+---
 
 - name: Install sqlserver-odbcdriver
   win_chocolatey:
     name: sqlserver-odbcdriver
-    version: '13.1.4413.46'
+    version: '17.7.2.1'
     state: present
-
+  tags:
+    - database
+    - driver
+    - odbc
+    - sqlserver
+    
 - name: Install sqljdbc
   win_chocolatey:
     name: sqljdbc
     version: '7.0.0.0'
     state: present
-
+  tags:
+    - database
+    - driver
+    - jdbc
+    
+- name: Install psqlodbc
+  win_chocolatey:
+    name: psqlodbc
+    version: '13.02.00000'
+    state: present
+  tags:
+    - database
+    - driver
+    - odbc
+    - postgresql
+    
 #- name: Install mysql-connector
 #  win_chocolatey:
 #    name: mysql-connector
@@ -23,12 +44,6 @@
 #    version: '5.1.14'
 #    state: present
 
-- name: Install sql-server-management-studio
-  win_chocolatey:
-    name: sql-server-management-studio
-    version: '17.9.1'
-    state: present
-
 - name: Install liquibase
   win_chocolatey:
     name: liquibase
@@ -37,57 +52,102 @@
 
 - name: Open firewall for default SQLServer port
   win_command: netsh advfirewall firewall add rule name = SQLPort dir = in protocol = tcp action = allow localport = 1433 remoteip = localsubnet profile = DOMAIN # noqa 204
-
+  tags:
+    - database
+    - driver
+    - sqlserver
+    
 # On windows install only 32 bits
 # TODO add instantclient_12_2 from http://FR1CSLFRBM0059/download/oracle/
 # instantclient-basic-nt-12.2.0.1.0.zip
 # instantclient-odbc-nt-12.2.0.1.0-2.zip
 # instantclient-sqlplus-nt-12.2.0.1.0.zip for dev
 
+- name: Create oreclient directory
+  win_file:
+    path: C:\oreclient\instantclient_12_2
+    state: directory
+  tags:
+    - database
+    - driver
+    - oracle
+    
 - name: Download instantclient (1)
   win_get_url:
     url: http://FR1CSLFRBM0059/download/oracle/instantclient-basic-nt-12.2.0.1.0.zip
     dest: C:\oreclient\instantclient_12_2/instantclient-basic-nt-12.2.0.1.0.zip
     force: no
-
+  tags:
+    - database
+    - driver
+    - oracle
+    
 - name: Install instantclient (1)
   win_unzip:
     src: C:\oreclient\instantclient_12_2\instantclient-basic-nt-12.2.0.1.0.zip
     dest: C:\oreclient\instantclient_12_2
     creates: C:\oreclient\instantclient_12_2
+  tags:
+    - database
+    - driver
+    - oracle
 
 - name: Download instantclient (2)
   win_get_url:
     url: http://FR1CSLFRBM0059/download/oracle/instantclient-odbc-nt-12.2.0.1.0-2.zip
     dest: C:\oreclient\instantclient_12_2/instantclient-odbc-nt-12.2.0.1.0-2.zip
     force: no
-
+  tags:
+    - database
+    - driver
+    - oracle
+    
 - name: Install instantclient (2)
   win_unzip:
     src: C:\oreclient\instantclient_12_2\instantclient-odbc-nt-12.2.0.1.0-2.zip
     dest: C:\oreclient\instantclient_12_2
     creates: C:\oreclient\instantclient_12_2
-
+  tags:
+    - database
+    - driver
+    - oracle
+    
 - name: Download instantclient (3)
   win_get_url:
     url: http://FR1CSLFRBM0059/download/oracle/instantclient-sqlplus-nt-12.2.0.1.0.zip
     dest: C:\oreclient\instantclient_12_2/instantclient-sqlplus-nt-12.2.0.1.0.zip
     force: no
-
+  tags:
+    - database
+    - driver
+    - oracle
+    
 - name: Install instantclient (3)
   win_unzip:
     src: C:\oreclient\instantclient_12_2\instantclient-sqlplus-nt-12.2.0.1.0.zip
     dest: C:\oreclient\instantclient_12_2
     creates: C:\oreclient\instantclient_12_2
-
+  tags:
+    - database
+    - driver
+    - oracle
+    
 - name: Ensure that C:\oreclient\instantclient_12_2 OCI_LIB64 is on the current user's CLASSPATH
   win_path:
     name: OCI_LIB64
     elements: C:\oreclient\instantclient_12_2
     scope: user
-
+  tags:
+    - database
+    - driver
+    - oracle
+    
 - name: Ensure that instantclient_12_2 are present on the global system path, and in the specified order
   win_path:
     elements:
     - '%OCI_LIB64%\bin'
     scope: user
+  tags:
+    - database
+    - driver
+    - oracle

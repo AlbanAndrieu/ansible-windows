@@ -1,12 +1,30 @@
+---
 
 - name: Install docker packages
   win_chocolatey:
     name: 'docker-desktop'
-    version: '2.3.0.3'
+#    version: '4.1.0'
     state: present
-
+  tags:
+    - docker
+    - dev
+        
 - name: Install docker-compose packages
   win_chocolatey:
     name: 'docker-compose'
-    version: '1.26.0'
+#    version: '1.29.2'
     state: present
+  tags:
+    - docker
+    - docker-compose
+    - dev
+    
+- name: Install dive packages
+  win_chocolatey:
+    name: 'dive'
+#    version: '0.10.0'
+    state: present
+  tags:
+    - docker
+    - dive    
+    - debug

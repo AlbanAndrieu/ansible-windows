@@ -1,3 +1,4 @@
+---
 
 #- name: Install googlechrome-allusers
 #  win_chocolatey:
@@ -8,20 +9,20 @@
 - name: Install chromedriver
   win_chocolatey:
     name: chromedriver
-    version: '2.460'
+    #version: '2.460'
     state: present
 
 - name: Install selenium-chrome-driver
   win_chocolatey:
     name: selenium-chrome-driver
-    version: '2.32'
+    #version: '2.32'
     state: present
 
 - name: Install selenium-ie-driver
   win_chocolatey:
     name: selenium-ie-driver
     version: '3.5.1'
-    state: present
+    #state: present
   ignore_errors: true
 
 #- name: Install selenium-all-drivers
@@ -33,6 +34,6 @@
 - name: Install seleniumgridinabox.node
   win_chocolatey:
     name: seleniumgridinabox.node
-    version: '1.9.1.5'
+    #version: '1.9.1.5'
     state: present
   ignore_errors: true

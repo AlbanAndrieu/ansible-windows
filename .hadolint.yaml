@@ -1,0 +1,4 @@
+trustedRegistries:
+  - docker.io
+  - registry.misys.global.ad:5000
+  - registry-tmp.misys.global.ad:5000

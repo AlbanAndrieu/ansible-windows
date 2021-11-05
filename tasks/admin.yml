@@ -1,3 +1,4 @@
+---
 
 #Disable zabbix-agent install using chocolatey, instead we are using https://github.com/dj-wasabi/ansible-zabbix-agent
 #- name: Install zabbix-agent
@@ -9,7 +10,7 @@
 - name: Install rdcman
   win_chocolatey:
     name: rdcman
-    version: '2.7.1406.20160916'
+    #version: '2.83.1411'
     state: present
 
 #- name: Install powerdelivery3

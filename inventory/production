@@ -1,0 +1,19 @@
+# file: production
+[localhost]
+#127.0.0.1
+
+[windows]
+
+PARLH8RSK13 ansible_host=10.21.218.2 ansible_ssh_user="jenkins" ansible_ssh_pass="Jenkins1234$" ansible_python_interpreter="/opt/ansible/env38/bin/python3.8" dtap=prod comment="Workstation Hosted by Alban Andrieu" groups="workstation"
+
+[windows:vars]
+#ansible_port=5985 # not ssl
+ansible_port=5986
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+ansible_winrm_transport=ssl
+#ansible_winrm_transport=ntlm
+#ansible_winrm_transport=credssp # kerberos, but it is not working with local user
+#ansible_winrm_credssp_disable_tlsv1_2=true # when true, will not use TLS 1.2 in the CredSSP auth process
+#ansible_winrm_transport=basic
+#validate_certs=false

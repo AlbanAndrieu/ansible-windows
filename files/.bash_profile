@@ -33,8 +33,7 @@ echo "JAVA_HOME : ${JAVA_HOME}"
 #fi
 echo "PATH : ${PATH}"
 
-#TODO scons is in /c/Python27/Scripts/scons.py generation
-#alias scons=/c/Python27/Scripts/scons.py
+#alias scons='/c/Python27/python.exe /c/Python27/Scripts/scons.py'
 
 # Set MANPATH so it includes users' private man if it exists
 # if [ -d "${HOME}/man" ]; then
