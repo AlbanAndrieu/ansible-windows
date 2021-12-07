@@ -1,5 +1,4 @@
 ---
-
 # This role required msys2 tool
 - import_tasks: mingw.yml
 #- import_tasks: cygwin.yml # Before we were using cygwin, now mingw is the default shell tool for windows
@@ -7,8 +6,8 @@
 - name: Ensure that Msys64 are present on the global system path, and in the specified order
   win_path:
     elements:
-    - 'C:\tools\msys64'
-    - 'C:\tools\msys64\usr\bin'
+      - 'C:\tools\msys64'
+      - 'C:\tools\msys64\usr\bin'
   tags:
     - path
     - mingw64
@@ -16,7 +15,7 @@
     - env
     - build
     #- vm # do not install on docker image
-    
+
 # See inside C:\tools
 
 # pacman -Sy
@@ -45,7 +44,7 @@
     - env
     - build
     #- vm # do not install on docker image
-    
+
 #- name: Upgrade pacman extra repo for lsof
 #  win_lineinfile:
 #    path: C:\tools\msys64\etc\pacman.conf
@@ -74,7 +73,7 @@
     - env
     - build
     #- vm # do not install on docker image
-    
+
 # pacman -Syu --debug
 
 # Refresh package list
@@ -91,14 +90,14 @@
     - pacman
     - build
     #- vm # do not install on docker image
-    
+
 - name: Make sure msys2 pacman gcc 64 bits packages are properly installed
   pacman:
     name:
-     - mingw-w64-x86_64-toolchain
-     - mingw-w64-x86_64-gcc
-     - mingw-w64-x86_64-gcc-objc
-     - mingw-w64-x86_64-gdb
+      - mingw-w64-x86_64-toolchain
+      - mingw-w64-x86_64-gcc
+      - mingw-w64-x86_64-gcc-objc
+      - mingw-w64-x86_64-gdb
     state: present
   ignore_errors: true
   tags:
@@ -106,7 +105,7 @@
     - pacman
     - toolchain
     - build
-    
+
 # pacman -S mingw-w64-x86_64-gperf
 # #pacman -S mingw32-runtime
 
@@ -115,7 +114,7 @@
 - name: Make sure msys2 pacman gcc 32 bits packages are properly installed
   pacman:
     name:
-     - mingw-w64-i686-toolchain
+      - mingw-w64-i686-toolchain
     state: present
   ignore_errors: true
   tags:
@@ -124,7 +123,7 @@
     - i686
     - toolchain
     - build
-    
+
 # wget https://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-libs-5.1.0-1-any.pkg.tar.xz
 # wget https://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-5.1.0-1-any.pkg.tar.xz
 # pacman -U mingw-w64-i686-gcc-5.1.0-1-any.pkg.tar.xz
@@ -142,7 +141,7 @@
     - pacman
     - ssl
     - build
-    
+
 - name: Install msys2 required build packages
   pacman:
     name:
@@ -162,7 +161,7 @@
     - make
     - cmake
     - build
-    
+
 - name: Install msys2 required editor packages
   win_shell: pacman -Syu nano
   ignore_errors: true
@@ -172,9 +171,9 @@
     - nano
     - editor
     - debug
-    
+
 - name: Install msys2 required lsof packages
-  win_shell: pacman -Sy glibc lsof  # lsof from extra repo meed glic from core repo
+  win_shell: pacman -Sy glibc lsof # lsof from extra repo meed glic from core repo
   ignore_errors: true
   tags:
     - package
@@ -182,7 +181,7 @@
     - lsof
     - debug
     - build
-    
+
 - name: Install msys2 required rsync packages
   win_shell: pacman -Sy rsync openssh
   ignore_errors: true
@@ -192,7 +191,7 @@
     - rsync
     - copy
     - build
-    
+
 # FYI : I had to refresh package list to make ssh working
 # pacman -Syyu
 
@@ -210,7 +209,7 @@
     - zip
     - tar
     - build
-    
+
 # Installing GCC & MSYS2
 # See https://github.com/orlp/dev-on-windows/wiki/Installing-GCC--&-MSYS2
 # or https://github.com/mangband/mangband/wiki/MSYS2
@@ -223,7 +222,7 @@
     - pacman
     - git-lfs
     - build
-    
+
 - name: Initialize git-lfs
   win_shell: /mingw64/bin/git-lfs install
   ignore_errors: true
@@ -232,7 +231,7 @@
     - pacman
     - git-lfs
     - build
-    
+
 - name: Install msys2 required fonts packages
   win_shell: pacman -Sy mingw-w64-x86_64-freetype mingw-w64-x86_64-SDL mingw-w64-x86_64-SDL_ttf
   ignore_errors: true
@@ -241,7 +240,7 @@
     - pacman
     - fonts
     - build
-    
+
 - name: Install msys2 optional packages
   win_shell: pacman -Sy zsh sh curl dos2unix
   ignore_errors: true
@@ -250,7 +249,7 @@
     - pacman
     - utility
     - build
-    
+
 - name: Install msys2 required python 3
   pacman:
     name:
@@ -264,7 +263,7 @@
     - python
     - python3
     - build
-    
+
 #TODO python 3 install
 #pacman -S mingw32/mingw-w64-i686-python3-numpy
 #pacman -S mingw32/mingw-w64-i686-python3-pip
@@ -284,7 +283,7 @@
     - pacman
     - libxml
     - build
-    
+
 #pacman -Ss boost
 
 - name: Install msys2 optional build packages
@@ -295,7 +294,7 @@
     - pacman
     - boost
     - build
-    
+
 # See https://packages.msys2.org/base
 #mingw-w64-apr
 #mingw-w64-apr-util
@@ -309,7 +308,7 @@
     - cppunit
     - test
     - build
-    
+
 - name: Install msys2 cpptest packages
   win_shell: pacman -Sy mingw-w64-x86_64-cpptest
   ignore_errors: true
@@ -319,7 +318,7 @@
     - cpptest
     - test
     - build
-    
+
 # will be inside C:\tools\msys64\usr\bin
 - name: Install msys2 lex yacc build packages
   win_shell: pacman -Sy bison flex
@@ -330,7 +329,7 @@
     - lex
     - yacc
     - build
-    
+
 # pacman -S mingw-w64-x86_64-gnuplot
 # pacman -S mingw-w64-x86_64-gettext
 # pacman -S mingw-w64-x86_64-libiconv
@@ -351,7 +350,7 @@
     - uuidgen
     - test
     - build
-    
+
 - name: Install msys2 meld3 packages
   win_shell: pacman -Sy mingw-w64-x86_64-meld3 mingw-w64-x86_64-diffutils
   ignore_errors: true
@@ -362,7 +361,7 @@
     - meld
     - debug
     - build
-    
+
 - name: Initialize PATH for MSYS
   win_shell: echo "export PATH=/mingw32/bin:/mingw64/bin:/opt/mssql-tools/bin:$PATH" >> ~/.bashrc
   ignore_errors: true

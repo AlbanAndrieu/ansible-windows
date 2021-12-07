@@ -15,15 +15,15 @@ Then we are launching Ansible script in order to set up this VM.
 VM was taken from
 ------------------
 
-https://vagrantcloud.com/opentable/boxes/win-2012r2-standard-amd64-nocm/versions/1.0.0/providers/virtualbox.box
+<https://vagrantcloud.com/opentable/boxes/win-2012r2-standard-amd64-nocm/versions/1.0.0/providers/virtualbox.box>
 
 # Table of contents
 
 <!-- toc -->
 
-  * [Actions](#actions)
-  * [Usage example](#usage-example)
-    + [Requirements](#requirements)
+* [Actions](#actions)
+* [Usage example](#usage-example)
+  + [Requirements](#requirements)
 - [Os is an Ubuntu 18.04](#os-is-an-ubuntu-1804)
   * [Test winrm](#test-winrm)
   * [From windows](#from-windows)
@@ -45,6 +45,9 @@ https://vagrantcloud.com/opentable/boxes/win-2012r2-standard-amd64-nocm/versions
     + [Add -noCertificateCheck to the jenkins-slave.xml in the jenkins directory if missing](#add--nocertificatecheck-to-the-jenkins-slavexml-in-the-jenkins-directory-if-missing)
     + [Generate id_rsa from MSYS2](#generate-id_rsa-from-msys2)
     + [Log on](#log-on)
+    + [Change jenkins service to start as Log on as -> This account and use my user](#change-jenkins-service-to-start-as-log-on-as---this-account-and-use-my-user)
+    + [Checking image](#checking-image)
+    + [Docker](#docker)
     + [Recovery](#recovery)
     + [Documentation](#documentation)
     + [Role variables](#role-variables)
@@ -62,7 +65,7 @@ https://vagrantcloud.com/opentable/boxes/win-2012r2-standard-amd64-nocm/versions
 
 - Ensures that windows is installed
 
-WARNING : In inventory file, please use ansible_ssh_user and ansible_ssh_pass instead of ansible_user ansible_password, because of vault overriden values
+WARNING : In inventory file, please use ansible_ssh_user and ansible_ssh_pass instead of ansible_user ansible_password, because of vault overridden values
 
 Usage example
 -------------
@@ -77,7 +80,7 @@ Usage example
 ### Requirements
 
 On Ubuntu, where VirtualBox and Vagrant are installed, do not forge to do the following :
-sudo pip install https://github.com/diyan/pywinrm/archive/df049454a9309280866e0156805ccda12d71c93a.zip --upgrade
+sudo pip install <https://github.com/diyan/pywinrm/archive/df049454a9309280866e0156805ccda12d71c93a.zip> --upgrade
 
 It is working with the following version :
 
@@ -156,19 +159,19 @@ See [common-winrm-issues](https://docs.ansible.com/ansible/devel/user_guide/wind
 
 ### Local user
 
-$ winrm identify -u:myuser -p:Mypass123! -r:http://targetHost:5985
+$ winrm identify -u:myuser -p:Mypass123! -r:<http://targetHost:5985>
 
 ### Domain user
 
-$ winrm identify -u:MISYSROOT\aandrieu -p:Mypass123! -r:http://targetHost:5985
+$ winrm identify -u:MISYSROOT\aandrieu -p:Mypass123! -r:<http://targetHost:5985>
 
 ### Test out HTTP
 
-winrs -r:http://server:5985/wsman -u:Username -p:Password ipconfig
+winrs -r:<http://server:5985/wsman> -u:Username -p:Password ipconfig
 
 ### Test out HTTPS (will fail if the cert is not verifiable)
 
-winrs -r:http://server:5985/wsman -u:Username -p:Password -ssl ipconfig
+winrs -r:<http://server:5985/wsman> -u:Username -p:Password -ssl ipconfig
 
 ## From unix
 
@@ -256,6 +259,79 @@ setx -m HOME ^%UserProfile^%
 See [Git Bash](https://stackoverflow.com/questions/36011084/could-not-create-directory-home-username-ssh)
 See [Access denied](https://stackoverflow.com/questions/4267051/error-5-access-denied-when-starting-windows-service#:~:text=If%20you%20are%20getting%20this,same%20for%20the%20exe%20too.)
 
+
+### Change jenkins service to start as Log on as -> This account and use my user
+
+#### Fix jenkins service -> `Access is denied. [0x00000005]`
+
+[https://github.com/jenkinsci/windows-slaves-plugin/blob/master/docs/troubleshooting.adoc#wbem-scripting-locator](WBEM Scripting Locator)
+
+Petelea, Mihai modify the permissions to local administrators instead of trusted installer
+but that was done with a server admin account that superseeds the normal admin accounts
+and then he changed the permissions to the entire C drive to Administrators
+
+[https://github.com/jenkinsci/windows-slaves-plugin/blob/master/docs/troubleshooting.adoc#access-is-denied-error](LocalAccountTokenFilterPolicy)
+
+
+#### Then install .Net 3.5 Framework
+
+[https://blogs.sap.com/2020/06/25/how-to-install-the-.net-framework-3.5-on-windows-server-2016-and-later/](.net-framework-3.5)
+[https://winaero.com/install-net-framework-3-5-in-windows-10/](net-framework-3-5-in-windows-10)
+
+See files/net-framework-core.ps1
+
+PowerShell
+
+
+`
+Enable-WindowsOptionalFeature -Online -FeatureName "NetFx3"
+`
+
+Or Cmd
+
+`
+Dism /online /Enable-Feature /FeatureName:"NetFx3"
+`
+
+### Checking image
+
+[https://lecrabeinfo.net/reparer-image-de-windows-10-dism.html](CheckHealth)
+
+
+`
+Dism /Online /Cleanup-Image /CheckHealth
+`
+
+### Docker
+
+Docker build on windows
+
+Fix docker
+
+`
+"C:\Program Files\Docker\Docker\DockerCli.exe" -SwitchDaemon
+`
+
+PowerShell
+
+`
+ Restart-Service docker
+ Get-Service docker
+`
+
+
+Build docker image
+
+`
+docker pull mcr.microsoft.com/windows/servercore:ltsc2019
+
+cd /c/workspace/fusionrisk-ansible/roles/windows/
+docker login
+docker build -t nabla/ansible-jenkins-slave-win:1.0.0 . --platform=windows/amd64
+docker manifest inspect nabla/ansible-jenkins-slave-win:1.0.0 --verbose
+docker run -it nabla/ansible-jenkins-slave-win:1.0.0 cmd.exe
+`
+
 ### Recovery
 
 Reset fail count after: 1 days
@@ -292,16 +368,16 @@ Run the following command :
 
 ### Testing
 ```shell
-$ ansible-galaxy install alban.andrieu.windows
-$ vagrant up
+ansible-galaxy install alban.andrieu.windows
+vagrant up
 ```
 
 Ansible lint
 ------------
 
 ```shell
-$ git add tasks/pacman.yml # First add your file, then
-$ pre-commit run ansible-lint
+git add tasks/pacman.yml # First add your file, then
+pre-commit run ansible-lint
 ```
 
 ### Contributing
@@ -329,7 +405,7 @@ License
 
 - License: [GPLv3](https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29)
 
-### Feedback, bug-reports, requests, ...
+### Feedback, bug-reports, requests,
 
 Are [welcome](https://github.com/AlbanAndrieu/ansible-windows/issues)!
 

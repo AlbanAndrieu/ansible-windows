@@ -1,11 +1,9 @@
 ---
-
 - name: Install X windows
   win_chocolatey:
     name: vcxsrv
-    version: '1.20.9.0'
+    version: "1.20.9.0"
     state: present
-
 #- name: Install gnuwin
 #  win_chocolatey:
 #    name: gnuwin

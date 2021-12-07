@@ -1,11 +1,10 @@
 ---
-
 - name: "jenkins-slave | Add disk E:"
   win_shell: Get-Disk | Where partitionstyle -eq ‘raw’ | Initialize-Disk -PartitionStyle MBR -PassThru | New-Partition -AssignDriveLetter -UseMaximumSize | Format-Volume -FileSystem NTFS -NewFileSystemLabel “jenkins” -Confirm:$false
 
 - name: jenkins-slave | Checking slave folders
   win_stat:
-   path: "{{ item }}"
+    path: "{{ item }}"
   register: folder_stats
   with_items: "{{ jenkins_slave_directory }}"
   when: jenkins_slave_directory | length > 0
@@ -16,11 +15,11 @@
 
 - name: jenkins-slave | Creating multiple folders without disturbing previous permissions
   win_file:
-   path: "{{ item.item }}"
-   state: directory
-   mode: 0755
-   group: "{{ jenkins_user }}"
-   owner: "{{ jenkins_group }}"
+    path: "{{ item.item }}"
+    state: directory
+    mode: 0755
+    group: "{{ jenkins_user }}"
+    owner: "{{ jenkins_group }}"
   when: item.stat.exists == false
   with_items:
     - "{{ folder_stats.results }}"

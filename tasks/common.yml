@@ -1,11 +1,10 @@
 ---
-
 - name: Install windirstat
   win_chocolatey:
     name: windirstat
-    version: '1.1.2.20161210'
+    version: "1.1.2.20161210"
     state: present
-#    force: yes
+  #    force: yes
   ignore_errors: true
   tags:
     - package
@@ -14,11 +13,11 @@
     - utility
     - debug
     - vm # do not install on docker image
-    
+
 - name: Install treesizefree
   win_chocolatey:
     name: treesizefree
-    version: '4.5.2'
+    version: "4.5.2"
     state: present
   ignore_errors: true
   tags:
@@ -28,7 +27,7 @@
     - utility
     - debug
     - vm # do not install on docker image
-    
+
 #- name: Install pscx
 #  win_chocolatey:
 #    name: pscx

@@ -1,15 +1,14 @@
 ---
-
 - name: Install cygwin
   win_chocolatey:
     name: cygwin
-    version: '3.2.0'
+    version: "3.2.0"
     state: present
 
 - name: Install cyg-get
   win_chocolatey:
     name: cyg-get
-    version: '1.2.1'
+    version: "1.2.1"
     state: present
 
 - name: Install cyg-get ansible required packages

@@ -1,26 +1,23 @@
 #!/usr/bin/env groovy
 @Library(value='jenkins-pipeline-scripts@master', changelog=false) _
 
-String DOCKER_REGISTRY_HUB=env.DOCKER_REGISTRY_HUB ?: "registry.hub.docker.com".toLowerCase().trim() // registry.hub.docker.com
-String DOCKER_ORGANISATION_HUB=env.DOCKER_ORGANISATION_HUB ?: "nabla".trim()
+String DOCKER_REGISTRY_HUB = env.DOCKER_REGISTRY_HUB ?: 'registry.hub.docker.com'.toLowerCase().trim() // registry.hub.docker.com
+String DOCKER_ORGANISATION_HUB = env.DOCKER_ORGANISATION_HUB ?: 'nabla'.trim()
 
-
-
-String DOCKER_IMAGE_TAG=dockerImageTag()
+String DOCKER_ORGANISATION = env.DOCKER_ORGANISATION ?: DOCKER_ORGANISATION_HUB.trim()
+String DOCKER_IMAGE_TAG = dockerImageTag()
 //String DOCKER_USERNAME="nabla"
 
-
-String DOCKER_TAG="1.0.0".trim()
-String DOCKER_TAG_NEXT="1.0.1".trim()
+String DOCKER_TAG = '1.0.0'.trim()
+String DOCKER_TAG_NEXT = '1.0.1'.trim()
 //String DOCKER_TAG_NEXT_UBUNTU_1809="1.2.2".trim()
-String DOCKER_NAME="ansible-jenkins-slave".trim()
+String DOCKER_NAME = 'ansible-jenkins-slave'.trim()
 //String DOCKER_NAME="ansible-jenkins-slave-windows".trim()
 
-
-String DOCKER_IMAGE="${DOCKER_ORGANISATION}/${DOCKER_NAME}:${DOCKER_IMAGE_TAG}".trim()
+String DOCKER_IMAGE = "${DOCKER_ORGANISATION}/${DOCKER_NAME}:${DOCKER_IMAGE_TAG}".trim()
 
 String DOCKER_OPTS_COMPOSE = getDockerOpts(isDockerCompose: false, isLocalJenkinsUser: true)
-DOCKER_OPTS_COMPOSE +=" -v /jenkins/:/jenkins:rw,z "  // this is specific for molecule nodes in order for ansible to have permission to access /jenkins/.ssh/known_hosts (BUT dangerous for security reasons). It will give access to all infra
+DOCKER_OPTS_COMPOSE += ' -v /jenkins/:/jenkins:rw,z '  // this is specific for molecule nodes in order for ansible to have permission to access /jenkins/.ssh/known_hosts (BUT dangerous for security reasons). It will give access to all infra
 
 containers = [:]
 
@@ -63,7 +60,7 @@ pipeline {
   }
   options {
     disableConcurrentBuilds()
-    skipStagesAfterUnstable()
+    //skipStagesAfterUnstable()
     //parallelsAlwaysFailFast() // this is hidding failure and unstable stage
     ansiColor('xterm')  // Missing on bm-ci-pl
     timeout(time: 300, unit: 'MINUTES') // 5 hours
@@ -73,24 +70,24 @@ pipeline {
     stage('Setup') {
       steps {
         script {
-          setUp(description: "Ansible")
+          setUp(description: 'Ansible')
 
           lock("${params.TARGET_SLAVE}") {
             echo "Lock on ${params.TARGET_SLAVE} released" // we do not have many molecule label
-            sh "rm -f *.log || true"
+            sh 'rm -f *.log || true'
           } // lock
         }
       }
     }
-    stage("Ansible pre-commit check") {
+    stage('Ansible pre-commit check') {
       steps {
         script {
           // TODO testPreCommit
-          tee("pre-commit.log") {
-            sh "#!/bin/bash \n" +
-              "whoami \n" +
-              "source ./scripts/run-python.sh\n" +
-              "pre-commit run -a || true\n" +
+          tee('pre-commit.log') {
+            sh '#!/bin/bash \n' +
+              'whoami \n' +
+              'source ./scripts/run-python.sh\n' +
+              'pre-commit run -a || true\n' +
               "find . -name 'kube.*' -type f -follow -exec kubectl --kubeconfig {} cluster-info \\; || true\n"
           } // tee
         } // script
@@ -101,13 +98,13 @@ pipeline {
         expression { params.BUILD_ONLY == false && params.BUILD_DOC == true }
       }
       environment {
-        PYTHON_MAJOR_VERSION = "3.8"
+        PYTHON_MAJOR_VERSION = '3.8'
       }
       // Creates documentation using Sphinx and publishes it on Jenkins
       // Copy of the documentation is rsynced
       steps {
         script {
-          runSphinx(shell: "export PYTHON_MAJOR_VERSION=3.8 && ../scripts/run-python.sh && ./build.sh", targetDirectory: "fusionrisk-ansible/")
+          runSphinx(shell: 'export PYTHON_MAJOR_VERSION=3.8 && ../scripts/run-python.sh && ./build.sh', targetDirectory: 'fusionrisk-ansible/')
         }
       }
     }
@@ -120,9 +117,9 @@ pipeline {
         script {
           // bm-ci-pl
           if (JENKINS_URL ==~ /.*nabla-jenkins.*|.*tmp-jenkins.*|.*test-jenkins.*|.*localhost.*/ ) {
-            sh "ls -lrta /tmp || true"
-            sh "ls -lrta ~/.ssh || true"
-            sh "export PYTHON_MAJOR_VERSION=3.8 && ../scripts/run-python.sh  && pip install pywinrm==0.4.2 || true"
+            sh 'ls -lrta /tmp || true'
+            sh 'ls -lrta ~/.ssh || true'
+            sh 'export PYTHON_MAJOR_VERSION=3.8 && ../scripts/run-python.sh  && pip install pywinrm==0.4.2 || true'
             configFileProvider([configFile(fileId: 'vault.passwd',  targetLocation: 'vault.passwd', variable: 'ANSIBLE_VAULT_PASS')]) {
               // ansiblePlaybook no on bm-ci-pl
               ansiblePlaybook colorized: true,
@@ -141,7 +138,6 @@ pipeline {
 
             echo "Init result: ${currentBuild.result}"
             echo "Init currentResult: ${currentBuild.currentResult}"
-
           } // JENKINS_URL
         } // script
       } // steps
@@ -155,8 +151,8 @@ pipeline {
         script {
           // bm-ci-pl
           if (JENKINS_URL ==~ /.*nabla-jenkins.*|.*tmp-jenkins.*|.*test-jenkins.*|.*localhost.*/ ) {
-            sh "ls -lrta /tmp || true"
-            sh "ls -lrta ~/.ssh || true"
+            sh 'ls -lrta /tmp || true'
+            sh 'ls -lrta ~/.ssh || true'
             configFileProvider([configFile(fileId: 'vault.passwd',  targetLocation: 'vault.passwd', variable: 'ANSIBLE_VAULT_PASS')]) {
               // ansiblePlaybook
               ansiblePlaybook colorized: true,
@@ -175,7 +171,6 @@ pipeline {
 
             echo "Init result: ${currentBuild.result}"
             echo "Init currentResult: ${currentBuild.currentResult}"
-
           } // JENKINS_URL
         } // script
       } // steps
@@ -183,7 +178,7 @@ pipeline {
 
     stage('SonarQube analysis') {
       environment {
-        SONAR_SCANNER_OPTS = "-Xmx4g"
+        SONAR_SCANNER_OPTS = '-Xmx4g'
         SONAR_USER_HOME = "$WORKSPACE"
       }
       when {
@@ -198,11 +193,11 @@ pipeline {
           withSonarQubeWrapper(verbose: true,
              skipMaven: true,
              skipSonarCheck: false,
-             reportTaskFile: ".scannerwork/report-task.txt",
+             reportTaskFile: '.scannerwork/report-task.txt',
              isScannerHome: false,
-             sonarExecutable: "/usr/local/sonar-runner/bin/sonar-scanner",
-             project: "MD",
-             repository: "fusionrisk-ansible")
+             sonarExecutable: '/usr/local/sonar-runner/bin/sonar-scanner',
+             project: 'MD',
+             repository: 'fusionrisk-ansible')
         }
       } // steps
     } // stage SonarQube analysis
@@ -213,9 +208,7 @@ pipeline {
       }
       steps {
         script {
-
-          testAnsibleRole(roleName: "java-m")
-
+          testAnsibleRole(roleName: 'java-m')
         }
       }
     } // stage
@@ -228,24 +221,24 @@ pipeline {
       //  MOLECULE_DEBUG="${params.MOLECULE_DEBUG ? '--debug' : ' '}"  // syntax: important to have the space ' '
       //}
       parallel {
-        stage("javascript") {
+        stage('javascript') {
           steps {
             script {
-              testAnsibleRole(roleName: "javascript")
+              testAnsibleRole(roleName: 'javascript')
             }
           }
         }
-        stage("base_tools") {
+        stage('base_tools') {
           steps {
             script {
-              testAnsibleRole(roleName: "base_tools" )
+              testAnsibleRole(roleName: 'base_tools' )
             }
           }
         }
-        stage("git") {
+        stage('git') {
           steps {
             script {
-              testAnsibleRole(roleName: "git")
+              testAnsibleRole(roleName: 'git')
             }
           }
         }
@@ -257,17 +250,17 @@ pipeline {
         expression { params.BUILD_MOLECULE == true && params.BUILD_ONLY == false }
       }
       parallel {
-        stage("cleaning") {
+        stage('cleaning') {
           steps {
             script {
-              testAnsibleRole(roleName: "cleaning")
+              testAnsibleRole(roleName: 'cleaning')
             }
           }
         }
-        stage("DNS") {
+        stage('DNS') {
           steps {
             script {
-              testAnsibleRole(roleName: "dns")
+              testAnsibleRole(roleName: 'dns')
             }
           }
         }
@@ -281,31 +274,27 @@ pipeline {
             expression { params.BUILD_ONLY == false && params.BUILD_DOCKER == true && params.BUILD_DOCKER_WIN1809 == true }
           }
           environment {
-            CST_CONFIG = "docker/servercore1809/config.yaml"
+            CST_CONFIG = 'docker/servercore1809/config.yaml'
           }
           steps {
             script {
               if (!params.SKIP_DOCKER && JENKINS_URL ==~ /.*almonde-jenkins.*|.*risk-jenkins.*|.*bm-ci-pl.*|.*test-jenkins.*|.*localhost.*/ ) {
-
                 echo "Init result: ${currentBuild.result}"
                 echo "Init currentResult: ${currentBuild.currentResult}"
 
                 tee('docker-build-windows-1809.log') {
-
                   try {
-
                     configFileProvider([configFile(fileId: 'vault.passwd',  targetLocation: 'vault.passwd', variable: 'ANSIBLE_VAULT_PASS_FILE')]) {
-
                       withCredentials([string(credentialsId: 'fr-ansible-vault-password', variable: 'ANSIBLE_VAULT_PASS')]) {
                         echo "${ANSIBLE_VAULT_PASS}"
 
                         sh 'mkdir -p .ssh/ || true'
 
-                        DOCKER_BUILD_ARGS="--pull --build-arg ANSIBLE_VAULT_PASS=${ANSIBLE_VAULT_PASS} "
-                        DOCKER_BUILD_ARGS+= getDockerProxyOpts(isProxy: true)
+                        DOCKER_BUILD_ARGS = "--pull --build-arg ANSIBLE_VAULT_PASS=${ANSIBLE_VAULT_PASS} "
+                        DOCKER_BUILD_ARGS += getDockerProxyOpts(isProxy: true)
 
                         if (isCleanRun() == true) {
-                          DOCKER_BUILD_ARGS+=" --no-cache"
+                          DOCKER_BUILD_ARGS += ' --no-cache'
                         }
 
                         withCredentials([
@@ -321,7 +310,7 @@ pipeline {
                             archiveArtifacts artifacts: '*.log, /home/jenkins/npm/cache/_logs/*-debug.log', excludes: null, fingerprint: false, onlyIfSuccessful: false
                           }
 
-                          docker.image("${DOCKER_ORGANISATION}/${DOCKER_NAME}:${DOCKER_TAG_NEXT}").withRun("-u root --entrypoint='/entrypoint.sh'", "/bin/bash") {c ->
+                          docker.image("${ DOCKER_ORGANISATION}/${DOCKER_NAME}:${DOCKER_TAG_NEXT}").withRun("-u root --entrypoint='/entrypoint.sh'", '/bin/bash') {c ->
                             logs = sh (
                               script: "docker logs ${c.id}",
                               returnStatus: true
@@ -329,30 +318,25 @@ pipeline {
 
                             echo "LOGS RETURN CODE : ${logs}"
                             if (logs == 0) {
-                                echo "LOGS SUCCESS"
+                              echo 'LOGS SUCCESS'
                             } else {
-                                echo "LOGS FAILURE"
-                                sh "exit 1" // this fails the stage
-                                //currentBuild.result = 'FAILURE'
+                              echo 'LOGS FAILURE'
+                              sh 'exit 1' // this fails the stage
+                            //currentBuild.result = 'FAILURE'
                             }
-
                           } // docker.image
 
-                          containers.put("windows-1809", container)
-
+                          containers.put('windows-1809', container)
                         } // withCredentials
-
                       } // ANSIBLE_VAULT_PASS
-
                     } // vault configFileProvider
-
                   } catch (exc) {
-                    echo 'Error: There were errors in tests : ' + exc.toString()
+                    echo 'Error: There were errors in tests : ' + exc
                     currentBuild.result = 'UNSTABLE'
-                    logs = "FAIL" // make sure other exceptions are recorded as failure too
-                    //error 'There are errors in tests'
+                    logs = 'FAIL' // make sure other exceptions are recorded as failure too
+                  //error 'There are errors in tests'
                   } finally {
-                    echo "finally"
+                    echo 'finally'
                   } // finally
 
                   // export CST_CONFIG=docker/servercore1809/config.yaml &&
@@ -363,9 +347,9 @@ pipeline {
 
                   echo "CONTAINER STRUCTURE TEST RETURN CODE : ${cst}"
                   if (cst == 0) {
-                    echo "CONTAINER STRUCTURE TEST SUCCESS"
+                    echo 'CONTAINER STRUCTURE TEST SUCCESS'
                   } else {
-                    echo "CONTAINER STRUCTURE TEST FAILURE"
+                    echo 'CONTAINER STRUCTURE TEST FAILURE'
                     echo "WARNING : CST failed, check output at ${env.BUILD_URL}artifact/docker-build-windows-1809-cst.log"
                     // and ${env.BUILD_URL}artifact/docker-build-cst.json
                     currentBuild.result = 'UNSTABLE'
@@ -373,14 +357,13 @@ pipeline {
 
                   echo "Init result: ${currentBuild.result}"
                   echo "Init currentResult: ${currentBuild.currentResult}"
-
                 } // tee
               } // if
             } // script
           } // steps
           post {
             always {
-              archiveArtifacts artifacts: "docker-build-cst.json, *.log, target/ansible-lint*, docker/**/config*.yaml, docker/**/Dockerfile*", onlyIfSuccessful: false, allowEmptyArchive: true
+              archiveArtifacts artifacts: 'docker-build-cst.json, *.log, target/ansible-lint*, docker/**/config*.yaml, docker/**/Dockerfile*', onlyIfSuccessful: false, allowEmptyArchive: true
             }
           } // post
         } // stage Windows 1809
@@ -390,12 +373,9 @@ pipeline {
   post {
     always {
       node('molecule') {
-
         withLogParser(failBuildOnError:false, unstableOnWarning: false)
-
       } // node
-      archiveArtifacts artifacts: "*.log, .scannerwork/*.log, roles/*.log, target/ansible-lint*", onlyIfSuccessful: false, allowEmptyArchive: true
-
+      archiveArtifacts artifacts: '*.log, .scannerwork/*.log, roles/*.log, target/ansible-lint*', onlyIfSuccessful: false, allowEmptyArchive: true
     }
     cleanup {
       wrapCleanWsOnNode()

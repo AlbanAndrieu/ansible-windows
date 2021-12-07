@@ -17,10 +17,10 @@
 
 - name: check stat_file result
   assert:
-      that:
-         - "stat_file.stat.exists"
-         - "not stat_file.stat.isdir"
-         - "stat_file.stat.size > 0"
+    that:
+      - "stat_file.stat.exists"
+      - "not stat_file.stat.isdir"
+      - "stat_file.stat.size > 0"
 
 - name: Add User
   win_user:
@@ -60,27 +60,27 @@
     register: out
   tags:
     - helloworld
-    
+
 - debug: var=out.stdout_lines
   tags:
     - helloworld
-    
+
 - debug:
     msg: set-executionpolicy remotesigned
   tags:
     - security
-    
+
 - name: "Check executionpolicy"
   win_shell: Get-ExecutionPolicy
   tags:
     - security
-    
+
 - name: "Change ExecutionPolicy"
   win_command: Set-ExecutionPolicy AllSigned
   ignore_errors: true
   tags:
     - security
-    
+
 #- name: Run powershell script
 #  script: C:\Windows\Temp\helloworld.ps1
 #  register: out
@@ -91,12 +91,11 @@
   tags:
     - helloworld
     - debug
-    
+
 - debug: var=out.stdout_lines
   tags:
     - helloworld
     - debug
-
 
 - name: Set an http_proxy environment variable for all users
   win_environment:
@@ -111,7 +110,7 @@
     name: https_proxy
     value: http://10.21.185.171:3128
     level: machine
-       
+
 - name: Set an http_proxy environment variable for all users
   win_environment:
     state: present
@@ -124,10 +123,9 @@
   register: result
   ignore_errors: true
 
-
   tags:
     - chocolatey
-    
+
 #- name: "install chocolatey"
 #  import_tasks: chocolatey.yml
 #  when: result|failed
@@ -138,7 +136,7 @@
   tags:
     - chocolatey
     - upgrade
-    
+
 - name: "Installl chocolateygui"
 
   win_command: choco install chocolateygui -y
@@ -163,7 +161,6 @@
 
 - import_tasks: common.yml
 
-
 - import_tasks: python.yml
 - import_tasks: git.yml
 
@@ -180,19 +177,19 @@
     - package
     - pacman
     - build
-    
+
 - import_tasks: perl.yml
   tags:
     - package
     - perl
     - build
-    
+
 - import_tasks: cpp.yml
 
 #- import_tasks: objc.yml
 #  tags:
 #    - objc
-    
+
 - import_tasks: java.yml
 
 - import_tasks: python.yml
@@ -212,13 +209,12 @@
   tags:
     - sqlserver
     - driver-database
-    
+
 - name: "Install SqlServer management studio"
   import_tasks: sqlserver.yml
   tags:
     - sqlserver
     - sqlserver-database
-    
 
 #- import_tasks: openssl.yml
 
@@ -229,19 +225,18 @@
 - import_tasks: docker.yml
   tags:
     - docker
-    
+
 - import_tasks: kubernetes.yml
   tags:
     - kubernetes
-    
+
 - import_tasks: security.yml
   tags:
     - security
-    
+
 - import_tasks: azure.yml
   tags:
     - azure
-    
 ## Install/uninstall an msi-based package
 #- name: Install msi-based package (Remote Desktop Connection Manager)
 #  win_package:

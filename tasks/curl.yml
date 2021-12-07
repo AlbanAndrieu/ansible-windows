@@ -1,5 +1,4 @@
 ---
-
 - name: "Download curl"
   win_get_url:
     url: "https://dl.uxnr.de/build/curl/curl_winssl_msys2_mingw64_stc/curl-7.53.1/curl-7.53.1.zip"

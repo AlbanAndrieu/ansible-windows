@@ -2,11 +2,11 @@
 #set -xv
 
 if [ "$0" = "${BASH_SOURCE[0]}" ]; then
-    echo "This script has to be sourced and not executed..."
-    #exit 1
+  echo "This script has to be sourced and not executed..."
+  #exit 1
 fi
 
-WORKING_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}"  )" && pwd  )"
+WORKING_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # source only if terminal supports color, otherwise use unset color vars
 # shellcheck source=/dev/null
@@ -16,7 +16,7 @@ source "${WORKING_DIR}/step-0-color.sh"
 source "${WORKING_DIR}/step-1-os.sh"
 
 function float_gt() {
-    perl -e "{if($1>$2){print 1} else {print 0}}"
+  perl -e "{if($1>$2){print 1} else {print 0}}"
 }
 
 if [ -n "${USE_SUDO}" ]; then

@@ -1,5 +1,4 @@
 ---
-
 #Disable zabbix-agent install using chocolatey, instead we are using https://github.com/dj-wasabi/ansible-zabbix-agent
 #- name: Install zabbix-agent
 #  win_chocolatey:

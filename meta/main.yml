@@ -8,11 +8,11 @@ galaxy_info:
   license: GPLv3
   min_ansible_version: 2.5.0
   platforms:
-  - name: Windows
-    versions:
-      - all
-      - 2012R2
-      - 2016
-      - 2017
+    - name: Windows
+      versions:
+        - all
+        - 2012R2
+        - 2016
+        - 2017
   galaxy_tags:
     - system

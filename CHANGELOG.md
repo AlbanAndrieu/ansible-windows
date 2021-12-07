@@ -28,4 +28,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Windows mcr.microsoft.com/windows/servercore:1809
 
 ### Added
-- Basic mcr.microsoft.com/windows/servercore:1809 
+- Basic mcr.microsoft.com/windows/servercore:1809

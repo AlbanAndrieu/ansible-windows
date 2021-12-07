@@ -1,138 +1,129 @@
 ---
-#default_language_version:
-#    python: python3.6  # Ubuntu 18.04.3
-#    python: python3.7  # Ubuntu 19.04
-
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks.git
-#pre-commit-hooks is not working on both environment
-#You will have to switch
-# pre-commit-hooks.git from v2.1.0 to v2.4.0
-#    rev: v2.1.0 # ok python3.6  # 18.04.3
-#    rev: v2.2.3 # ok python3.6  # 19.04 but failing on 18.04.3
-    rev: v3.4.0  # ok python3.6 on Ubuntu 18.04 AND python3.7 on Ubuntu 19.04 AND python3.8 on Ubuntu 20.04
+  - repo: https://github.com/pre-commit/pre-commit-hooks.git
+    rev: v3.4.0 # ok python3.6 on Ubuntu 18.04 AND python3.7 on Ubuntu 19.04 AND python3.8 on Ubuntu 20.04
     hooks:
-    -   id: trailing-whitespace
-    -   id: end-of-file-fixer
-    -   id: check-added-large-files
-        args: ['--maxkb=123']
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-added-large-files
+        args: ["--maxkb=123"]
         exclude: >
-                  (?x)^(
-                      roles/windows/files/vs2008.ini|
-                  )$
-    -   id: check-case-conflict
-    -   id: check-docstring-first
-    -   id: check-executables-have-shebangs
+          (?x)^(
+              roles/windows/files/vs2008.ini|
+          )$
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-executables-have-shebangs
         exclude: >
-                  (?x)^(
-                      clean.bat|
-                      build.bat|
-                      mvnw.cmd|
-                      .mvn/
-                  )$
-    -   id: check-json
+          (?x)^(
+              clean.bat|
+              build.bat|
+              mvnw.cmd|
+              .mvn/
+          )$
+      - id: check-json
         exclude: ^.vscode/
-    -   id: check-xml
-    -   id: check-yaml
+      - id: check-xml
+      - id: check-yaml
         exclude: >
           (?x)^(
               k8s/.*|
           )$
-    -   id: check-symlinks
-    -   id: check-merge-conflict
-    -   id: debug-statements
+      - id: check-symlinks
+      - id: check-merge-conflict
+      - id: debug-statements
         exclude: ^.cache/
-    -   id: detect-private-key
+      - id: detect-private-key
         exclude: >
-                  (?x)^(
-                      .ssh/id_rsa|
-                  )$
-    -   id: double-quote-string-fixer
-    -   id: name-tests-test
+          (?x)^(
+              .ssh/id_rsa|
+          )$
+      - id: double-quote-string-fixer
+      - id: name-tests-test
         exclude: >
-                  (?x)^(
-                      .*/molecule/default/tests/test_default.py|
-                  )$
-#    -   id: no-commit-to-branch
-#        args: [--branch, develop, --branch, master, --branch, release/*]
-    -   id: end-of-file-fixer
-    -   id: fix-encoding-pragma
-    -   id: requirements-txt-fixer
-    -   id: sort-simple-yaml
-    -   id: file-contents-sorter
--   repo: https://github.com/pre-commit/mirrors-autopep8
+          (?x)^(
+              .*/molecule/default/tests/test_default.py|
+          )$
+      #    -   id: no-commit-to-branch
+      #        args: [--branch, develop, --branch, master, --branch, release/*]
+      - id: end-of-file-fixer
+      - id: fix-encoding-pragma
+      - id: requirements-txt-fixer
+      - id: sort-simple-yaml
+      - id: file-contents-sorter
+  - repo: https://github.com/pre-commit/mirrors-autopep8
     rev: v1.5.7
     hooks:
-    -   id: autopep8
--   repo: https://gitlab.com/pycqa/flake8
-    rev: 3.9.2  # Use the sha / tag you want to point at
+      - id: autopep8
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.9.2 # Use the sha / tag you want to point at
     hooks:
-    -   id: flake8
+      - id: flake8
         args: [--max-line-length=120]
--   repo: https://github.com/pre-commit/pre-commit.git
+  - repo: https://github.com/pre-commit/pre-commit.git
     rev: v2.12.1
     hooks:
-    -   id: validate_manifest
--   repo: https://github.com/asottile/reorder_python_imports.git
+      - id: validate_manifest
+  - repo: https://github.com/asottile/reorder_python_imports.git
     rev: v2.5.0
     hooks:
-    -   id: reorder-python-imports
+      - id: reorder-python-imports
         exclude: ^.cache/
-#       language_version: python3
-#       language_version: python2.7
--   repo: https://github.com/asottile/add-trailing-comma
+  #       language_version: python3
+  #       language_version: python2.7
+  - repo: https://github.com/asottile/add-trailing-comma
     rev: v2.1.0
     hooks:
-    -   id: add-trailing-comma
--   repo: https://github.com/willthames/ansible-lint.git
+      - id: add-trailing-comma
+  - repo: https://github.com/willthames/ansible-lint.git
     rev: v4.3.7
     hooks:
-    -   id: ansible-lint
+      - id: ansible-lint
         files: \.(yaml|yml)$
         exclude: >
-                  (?x)^(
-                      .travis.yml|
-                      docker/|
-                      requirements.yml|
-                      playbooks/group_vars/all/vault.yml|
-                  )$
--   repo: https://github.com/doublify/pre-commit-hindent.git
+          (?x)^(
+              .travis.yml|
+              docker/|
+              requirements.yml|
+              playbooks/group_vars/all/vault.yml|
+          )$
+  - repo: https://github.com/doublify/pre-commit-hindent.git
     rev: b3680b6ebf9f7cf29b19307f246adef66756feef
     hooks:
-    -   id: hindent
--   repo: https://github.com/detailyang/pre-commit-shell
+      - id: hindent
+  - repo: https://github.com/detailyang/pre-commit-shell
     rev: 1.0.5
     hooks:
-    -   id: shell-lint
+      - id: shell-lint
         #entry: pre_commit_hooks/shell-lint.sh -x
         args: [-x]
         exclude: >
-                  (?x)^(
-                      mvnw|
-                      hooks|
-                  )$
--   repo: https://github.com/asottile/pyupgrade
+          (?x)^(
+              mvnw|
+              hooks|
+          )$
+  - repo: https://github.com/asottile/pyupgrade
     rev: v2.15.0
     hooks:
-    -   id: pyupgrade
--   repo: https://github.com/pre-commit/mirrors-autopep8
+      - id: pyupgrade
+  - repo: https://github.com/pre-commit/mirrors-autopep8
     rev: v1.5.7
     hooks:
-    -   id: autopep8
--   repo: https://github.com/PyCQA/bandit
+      - id: autopep8
+  - repo: https://github.com/PyCQA/bandit
     rev: 1.6.2
     hooks:
-    - id: bandit
--   repo: https://github.com/IamTheFij/ansible-pre-commit
+      - id: bandit
+  - repo: https://github.com/IamTheFij/ansible-pre-commit
     rev: v0.1.2
     hooks:
-    -   id: encryption-check
--   repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
+      - id: encryption-check
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
     rev: v1.1.1
     hooks:
-    -   id: htmlhint
+      - id: htmlhint
         args: [--config, .htmlhintrc]
-    -   id: markdown-toc
+      - id: markdown-toc
         args: [--maxdepth, "3", -i]
 #    -   id: dockerfile_lint
 #        args: [--json, --verbose, --dockerfile]

@@ -6,19 +6,19 @@ galaxy_info:
   description: A role for installing windows
   company: Nabla
   license: Apache
-  min_ansible_version: '2.5.0'
+  min_ansible_version: "2.5.0"
   platforms:
-  - name: Windows
-    versions:
-      - all
-      - 2012R2
+    - name: Windows
+      versions:
+        - all
+        - 2012R2
   galaxy_tags:
     - system
 
 ansigenome_info:
-  galaxy_id: ''
-  galaxy_user: 'alban.andrieu'
-  galaxy_name: 'windows'
+  galaxy_id: ""
+  galaxy_user: "alban.andrieu"
+  galaxy_name: "windows"
 
   travis: False
 
@@ -36,7 +36,7 @@ ansigenome_info:
 
     - Ensures that windows is installed
 
-    WARNING : In inventory file, please use ansible_ssh_user and ansible_ssh_pass instead of ansible_user ansible_password, because of vault overriden values
+    WARNING : In inventory file, please use ansible_ssh_user and ansible_ssh_pass instead of ansible_user ansible_password, because of vault overridden values
 
     Usage example
     ------------
@@ -200,24 +200,23 @@ ansigenome_info:
 
     Change jenkins service to start as Log on as -> This account and use my user
 
-   # Docker build on windows
+    # Docker build on windows
 
-   Fix docker 
+    Fix docker
 
-   `
-   "C:\Program Files\Docker\Docker\DockerCli.exe" -SwitchDaemon
-   `
+    `
+    "C:\Program Files\Docker\Docker\DockerCli.exe" -SwitchDaemon
+    `
 
-   Build docker image
+    Build docker image
 
-   `
-   docker pull mcr.microsoft.com/windows/servercore:ltsc2019
+    `
+    docker pull mcr.microsoft.com/windows/servercore:ltsc2019
 
-   cd /c/workspace/fusionrisk-ansible/roles/windows/
-   docker login
-   docker build .
-   `
-
+    cd /c/workspace/fusionrisk-ansible/roles/windows/
+    docker login
+    docker build .
+    `
 
   usage: |
     Run the following command :

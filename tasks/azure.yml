@@ -1,12 +1,11 @@
-
 - name: Install azure cli packages
   win_chocolatey:
-    name: 'azure-cli'
-    version: '2.23.0'
+    name: "azure-cli"
+    version: "2.23.0"
     state: present
 
 - name: Install azure cli packages
   win_chocolatey:
-    name: 'azcopy10'
-    version: '10.10.0.20210426'
+    name: "azcopy10"
+    version: "10.10.0.20210426"
     state: present

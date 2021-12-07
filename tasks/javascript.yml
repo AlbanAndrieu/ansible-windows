@@ -1,37 +1,30 @@
 ---
-
 - name: Install nodejs
   win_chocolatey:
-    name: nodejs.install
-    version: '8.5.0'
+    name: nodejs-lts
+    version: "14.18.1"
   tags:
     - package
     - nodejs
     - dev
     - build
-    
+
 - name: Install bower
   win_chocolatey:
     name: bower
-    version: '1.8.12'
+    version: "1.8.12"
   tags:
     - package
     - nodejs
     - dev
     - build
-    
-
-#- name: Install phantomjs
-#  win_chocolatey:
-#    name: phantomjs
-#    version: '2.1.1'
-
-#- name: Install casperjs
-#  win_chocolatey:
-#    name: casperjs
-#    version: '1.0.0'
 
 - name: Install yarn
   win_chocolatey:
     name: yarn
-    version: '1.22.15'
+    version: "1.22.15"
+  tags:
+    - package
+    - nodejs
+    - dev
+    - build

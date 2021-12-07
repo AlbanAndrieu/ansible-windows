@@ -1,9 +1,8 @@
 ---
-
 - name: Install terraform packages
   win_chocolatey:
-    name: 'terraform'
-    version: '1.0.4'
+    name: "terraform"
+    version: "1.0.4"
     state: present
-#    force: yes
+  #    force: yes
   ignore_errors: true

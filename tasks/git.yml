@@ -1,15 +1,15 @@
-
+---
 - name: Install git
   win_chocolatey:
     name: git
-    version: '2.33.0.2'
+    version: "2.33.0.2"
     state: present
     force: yes
 
 - name: Install tortoisegit (used for diff)
   win_chocolatey:
     name: tortoisegit
-    version: '2.8.0.0'
+    version: "2.8.0.0"
     state: present
     force: yes
   ignore_errors: true
@@ -21,9 +21,13 @@
 
 - name: "Add .gitconfig to jenkins user"
   copy:
-   # content: "# Ansible managed"
-   content: " "
-   dest: C:\Users\{{ jenkins_user }}\.gitconfig
+    # content: "# Ansible managed"
+    content: " "
+    dest: C:\Users\{{ jenkins_user }}\.gitconfig
+  tags:
+    - git
+    - gitconfig
+    - secret
 
 - name: "Disable git ssl verification"
   win_command: "git config --global http.sslVerify false"
@@ -40,11 +44,11 @@
   ignore_errors: true # could not lock config file /home/jenkins/.gitconfig: No such file or directory
 
 - name: "User email for git"
-  win_command: "git config --global user.email \"{{ shell_git_email }}\""
+  win_command: 'git config --global user.email "{{ shell_git_email }}"'
   ignore_errors: true # could not lock config file /home/jenkins/.gitconfig: No such file or directory
 
 - name: "User name for git"
-  win_command: "git config --global user.name \"{{ shell_git_name }}\""
+  win_command: 'git config --global user.name "{{ shell_git_name }}"'
   ignore_errors: true # could not lock config file /home/jenkins/.gitconfig: No such file or directory
 
 #- name: "Link 1 between mingw and git"
@@ -70,15 +74,16 @@
   ignore_errors: true # could not lock config file /home/jenkins/.gitconfig: No such file or directory
 
 - debug: var=out.stdout_lines
+
 - name: Copy .ssh/config to misys64
   win_copy:
     src: files/config
-    dest: "C:\\tools\\misys64\\home\\{{ jenkins_user }}\\.ssh\config"
+    dest: "C:\\tools\\misys64\\home\\{{ jenkins_user }}\\.ssh\\config"
     force: True
     remote_src: False
     register: out
   tags:
     - jenkins_user
-    - git 
+    - git
     - ssh
   ignore_errors: true

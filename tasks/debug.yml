@@ -1,5 +1,4 @@
 ---
-
 #TODO
 ##Dependency Walker
 #Download Dependency Walker from http://www.dependencywalker.com/
@@ -10,8 +9,23 @@
 
 - name: Install MobaXterm packages
   win_chocolatey:
-    name: 'MobaXterm'
-    version: '21.1'
+    name: "MobaXterm"
+    version: "21.1"
     state: present
-#    force: yes
+  #    force: yes
   ignore_errors: true
+  tags:
+    - package
+    - ssh
+    - debug
+
+- name: Install windbg
+  win_chocolatey:
+    name: windbg
+    version: "10.0.10586.15"
+    state: present
+  ignore_errors: true
+  tags:
+    - package
+    - windbg
+    - debug

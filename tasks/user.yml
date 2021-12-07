@@ -3,12 +3,12 @@
 
 - name: Add User
   win_user:
-    name: '{{ jenkins_user }}'
-    password: '{{ jenkins_password }}'
+    name: "{{ jenkins_user }}"
+    password: "{{ jenkins_password }}"
   tags:
     - jenkins_user
   ignore_errors: true
-  
+
 - name: Save the result of 'whoami' in 'whoami_out'
   win_command: whoami
   register: whoami_out
@@ -25,14 +25,13 @@
   tags:
     - jenkins_user
   ignore_errors: true
-  
-- debug: var=out.stdout_lines
 
+- debug: var=out.stdout_lines
 
   tags:
     - jenkins_user
   ignore_errors: true
-  
+
 # All General users has only permission "Read & Execute, List Folder Contents and Read "
 # - name: Checking OSR (Operating system files) permission
 #   loop:

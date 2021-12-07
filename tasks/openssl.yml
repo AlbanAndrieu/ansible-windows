@@ -1,10 +1,9 @@
 ---
-
 - name: "Download openssl"
   win_get_url:
     url: "{{ openssl.url_prefix }}/{{ openssl.installer }}"
     dest: C:\openssl-installer.exe
-#    force: no
+  #    force: no
   changed_when: false
   tags:
     - openssl

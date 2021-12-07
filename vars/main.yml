@@ -15,8 +15,8 @@ visualstudio:
       ini: "vs2012.xml"
 
 python:
-#  installer: "python-2.7.13.msi"
-#  vcredist: "vs2008-vcredist_x86.exe"
+  #  installer: "python-2.7.13.msi"
+  #  vcredist: "vs2008-vcredist_x86.exe"
   pip:
     url_prefix: "https://bootstrap.pypa.io"
     script: "get-pip.py"
@@ -33,7 +33,7 @@ scons:
   installer: "scons-2.3.0-setup.exe"
 
 perl:
-#  installer: "ActivePerl-5.16.3.1604-MSWin32-x86-298023.msi"
+  #  installer: "ActivePerl-5.16.3.1604-MSWin32-x86-298023.msi"
   path: "C:\\Perl"
   env:
     - "C:\\Perl\\bin"
@@ -41,6 +41,6 @@ perl:
   binary: "C:\\Perl\\bin\\perl.exe"
 
 openssl:
-#  url_prefix: "https://slproweb.com/download"
+  #  url_prefix: "https://slproweb.com/download"
   url_prefix: "{{ url_prefix }}/openssl"
   installer: "Win64OpenSSL-1_1_0g.exe"

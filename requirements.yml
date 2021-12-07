@@ -1,0 +1,4 @@
+---
+----
+# from galaxy
+#ansible-galaxy install -r requirements.yml -p ./roles/ --ignore-errors

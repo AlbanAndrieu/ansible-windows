@@ -12,7 +12,6 @@ from ansible.vars import VariableManager
 
 # Create a callback object so we can capture the output
 class ResultsCollector(CallbackBase):
-
     def __init__(self, *args, **kwargs):
         super(ResultsCollector, self).__init__(*args, **kwargs)
         self.host_ok = {}
@@ -32,10 +31,22 @@ class ResultsCollector(CallbackBase):
 def main():
     host_list = ['localhost', 'www.example.com', 'www.google.com']
     Options = namedtuple(
-        'Options', [
-            'connection', 'module_path', 'forks', 'remote_user',
-            'private_key_file', 'ssh_common_args', 'ssh_extra_args', 'sftp_extra_args',
-            'scp_extra_args', 'become', 'become_method', 'become_user', 'verbosity', 'check',
+        'Options',
+        [
+            'connection',
+            'module_path',
+            'forks',
+            'remote_user',
+            'private_key_file',
+            'ssh_common_args',
+            'ssh_extra_args',
+            'sftp_extra_args',
+            'scp_extra_args',
+            'become',
+            'become_method',
+            'become_user',
+            'verbosity',
+            'check',
         ],
     )
 
@@ -43,17 +54,29 @@ def main():
     variable_manager = VariableManager()
     loader = DataLoader()
     options = Options(
-        connection='smart', module_path='/usr/share/ansible', forks=100,
-        remote_user=None, private_key_file=None, ssh_common_args=None, ssh_extra_args=None,
-        sftp_extra_args=None, scp_extra_args=None, become=None, become_method=None,
-        become_user=None, verbosity=None, check=False,
+        connection='smart',
+        module_path='/usr/share/ansible',
+        forks=100,
+        remote_user=None,
+        private_key_file=None,
+        ssh_common_args=None,
+        ssh_extra_args=None,
+        sftp_extra_args=None,
+        scp_extra_args=None,
+        become=None,
+        become_method=None,
+        become_user=None,
+        verbosity=None,
+        check=False,
     )
 
     passwords = dict()
 
     # create inventory and pass to var manager
     inventory = Inventory(
-        loader=loader, variable_manager=variable_manager, host_list=host_list,
+        loader=loader,
+        variable_manager=variable_manager,
+        host_list=host_list,
     )
     variable_manager.set_inventory(inventory)
 

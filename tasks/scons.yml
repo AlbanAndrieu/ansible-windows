@@ -1,5 +1,4 @@
 ---
-
 - name: "download scons"
   win_get_url:
     url: "{{ scons.url_prefix }}/{{ scons.installer }}"
@@ -14,17 +13,16 @@
   tags:
     - scons
     - scons230
-    
+
 - name: "clean scons installer"
   win_file:
     path: "{{ ansible_user_dir }}\\{{ scons.installer }}"
     state: absent
   tags:
     - cleanup
-  tags:
     - scons
     - scons230
-        
+
 #cd scons-2.5.1
 # python setup.py install
 
@@ -39,9 +37,9 @@
   win_shell: echo "alias scons=\"/c/Python27/python.exe  /c/Python27/Scripts/scons\"" >> ~/.bashrc
   ignore_errors: true
   tags:
-   - python2
-   - scons
-   
+    - python2
+    - scons
+
 # See https://stackoverflow.com/questions/25981703/pip-install-fails-with-connection-error-ssl-certificate-verify-failed-certi
 
 # CMD
@@ -55,11 +53,11 @@
 - name: Install pywin32==227 distro==1.5.0
 
   win_shell: pip2 install pywin32==227 distro==1.5.0
-#  win_shell: pip2 install --proxy=http://albandrieu.com:3128 pywin32==227 distro==1.5.0
+  #  win_shell: pip2 install --proxy=http://albandrieu.com:3128 pywin32==227 distro==1.5.0
   tags:
-   - python2
-   - pywin32
-   - distro
+    - python2
+    - pywin32
+    - distro
 
 # Deprecated
 # WORKAROUND, TODO by hand http://fr1cslfrbm0059.misys.global.ad/download/scons/scons-2.4.1.zip
@@ -67,14 +65,14 @@
 - name: Install scons==2.4.1
 
   win_shell: pip2 install --proxy=http://10.21.185.171:3128 scons==2.4.1
-#  win_shell: pip2 install --proxy=http://albandrieu.com:3128 scons==2.4.1
+  #  win_shell: pip2 install --proxy=http://albandrieu.com:3128 scons==2.4.1
   register: pip_out
   tags:
-   - python2
-   - scons
-   
+    - python2
+    - scons
+
 - debug: var=pip_out.stdout_lines
   tags:
-   - python2
-   - scons
-   - debug
+    - python2
+    - scons
+    - debug

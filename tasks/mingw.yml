@@ -1,5 +1,4 @@
 ---
-
 #Called by pacman
 #- import_tasks: pacman.yml
 
@@ -7,7 +6,7 @@
 - name: Install msys2
   win_chocolatey:
     name: msys2
-    version: '20210604.0.0'
+    version: "20210604.0.0"
     package_params: '"/NoUpdate /NoPath /InstallDir:C:\tools\msys64-new"'
     state: present
     force: yes
@@ -41,26 +40,32 @@
 #    checksum_algorithm: sha1
 #  tags:
 #    - package
-#    #- mingw
 #    - msys2
 #    - custom
 #    - build
 #    #- vm # do not install on docker image
 
-- name: Check HASH
-  win_shell: |
-    Get-FileHash -Algorithm SHA1 'C:\tools\msys64.zip' | Select Hash
+#- name: Check HASH
+#  win_shell: |
+#    Get-FileHash -Algorithm SHA1 'C:\tools\msys64.zip' | Select Hash
+#  tags:
+#    - package
+#    - msys2
+#    - custom
+#    - build
+#    #- vm # do not install on docker image
+
 - name: Install PSCX
   win_psmodule:
-     name: Pscx
-     state: present
+    name: Pscx
+    state: present
   tags:
     - package
     - pscx
     - custom
     - unzip
     - build
-    
+    #- vm # do not install on docker image
 
 #- name: MSYS - Install - Copy the new msys64 directory (Windows)
 #  win_get_url:
@@ -69,10 +74,22 @@
 #    checksum: "TODO"
 #    checksum_algorithm: sha1
 #    when: folder_utils.stat.exists == true
+#  tags:
+#    - package
+#    - msys2
+#    - custom
+#    - build
+#    #- vm # do not install on docker image
 
 #- name: Check HASH
 #  win_shell: |
 #    Get-FileHash -Algorithm SHA1 'C:\tools\msys64\home\jenkins.zip' | Select Hash
+#  tags:
+#    - package
+#    - msys2
+#    - custom
+#    - build
+#    #- vm # do not install on docker image
 
 #TODO do below by hand because of wrong network and checksum
 #Please install it in C:\tools\MinGW like chocolatey would have done it
@@ -87,8 +104,6 @@
 
 #mingw-get install msys-wget msys-zip msys-unzip
 
-
-
 #TODO
 #- name: "Link 1 to Older mingw32 such as gcc 4.9.0"
 #  win_command: mklink /j "C:\tools\msys64\mingw32" "C:\tools\mingw32"'
@@ -98,7 +113,7 @@
 - name: Ensure that mingw32 are present on the global system path, and in the specified order (OLD)
   win_path:
     elements:
-    - 'C:\\tools\\msys64\\mingw32\\bin'
+      - 'C:\\tools\\msys64\\mingw32\\bin'
   tags:
     - path
     - mingw32
@@ -110,8 +125,8 @@
 - name: Ensure that Msys64 are present on the global system path, and in the specified order (OLD)
   win_path:
     elements:
-    - 'C:\\tools\\msys64'
-    - 'C:\\tools\\msys64\\usr\\bin'
+      - 'C:\\tools\\msys64'
+      - 'C:\\tools\\msys64\\usr\\bin'
   tags:
     - path
     - mingw64
@@ -123,8 +138,8 @@
 - name: Ensure that Msys64 are present on the global system path, and in the specified order (NEW)
   win_path:
     elements:
-    - 'C:\\msys64'
-    - 'C:\\msys64\\usr\\bin'
+      - 'C:\\msys64'
+      - 'C:\\msys64\\usr\\bin'
   tags:
     - path
     - mingw64
@@ -144,7 +159,6 @@
     - custom
     - build
     #- vm # do not install on docker image
-
 #- name: Allow full control to User fru
 #  ansible.windows.win_acl:
 #    user: fru

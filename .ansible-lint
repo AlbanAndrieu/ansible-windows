@@ -62,12 +62,6 @@ exclude_paths:
   - ./roles/anxs.perl/
   - ./k8s/
 
-
-
-
-
-
-
 #parseable: true
 #quiet: true
 #rulesdir:

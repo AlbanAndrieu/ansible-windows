@@ -1,5 +1,4 @@
 ---
-
 - name: Download and Install Security Updates and Reboot
   win_updates:
     category_names:

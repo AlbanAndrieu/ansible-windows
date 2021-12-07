@@ -1,27 +1,47 @@
-
+---
 - name: Install chocolateygui
   win_chocolatey:
     name: chocolateygui
     state: present
   ignore_errors: true
+  tags:
+    - package
+    - chocolateygui
+    - tools
 
 - name: Install flashplayerplugin
   win_chocolatey:
     name: flashplayerplugin
-    version: '27.0.0.130'
+    version: "27.0.0.130"
   ignore_errors: true
+  tags:
+    - package
+    - flashplayerplugin
+    - tools
 
 - name: Install 7zip.install
   win_chocolatey:
     name: 7zip.install
-    version: '19.0'
+    version: "19.0"
+  tags:
+    - package
+    - 7zip
+    - tools
 
 - name: Install wget
   win_chocolatey:
     name: wget
-    version: '1.19.1'
+    version: "1.19.1"
+  tags:
+    - package
+    - wget
+    - tools
 
 - name: Install winscp
   win_chocolatey:
     name: winscp
-    version: '5.19.2'
+    version: "5.19.2"
+  tags:
+    - package
+    - winscp
+    - tools

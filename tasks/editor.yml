@@ -1,45 +1,43 @@
 ---
-
 - name: Install notepadplusplus
   win_chocolatey:
     name: notepadplusplus.install
-    version: '8.1.5'
+    version: "8.1.5"
   ignore_errors: true
   tags:
     - package
     - editor
     - notepadplusplus
     - debug
-    
+
 - name: Install atom
   win_chocolatey:
     name: atom
-    version: '1.0.7'
+    version: "1.0.7"
   ignore_errors: true
   tags:
     - package
     - editor
     - atom
     - debug
-     
+
 - name: Install meld
   win_chocolatey:
     name: meld
-    version: '3.20.4'
+    version: "3.20.4"
   ignore_errors: true
   tags:
     - package
     - editor
     - meld
     - debug
-    
+
 #cinst nano
 
 - name: Install nano
   win_chocolatey:
     name: nano
-    version: '2.5.3'
-
+    version: "2.5.3"
 
   ignore_errors: true
   tags:
@@ -48,11 +46,10 @@
     - nano
     - debug
 
-
 - name: Install geany
   win_chocolatey:
     name: geany
-    version: '1.37.1'
+    version: "1.37.1"
   ignore_errors: true
   tags:
     - package
@@ -63,4 +60,4 @@
 - name: Install plantuml
   win_chocolatey:
     name: plantuml
-    version: '1.2021.10'
+    version: "1.2021.10"

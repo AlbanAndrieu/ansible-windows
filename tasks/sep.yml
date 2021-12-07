@@ -1,5 +1,4 @@
 ---
-
 - name: "SEP - Cleaning - Add sopsadm (1)"
   win_command: net localgroup administrators NABLA\jenkins /add
   ignore_errors: true
@@ -58,6 +57,5 @@
 
 - name: SEP - Install - Execute the Powershell script (Windows)
   win_shell: "{{ sep_win_dir_install }}\\Europe_Server_setup_14.2.RU2.MP1_64bit.exe >> {{ sep_win_dir_install }}\\PS-Install-SEPM-Server-Client.log"
-
 #- name: "reboot"
 #  win_reboot:

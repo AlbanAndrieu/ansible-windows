@@ -1,5 +1,4 @@
 ---
-
 # deprecated
 #- name: Install jdk7
 #  win_chocolatey:
@@ -11,7 +10,7 @@
 #    - java
 #    - jdk7
 #    - build
-    
+
 #choco install jdk8.portable --version 8.0.211 -y
 #- name: Install jdk8
 #  win_chocolatey:
@@ -24,61 +23,61 @@
 - name: Install jdk8
   win_chocolatey:
     name: jdk8
-    version: '{{ java_version }}'
+    version: "{{ java_version }}"
     state: present
-#for non portable install will be in C:\Program Files\Java\jdk1.8.0_211
+  #for non portable install will be in C:\Program Files\Java\jdk1.8.0_211
   tags:
     - package
     - java
     - jdk8
     - build
-    
+
 - name: Install openjdk8
   win_chocolatey:
     name: openjdk8
-    version: '{{ java_openjdk8_version }}'
+    version: "{{ java_openjdk8_version }}"
     state: present
   tags:
     - package
     - java
     - openjdk8
     - build
-    
+
 #C:\Program Files\OpenJDK\openjdk-8u292-b10
 
 - name: Install openjdk11
   win_chocolatey:
     name: openjdk11
-    version: '{{ java_openjdk11_version }}'
+    version: "{{ java_openjdk11_version }}"
     state: present
   tags:
     - package
     - java
     - openjdk11
     - build
-    
+
 #C:\Program Files\OpenJDK\openjdk-11.0.11_9
 
 - name: Install ant
   win_chocolatey:
     name: ant
-    version: '1.10.1'
+    version: "1.10.1"
     state: present
   tags:
     - package
     - ant
     - build
-    
+
 - name: Install maven
   win_chocolatey:
     name: maven
-    version: '{{ maven_version }}'
+    version: "{{ maven_version }}"
     state: present
   tags:
     - package
     - maven
     - build
-    
+
 #C:\ProgramData\chocolatey\lib\maven\tools
 #C:\Users\aandrieu\.m2\wrapper\dists\apache-maven-3.6.0-bin
 
@@ -94,18 +93,18 @@
     name: JAVA_HOME
     elements: C:\Program Files\Java\jdk1.8.0_211
     scope: user
-#    state: absent
+  #    state: absent
   tags:
     - package
     - java
     - jdk8
     - env
     - build
-    
+
 - name: Ensure that jdk7 are present on the global system path, and in the specified order
   win_path:
     elements:
-    - '%JAVA_HOME%\bin'
+      - '%JAVA_HOME%\bin'
     scope: user
   tags:
     - package
@@ -113,7 +112,6 @@
     - jdk7
     - env
     - build
-    
 #Instead run the java web start by hand
 #javaws -viewer
 #javaws  "slave-agent.jnlp"

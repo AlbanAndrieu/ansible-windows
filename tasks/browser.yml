@@ -1,5 +1,4 @@
 ---
-
 #- name: Install googlechrome-allusers
 #  win_chocolatey:
 #    name: googlechrome
@@ -21,7 +20,7 @@
 - name: Install selenium-ie-driver
   win_chocolatey:
     name: selenium-ie-driver
-    version: '3.5.1'
+    version: "3.5.1"
     #state: present
   ignore_errors: true
 
