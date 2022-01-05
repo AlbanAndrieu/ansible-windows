@@ -4,14 +4,14 @@
 
   roles:
     - {
-        role: ./,
-        jenkins_slave_home: 'C:\',
-        jenkins_slave_directory: ['{{ jenkins_slave_home }}\jenkins'],
-        jenkins_user: jenkins,
-        jenkins_password: "Jenkins1234$",
-        pacman_extra_repo: "http://mirrors.kernel.org/archlinux/$repo/os/$arch",
-        pacman_core_repo: "ftp://ftp.hosteurope.de/mirror/ftp.archlinux.org/core/os/$arch",
-        java_openjdk11_version: 11.0.12.7,
-        java_openjdk8_version: 8.302.08,
-        java_version: 8.0.211,
+      role: ./,
+      jenkins_slave_home: 'C:\',
+      jenkins_slave_directory: ['{{ jenkins_slave_home }}\jenkins'],
+      jenkins_user: jenkins,
+      jenkins_password: "Jenkins1234$",
+      pacman_extra_repo: "http://mirrors.kernel.org/archlinux/$repo/os/$arch",
+      pacman_core_repo: "ftp://ftp.hosteurope.de/mirror/ftp.archlinux.org/core/os/$arch",
+      java_openjdk11_version: 11.0.12.7,
+      java_openjdk8_version: 8.302.08,
+      java_version: 8.0.211,
       }

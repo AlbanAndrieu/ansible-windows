@@ -46,7 +46,7 @@ ansigenome_info:
           hosts: windows
 
           roles:
-            - role: windows
+            - role: albanandrieu.windows
 
     ### Requirements
 

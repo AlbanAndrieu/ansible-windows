@@ -1,5 +1,9 @@
 ---
+
 - name: Converge
   hosts: all
+
   roles:
-    - role: windows
+    - role: ../  # role: albanandrieu.windows
+      verbose: true
+#  no_log: false

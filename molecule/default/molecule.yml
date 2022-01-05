@@ -1,10 +1,15 @@
 ---
 dependency:
   name: galaxy
+  enabled: true
+  options:
+    ignore-errors: true
 driver:
   name: docker
-lint:
-  name: yamllint
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
 platforms:
   - name: instance
     image: centos:7
@@ -14,6 +19,19 @@ provisioner:
     name: ansible-lint
 scenario:
   name: default
+  test_sequence:
+    - lint
+    - destroy
+    - dependency
+    - syntax
+    - create
+    - prepare
+    - converge
+    # 2 below will be hard to get 100% right
+    # - idempotence
+    # - side_effect
+    - verify
+    - destroy
 verifier:
   name: testinfra
   lint:

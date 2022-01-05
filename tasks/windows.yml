@@ -81,9 +81,9 @@
   tags:
     - security
 
-#- name: Run powershell script
-#  script: C:\Windows\Temp\helloworld.ps1
-#  register: out
+# - name: Run powershell script
+#   script: C:\Windows\Temp\helloworld.ps1
+#   register: out
 
 - name: Run powershell script
   script: files/helloworld.ps1
@@ -126,9 +126,9 @@
   tags:
     - chocolatey
 
-#- name: "install chocolatey"
-#  import_tasks: chocolatey.yml
-#  when: result|failed
+# - name: "install chocolatey"
+#   import_tasks: chocolatey.yml
+#   when: result|failed
 
 - name: "Upgrade chocolatey"
   win_command: choco upgrade chocolatey -y
@@ -162,9 +162,10 @@
 - import_tasks: common.yml
 
 - import_tasks: python.yml
+
 - import_tasks: git.yml
 
-#- import_tasks: svn.yml
+# - import_tasks: svn.yml
 
 - import_tasks: editor.yml
 
@@ -186,23 +187,23 @@
 
 - import_tasks: cpp.yml
 
-#- import_tasks: objc.yml
-#  tags:
-#    - objc
+# - import_tasks: objc.yml
+#   tags:
+#     - objc
 
 - import_tasks: java.yml
 
 - import_tasks: python.yml
 
-#- import_tasks: scons.yml
+# - import_tasks: scons.yml
 
 - import_tasks: javascript.yml
 
-#- import_tasks: quality.yml
+# - import_tasks: quality.yml
 
-#- import_tasks: admin.yml
+# - import_tasks: admin.yml
 
-#- import_tasks: browser.yml
+# - import_tasks: browser.yml
 
 - name: "Install database driver"
   import_tasks: database.yml
@@ -216,11 +217,11 @@
     - sqlserver
     - sqlserver-database
 
-#- import_tasks: openssl.yml
+# - import_tasks: openssl.yml
 
 - import_tasks: user.yml
 
-#- import_tasks: debug.yml
+# - import_tasks: debug.yml
 
 - import_tasks: docker.yml
   tags:
@@ -237,24 +238,25 @@
 - import_tasks: azure.yml
   tags:
     - azure
-## Install/uninstall an msi-based package
-#- name: Install msi-based package (Remote Desktop Connection Manager)
-#  win_package:
-#    path: "https://download.microsoft.com/download/A/F/0/AF0071F3-B198-4A35-AA90-C68D103BDCCF/rdcman.msi"
-#    product_id: "{0240359E-6A4C-4884-9E94-B397A02D893C}"
 
-#See https://docs.ansible.com/ansible/list_of_windows_modules.html
+# # Install/uninstall an msi-based package
+# - name: Install msi-based package (Remote Desktop Connection Manager)
+#   win_package:
+#     path: "https://download.microsoft.com/download/A/F/0/AF0071F3-B198-4A35-AA90-C68D103BDCCF/rdcman.msi"
+#     product_id: "{0240359E-6A4C-4884-9E94-B397A02D893C}"
 
-#- name: Install common prerequisite like (GIT, meld, notepadplusplus and zabbix-agent)
-#  script: common-setup.ps1
+# See https://docs.ansible.com/ansible/list_of_windows_modules.html
 
-# Only for Windows Server 2012 (not neededed for Windows Server 2016), you need to change DEP.
+# - name: Install common prerequisite like (GIT, meld, notepadplusplus and zabbix-agent)
+#   script: common-setup.ps1
+
+#  Only for Windows Server 2012 (not neededed for Windows Server 2016), you need to change DEP.
 #
-# Go in « Control panel / System »,
-# Then « Advanced system settings »,
-# Then in tab « Advanced / Performances », click on « Settings »,
-# Then in tab  « Data Execution Prevention », tick the first option, « Turn on DEP for essential Windows programs and services only »,
-# Reboot
+#  Go in « Control panel / System »,
+#  Then « Advanced system settings »,
+#  Then in tab « Advanced / Performances », click on « Settings »,
+#  Then in tab  « Data Execution Prevention », tick the first option, « Turn on DEP for essential Windows programs and services only »,
+#  Reboot
 
-#- name: "reboot"
-#  win_reboot:
+# - name: "reboot"
+#   win_reboot:
