@@ -302,7 +302,7 @@ $token_prop_name = "LocalAccountTokenFilterPolicy"
 $token_key = Get-Item -Path $token_path
 $token_value = $token_key.GetValue($token_prop_name, $null)
 if ($token_value -ne 1) {
-    Write-Verbose "Setting LocalAccountTOkenFilterPolicy to 1"
+    Write-Verbose "Setting LocalAccountTokenFilterPolicy to 1"
     if ($null -ne $token_value) {
         Remove-ItemProperty -Path $token_path -Name $token_prop_name
     }
